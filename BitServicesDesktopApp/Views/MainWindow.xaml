@@ -26,22 +26,22 @@
                     Content="Job Management" FontSize="20" FontWeight="Bold"
                     x:Name="btnJobManagement"
                     Height="50"
-                    BorderThickness="0,0,0,0" Click="btnJobManagement_Click"/>
+                    BorderThickness="0,0,0,0" Click="btnJobManagement_Click" IsEnabled="False"/>
             <Button Foreground="#000000" Background="#EFEFEF"
                     Content="Client Management" FontSize="20" FontWeight="Bold"
                     x:Name="btnClientManagement"
                     Height="50" 
-                    BorderThickness="0,0,0,0" Click="btnClientManagement_Click"/>
+                    BorderThickness="0,0,0,0" Click="btnClientManagement_Click" IsEnabled="False"/>
             <Button Foreground="#000000" Background="#EFEFEF"
                     Content="Contractor Management" FontSize="20" FontWeight="Bold"
                     x:Name="btnContractorManagement"
                     Height="50" 
-                    BorderThickness="0,0,0,0" Click="btnContractorManagement_Click"/>
+                    BorderThickness="0,0,0,0" Click="btnContractorManagement_Click" IsEnabled="False"/>
             <Button Foreground="#000000" Background="#EFEFEF"
                     Content="Staff Management" FontSize="20" FontWeight="Bold"
                     x:Name="btnStaffManagement"
                     Height="50" 
-                    BorderThickness="0,0,0,0" Click="btnStaffManagement_Click"/>
+                    BorderThickness="0,0,0,0" Click="btnStaffManagement_Click" IsEnabled="False"/>
         </StackPanel>
         <Border BorderBrush="#646464" BorderThickness="0,0,0,1" Grid.Row="0" Grid.Column="1">
             <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" Background="#FFFFFF" VerticalAlignment="Center">

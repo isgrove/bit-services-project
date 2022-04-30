@@ -64,6 +64,7 @@
     <Compile Include="Models\Jobs.cs" />
     <Compile Include="Models\JobStatus.cs" />
     <Compile Include="Models\JobStatuses.cs" />
+    <Compile Include="Models\LoginHelper.cs" />
     <Compile Include="ViewModels\AddClientViewModel.cs" />
     <Compile Include="ViewModels\AddContractorViewModel.cs" />
     <Compile Include="ViewModels\AddJobViewModel.cs" />
@@ -92,6 +93,9 @@
     </Compile>
     <Compile Include="Views\JobManagementView.xaml.cs">
       <DependentUpon>JobManagementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -128,6 +132,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\JobManagementView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\LoginView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -180,6 +188,5 @@
     <Resource Include="Images\BitServicesLogo.png" />
     <Resource Include="Images\BitServicesLogoWhite.png" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

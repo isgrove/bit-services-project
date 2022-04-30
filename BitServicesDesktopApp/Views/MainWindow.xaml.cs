@@ -24,8 +24,7 @@ namespace BitServicesApp.Views
         public MainWindow()
         {
             InitializeComponent();
-            btnContractorManagement.Foreground = (Brush)new BrushConverter().ConvertFrom("#EA5D32");
-            contentFrame.Navigate(new ContractorManagementView());
+            contentFrame.Navigate(new LoginView());
         }
 
         private void btnJobManagement_Click(object sender, RoutedEventArgs e)
@@ -62,6 +61,37 @@ namespace BitServicesApp.Views
             btnClientManagement.Foreground = Brushes.Black;
             btnContractorManagement.Foreground = Brushes.Black;
             btnStaffManagement.Foreground = Brushes.Black;
+        }
+
+        public void UpdateButtons(string userType)
+        {
+            if (userType == "admin")
+            {
+                AdminLogin();
+            }
+            else if (userType == "coordinator")
+            {
+                CoordinatorLogin();
+            }
+            else
+            {
+                MessageBox.Show("Invalid user type");
+            }
+        }
+
+        private void AdminLogin()
+        {
+            btnClientManagement.IsEnabled = true;
+            btnContractorManagement.IsEnabled = true;
+            btnJobManagement.IsEnabled = true;
+            btnStaffManagement.IsEnabled = true;
+        }
+        private void CoordinatorLogin()
+        {
+            btnClientManagement.IsEnabled = true;
+            btnContractorManagement.IsEnabled = true;
+            btnJobManagement.IsEnabled = true;
+            btnStaffManagement.IsEnabled = false;
         }
     }
 }
