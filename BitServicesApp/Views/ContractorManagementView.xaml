@@ -1,0 +1,125 @@
+﻿<Page x:Class="BitServicesApp.Views.ContractorManagementView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BitServicesApp.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ContractorManagementView">
+
+    <Grid Background="white">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50px" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="50px" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="left">
+            <TextBlock Text="Contractor Management" FontSize="28px"
+                       FontWeight="bold"/>
+            <ComboBox x:Name="cmbSearchContractor" Width="100" Margin="10">
+                <ComboBoxItem Content="ID"/>
+                <ComboBoxItem Content="FirstName"/>
+                <ComboBoxItem Content="LastName"/>
+                <ComboBoxItem Content="Skill"/>
+            </ComboBox>
+            <TextBox x:Name="txtSearchContractor" Width="200" Margin="10" />
+            <Button Content="SEARCH" x:Name="btnSearchContractor" 
+                    Width="150" Margin="10" FontSize="18" />
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <DataGrid Grid.Column="0" x:Name="dgContractors" Margin="5" 
+                      Grid.RowSpan="2"
+                      ItemsSource="{Binding Contractor}"
+                      SelectedItem="{Binding SelectedContractor}" AutoGenerateColumns="false">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ContractorId" Binding="{Binding ContractorId}"/>
+                    <DataGridTextColumn Header="FirstName" Binding="{Binding FirstName}"/>
+                    <DataGridTextColumn Header="LastName" Binding="{Binding LastName}"/>
+                    <DataGridTextColumn Header="Phone" Binding="{Binding Phone}"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
+                    <DataGridTextColumn Header="Street" Binding="{Binding Street}"/>
+                    <DataGridTextColumn Header="Suburb" Binding="{Binding Suburb}"/>
+                    <DataGridTextColumn Header="PostCode" Binding="{Binding PostCode}"/>
+                    <DataGridTextColumn Header="State" Binding="{Binding State}"/>
+                    <DataGridTextColumn Header="LicenceNumber" Binding="{Binding LicenceNumber}"/>
+                    <DataGridTextColumn Header="VehicleRegistration" Binding="{Binding VehicleRegistration}"/>
+                    <DataGridTextColumn Header="Active" Binding="{Binding Active}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <ListBox x:Name="lstBxSkillsList" HorizontalAlignment="Left" Height="130" Margin="10,10" VerticalAlignment="Top" Width="180" Grid.Row="0" Grid.ColumnSpan="2"/>
+                <ComboBox x:Name="cboSkillsList" HorizontalAlignment="Left" Margin="10,0" Width="180" VerticalAlignment="Top" ItemsSource="{Binding }" Grid.Row="1" Grid.ColumnSpan="2">
+                    <ComboBox.ItemContainerStyle>
+                        <Style TargetType="ComboBoxItem">
+                            <Setter Property="IsEnabled" Value="{Binding IsSelectable}" />
+                        </Style>
+                    </ComboBox.ItemContainerStyle>
+                </ComboBox>
+                <Button x:Name="btnAddSkill" Content="Add Skill" HorizontalAlignment="Left" Margin="10,0" VerticalAlignment="Center"  Width="80" Height="20" Grid.Row="2" Grid.Column="0"/>
+                <Button x:Name="btnRemoveSkill" Content="Remove Skill" HorizontalAlignment="Left" Margin="10,0" VerticalAlignment="Center" Width="80" Height="20" Grid.Row="2" Grid.Column="1"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <Label Content="FirstName : " Grid.Row="0" Grid.Column="0"/>
+            <TextBox  Text="{Binding SelectedContractor.FirstName}" x:Name="txtFirstName" Grid.Row="0" Grid.Column="1" Margin="5" />
+            <Label Content="LastName : " Grid.Row="1" Grid.Column="0"/>
+            <TextBox Text ="{Binding SelectedContractor.LastName}" x:Name="txtLasttName" Grid.Row="1" Grid.Column="1" Margin="5" />
+            <Label Content="Street : " Grid.Row="2" Grid.Column="0"/>
+            <TextBox Text="{Binding SelectedContractor.Street}" x:Name="txtStreet" Grid.Row="2" Grid.Column="1" Margin="5" />
+            <Label Content="Suburb : " Grid.Row="3" Grid.Column="0"/>
+            <TextBox Text="{Binding SelectedContractor.Suburb}" x:Name="txtSuburb" Grid.Row="3" Grid.Column="1" Margin="5" />
+            <Label Content="PostCode : " Grid.Row="4" Grid.Column="0"/>
+            <TextBox Text="{Binding SelectedContractor.PostCode}" x:Name="txtPostCode" Grid.Row="4" Grid.Column="1" Margin="5" />
+
+            <Label Content="Phone : " Grid.Row="0" Grid.Column="2"/>
+            <TextBox Text="{Binding SelectedContractor.Phone}" x:Name="txtPhone" Grid.Row="0" Grid.Column="3" Margin="5" />
+            <Label Content="Email: " Grid.Row="1" Grid.Column="2"/>
+            <TextBox Text="{Binding SelecteContractor.Email}" x:Name="txtEmail" Grid.Row="1" Grid.Column="3" Margin="5" />
+            <Label Content="Licence Number : " Grid.Row="2" Grid.Column="2"/>
+            <TextBox Text="{Binding SelectedInstructor.LicenceNumber}" x:Name="txtLicenceNumber" Grid.Row="2" Grid.Column="3" Margin="5" />
+            <Label Content="Vehicle Registration : " Grid.Row="3" Grid.Column="2"/>
+            <TextBox Text="{Binding SelectedInstructor.VehicleRegistration}" x:Name="txtVehicleRegistration" Grid.Row="3" Grid.Column="4" Margin="5"/>
+            <Label x:Name="lblActive" Content="Active Status:" Grid.Column="2" Grid.Row="4"/>
+            <RadioButton x:Name="rbtnActive" Content="Active" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Top" Grid.Column="3" Grid.Row="4"/>
+            <RadioButton x:Name="rbtnInActive" Content="Inactive" HorizontalAlignment="Left" Margin="120,5,5,5" VerticalAlignment="Top" Grid.Column="3" Grid.Row="4"/>
+        </Grid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="3">
+            <Button x:Name="btnUpdate" Content="SAVE" Width="150" Margin="10"/>
+            <Button x:Name="btnDelete" Content="DELETE" Width="150" Margin="10"/>
+            <Button x:Name="btnAdd" Content="ADD" Width="150" Margin="10"/>
+        </StackPanel>
+    </Grid>
+</Page>

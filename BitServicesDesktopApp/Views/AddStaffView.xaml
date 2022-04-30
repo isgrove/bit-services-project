@@ -1,0 +1,53 @@
+﻿<Page x:Class="BitServicesApp.Views.AddStaffView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BitServicesApp.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AddStaffView">
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="New Staff" FontSize="28px"
+                       FontWeight="bold" Margin="0,0,0,0" Grid.ColumnSpan="3"/>
+        <Label Content="Last Name: " Grid.Row="1" Grid.Column="0"/>
+        <TextBox x:Name="txtFirstName" Text="{Binding NewStaff.FirstName}" Grid.Row="1" Grid.Column="1" Margin="5" />
+        <Label Content="First Name: " Grid.Row="2" Grid.Column="0"/>
+        <TextBox x:Name="txtLastName" Text="{Binding NewStaff.LastName}" Grid.Row="2" Grid.Column="1" Margin="5" />
+        <Label Content="Email: " Grid.Row="3" Grid.Column="0"/>
+        <TextBox x:Name="txtEmail" Text="{Binding NewStaff.Email}" Grid.Row="3" Grid.Column="1" Margin="5" />
+        <Label Content="Phone: " Grid.Row="4" Grid.Column="0"/>
+        <TextBox x:Name="txtPhone" Text="{Binding NewStaff.Phone}" Grid.Row="4" Grid.Column="1" Margin="5" />
+        <Label Content="Password: " Grid.Row="5" Grid.Column="0"/>
+        <TextBox x:Name="txtPassword" Text="{Binding NewStaff.Password}" Grid.Row="5" Grid.Column="1" Margin="5" />
+        <Label Content="Staff Type : " Grid.Row="6" Grid.Column="0"/>
+        <ComboBox x:Name="cmbStaffType" ItemsSource="{Binding StaffTypes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                DisplayMemberPath="Type"
+                Text="{Binding NewStaff.StaffType, UpdateSourceTrigger=PropertyChanged}"
+                Grid.Row="6" Grid.Column="1" Margin="5" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="9" Grid.ColumnSpan="4">
+            <Button Command="{Binding AddCommand}" x:Name="btnSave" Content="SAVE" Width="150" Margin="10"/>
+            <Button x:Name="btnClear" Content="CLEAR" Width="150" Margin="10"/>
+            <Button x:Name="btnCancel" Content="CANCEL" Width="150" Margin="10" Click="btnCancel_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>

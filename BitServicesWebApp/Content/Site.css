@@ -1,0 +1,16 @@
+﻿* {
+    font-family: 'Epilogue', sans-serif;
+}
+
+.btn-primary {
+    background: #EA5D32 !important;
+    border-color: #EA5D32 !important;
+}
+
+.jumbotron {
+    background: #3B0E00 !important;
+}
+
+.jumbotron h1, .jumbotron p {
+    color: #efefef
+}

@@ -1,0 +1,58 @@
+﻿<Window x:Class="BitServicesApp.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BitServicesApp.Views"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="1150">
+    <Grid>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Border BorderBrush="#646464" BorderThickness="0,0,0,1" Width="250">
+            <StackPanel Grid.Row="0" Grid.Column="0" Background="#FFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image Source="../Images/BitServicesLogo.png" Width="200"/>
+            </StackPanel>
+        </Border>
+        <StackPanel Grid.Row="1" Grid.Column="0" Background="#EFEFEF">
+            <Button Foreground="#000000" Background="#EFEFEF"
+                    Content="Job Management" FontSize="20" FontWeight="Bold"
+                    x:Name="btnJobManagement"
+                    Height="50"
+                    BorderThickness="0,0,0,0" Click="btnJobManagement_Click"/>
+            <Button Foreground="#000000" Background="#EFEFEF"
+                    Content="Client Management" FontSize="20" FontWeight="Bold"
+                    x:Name="btnClientManagement"
+                    Height="50" 
+                    BorderThickness="0,0,0,0" Click="btnClientManagement_Click"/>
+            <Button Foreground="#000000" Background="#EFEFEF"
+                    Content="Contractor Management" FontSize="20" FontWeight="Bold"
+                    x:Name="btnContractorManagement"
+                    Height="50" 
+                    BorderThickness="0,0,0,0" Click="btnContractorManagement_Click"/>
+            <Button Foreground="#000000" Background="#EFEFEF"
+                    Content="Staff Management" FontSize="20" FontWeight="Bold"
+                    x:Name="btnStaffManagement"
+                    Height="50" 
+                    BorderThickness="0,0,0,0" Click="btnStaffManagement_Click"/>
+        </StackPanel>
+        <Border BorderBrush="#646464" BorderThickness="0,0,0,1" Grid.Row="0" Grid.Column="1">
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" Background="#FFFFFF" VerticalAlignment="Center">
+                <TextBlock x:Name="txvCompanyName"
+                       Text="Back-Office Application"
+                       Foreground="#000000"
+                       FontSize="28"
+                       Margin="10"
+                       FontWeight="Bold"/>
+            </StackPanel>
+        </Border>
+            <Frame NavigationUIVisibility="Hidden" x:Name="contentFrame" Grid.Column="1" Grid.Row="1" Margin="20,20"/>
+    </Grid>
+</Window>
