@@ -16,8 +16,6 @@ namespace BitServicesApp.ViewModels
         private ObservableCollection<ClientLocation> _clientLocations;
         private Client _selectedClient;
         private ClientLocation _selectedLocation;
-        private string _searchText;
-        private RelayCommand _searchCommand;
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string prop)
@@ -46,18 +44,6 @@ namespace BitServicesApp.ViewModels
                 OnPropertyChanged("ClientLocations");
             }
         }
-        public RelayCommand SearchCommand
-        {
-            get
-            {
-                if (_searchCommand == null)
-                {
-                    _searchCommand = new RelayCommand(this.SearchMethod, true);
-                }
-                return _searchCommand;
-            }
-            set { _searchCommand = value; }
-        }
         public Client SelectedClient
         {
             get { return _selectedClient; }
@@ -77,20 +63,6 @@ namespace BitServicesApp.ViewModels
                 _selectedLocation = value;
                 OnPropertyChanged("SelectedLocation");
             }
-        }
-        public string SearchText
-        {
-            get { return _searchText; }
-            set
-            {
-                _searchText = value;
-                OnPropertyChanged("SearchText");
-            }
-        }
-        public void SearchMethod()
-        {
-            //Clients allCustomers = new Client(SearchText);
-            //this.Customers = new ObservableCollection<Customer>(allCustomers);
         }
         public ClientManagementViewModel()
         {
