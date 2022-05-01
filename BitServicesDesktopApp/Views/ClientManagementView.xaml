@@ -11,25 +11,14 @@
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="50px" />
         </Grid.RowDefinitions>
-        <DataGrid Grid.Row="0" x:Name="dgInstructors" Margin="5"
-                      ItemsSource="{Binding Instructors}"
-                      SelectedItem="{Binding SelectedInstructor}" AutoGenerateColumns="false">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Client Id" Binding="{Binding ClientId}"/>
-                <DataGridTextColumn Header="Name" Binding="{Binding ClientName}"/>
-                <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
-                <DataGridTextColumn Header="Phone" Binding="{Binding Phone}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <TabControl Grid.Row="1">
-            <TabItem Header="Details">
+        <TabControl Grid.Row="0">
+            <TabItem Header="Clients">
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="2*" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
@@ -41,22 +30,54 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="2*" />
                     </Grid.ColumnDefinitions>
-                    <Label Content="Client Name: " Grid.Row="0" Grid.Column="0"/>
-                    <TextBox x:Name="txtFirstName" Grid.Row="0" Grid.Column="1" Margin="5" />
-                    <Label Content="Phone: " Grid.Row="1" Grid.Column="0"/>
-                    <TextBox x:Name="txtPhone" Grid.Row="1" Grid.Column="1" Margin="5" />
-                    <Label Content="Email: " Grid.Row="2" Grid.Column="0"/>
-                    <TextBox x:Name="txtEmail" Grid.Row="2" Grid.Column="1" Margin="5" />
+                    <DataGrid Grid.Row="0" x:Name="dgInstructors" Margin="5" Grid.ColumnSpan="4" Grid.RowSpan="3"
+                      ItemsSource="{Binding Clients}"
+                      SelectedItem="{Binding SelectedClient}" AutoGenerateColumns="false">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Client Id" Binding="{Binding ClientId}"/>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
+                            <DataGridTextColumn Header="Phone" Binding="{Binding Phone}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Label Content="Client Name: " Grid.Row="3" Grid.Column="0"/>
+                    <TextBox x:Name="txtClientName" Text="{Binding SelectedClient.Name}" Grid.Row="3" Grid.Column="1" Margin="5" />
+                    <Label Content="Phone: " Grid.Row="4" Grid.Column="0"/>
+                    <TextBox x:Name="txtPhone" Text="{Binding SelectedClient.Phone}" Grid.Row="4" Grid.Column="1" Margin="5" />
+                    <Label Content="Email: " Grid.Row="5" Grid.Column="0"/>
+                    <TextBox x:Name="txtEmail" Text="{Binding SelectedClient.Email}" Grid.Row="5" Grid.Column="1" Margin="5" />
+                    <Grid Grid.Row="6" Grid.ColumnSpan="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="btnUpdate" Content="SAVE" Margin="5" Grid.Column="0"/>
+                        <Button x:Name="btnAdd" Content="ADD" Margin="5" Click="btnAdd_Click" Grid.Column="1"/>
+                        <Button x:Name="btnDelete" Content="DELETE" Margin="5" Grid.Column="2"/>
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="Location Management">
                 <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
                     </Grid.ColumnDefinitions>
+                    <!-- TODO: Fix bug where all object variables are being showed as DataGrid coulmns -->
                     <DataGrid x:Name="dgClientLocations"
-                      Margin="5" ItemsSource="{Binding ClientLocations}" SelectedItem="{Binding SelectedLocation}">
+                      Margin="5" ItemsSource="{Binding ClientLocations}" SelectedItem="{Binding SelectedLocation}" Grid.RowSpan="3" Grid.ColumnSpan="4">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Location Id" Binding="{Binding LocationId}"/>
                             <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
@@ -67,52 +88,33 @@
                             <DataGridTextColumn Header="State" Binding="{Binding State}"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Grid Grid.Column="1" >
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
+
+                    <TextBlock Text="Email : " Margin="5" Grid.Row="3" Grid.Column="0" />
+                    <TextBox x:Name="txtNewEmail" Text="{Binding SelectedLocation.Email}" Margin="5" Grid.Row="3" Grid.Column="1" />
+                    <TextBlock Text="Phone : " Margin="5" Grid.Row="4" Grid.Column="0"/>
+                    <TextBox x:Name="txtNewPhone" Text="{Binding SelectedLocation.Phone}" Margin="5" Grid.Row="4" Grid.Column="1" />
+                    <TextBlock Text="Street : " Margin="5" Grid.Row="5" Grid.Column="0"/>
+                    <TextBox x:Name="txtNewStreet" Text="{Binding SelectedLocation.Street}" Margin="5" Grid.Row="5" Grid.Column="1" />
+
+                    <TextBlock Text="Suburb : " Margin="5" Grid.Row="3" Grid.Column="2"/>
+                    <TextBox x:Name="txtNewSuburb" Text="{Binding SelectedLocation.Suburb}" Margin="5" Grid.Row="3" Grid.Column="3" />
+                    <TextBlock Text="Postcode: " Margin="5" Grid.Row="4" Grid.Column="2"/>
+                    <TextBox x:Name="txtNewPostcode" Text="{Binding SelectedLocation.Postcode}" Margin="5" Grid.Row="4" Grid.Column="3" />
+                    <TextBlock Text="State: " Margin="5" Grid.Row="5" Grid.Column="2"/>
+                    <TextBox x:Name="txtNewState" Text="{Binding SelectedLocation.State}" Margin="5" Grid.Row="5" Grid.Column="3" />
+
+                    <Grid Grid.Row="6" Grid.ColumnSpan="4">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Email : " Margin="5" Grid.Row="0" Grid.Column="0" />
-                        <TextBox x:Name="txtNewEmail" Margin="5" Grid.Row="0" Grid.Column="1" />
-                        <TextBlock Text="Phone : " Margin="5" Grid.Row="1" Grid.Column="0"/>
-                        <TextBox x:Name="txtNewPhone" Margin="5" Grid.Row="1" Grid.Column="1" />
-                        <TextBlock Text="Street : " Margin="5" Grid.Row="2" Grid.Column="0"/>
-                        <TextBox x:Name="txtNewStreet" Margin="5" Grid.Row="2" Grid.Column="1" />
-                        
-                        <TextBlock Text="Suburb : " Margin="5" Grid.Row="0" Grid.Column="2"/>
-                        <TextBox x:Name="txtNewSuburb" Margin="5" Grid.Row="0" Grid.Column="3" />
-                        <TextBlock Text="Postcode: " Margin="5" Grid.Row="1" Grid.Column="2"/>
-                        <TextBox x:Name="txtNewPostcode" Margin="5" Grid.Row="1" Grid.Column="3" />
-                        <TextBlock Text="State: " Margin="5" Grid.Row="2" Grid.Column="2"/>
-                        <TextBox x:Name="txtNewState" Margin="5" Grid.Row="2" Grid.Column="3" />
-
-                        <Grid Grid.Row="4" Grid.ColumnSpan="4">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Button Content="ADD" x:Name="btnAddLocation" Margin="5" Grid.Column="0"/>
-                            <Button Content="DELETE" x:Name="btnDeleteLocation" Margin="5" Grid.Column="1"/>
-                        </Grid>
+                        <Button Content="SAVE LOCATION" x:Name="btnSaveLocation" Margin="5" Grid.Column="0"/>
+                        <Button Content="ADD LOCATION" x:Name="btnAddLocation" Margin="5" Grid.Column="1"/>
+                        <Button Content="DELETE LOCATION" x:Name="btnDeleteLocation" Margin="5" Grid.Column="2"/>
                     </Grid>
                 </Grid>
             </TabItem>
         </TabControl>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2">
-            <Button x:Name="btnAdd" Content="ADD" Width="100" Margin="10" Click="btnAdd_Click"/>
-            <Button x:Name="btnDelete" Content="DELETE" Width="100" Margin="10"/>
-            <!--<Button x:Name="btnAddLocation" Content="ADD LOCATION" Width="150" Margin="10" Click="btnAddLocation_Click"/>
-            <Button x:Name="btnDeleteLocation" Content="DELETE LOCATION" Width="150" Margin="10"/>-->
-            <Button x:Name="btnUpdate" Content="SAVE" Width="100" Margin="10"/>
-        </StackPanel>
     </Grid>
 </Page>

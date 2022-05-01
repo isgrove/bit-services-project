@@ -16,7 +16,7 @@ namespace BitServicesApp.Models
         private string _suburb;
         private string _postcode;
         private string _state;
-        private int _active;
+        private bool _active;
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string prop)
@@ -90,7 +90,7 @@ namespace BitServicesApp.Models
                 OnPropertyChanged("State");
             }
         }
-        public int Active
+        public bool Active
         {
             get { return _active; }
             set
@@ -113,7 +113,7 @@ namespace BitServicesApp.Models
             this.Suburb = dr["suburb"].ToString();
             this.Postcode = dr["postcode"].ToString();
             this.State = dr["state"].ToString();
-            this.Active = Convert.ToInt32(dr["active"].ToString());
+            this.Active = Convert.ToBoolean(dr["active"]);
         }
     }
 }

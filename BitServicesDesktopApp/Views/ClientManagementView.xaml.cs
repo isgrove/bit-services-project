@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BitServicesApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -21,6 +22,7 @@ namespace BitServicesApp.Views
         public ClientManagementView()
         {
             InitializeComponent();
+            this.DataContext = new ClientManagementViewModel();
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
