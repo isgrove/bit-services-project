@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Text;
 
-namespace BitServicesApp.Models
+namespace BitServicesDesktopApp.Models
 {
     public class ClientLocation : INotifyPropertyChanged // TODO: maybe inherit client?
     {

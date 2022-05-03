@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BitServicesApp.Views
+namespace BitServicesDesktopApp.Views
 {
     /// <summary>
     /// Interaction logic for AddContractorView.xaml

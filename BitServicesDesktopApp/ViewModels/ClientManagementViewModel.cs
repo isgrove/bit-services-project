@@ -1,4 +1,4 @@
-﻿using BitServicesApp.Models;
+﻿using BitServicesDesktopApp.Models;
 using BitServicesDesktopApp.Commands;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.ComponentModel;
 using System.Text;
 using System.Windows.Forms;
 
-namespace BitServicesApp.ViewModels
+namespace BitServicesDesktopApp.ViewModels
 {
     public class ClientManagementViewModel : INotifyPropertyChanged
     {

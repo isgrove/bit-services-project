@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 
-namespace BitServicesApp.Models
+namespace BitServicesDesktopApp.Models
 {
     public class Contractors : List<Contractor>
     {

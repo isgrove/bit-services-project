@@ -1,4 +1,4 @@
-﻿using BitServicesApp.ViewModels;
+﻿using BitServicesDesktopApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BitServicesApp.Views
+namespace BitServicesDesktopApp.Views
 {
     /// <summary>
     /// Interaction logic for ClientManagementView.xaml

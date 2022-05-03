@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BitServicesApp.ViewModels
+namespace BitServicesDesktopApp.ViewModels
 {
     class AddJobViewModel
     {

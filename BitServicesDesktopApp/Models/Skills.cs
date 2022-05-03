@@ -5,7 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Text;
 
-namespace BitServicesApp.Models
+namespace BitServicesDesktopApp.Models
 {
     public class Skills : List<Skill>
     {
