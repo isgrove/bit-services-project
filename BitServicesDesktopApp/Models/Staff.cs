@@ -15,7 +15,7 @@ namespace BitServicesDesktopApp.Models
         private string _email;
         private string _phone;
         private string _password;
-        private int _active;
+        private bool _active;
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string prop)
         {
@@ -83,7 +83,7 @@ namespace BitServicesDesktopApp.Models
                 OnPropertyChanged("Password");
             }
         }
-        public int Active
+        public bool Active
         {
             get { return _active; }
             set
@@ -105,7 +105,7 @@ namespace BitServicesDesktopApp.Models
             this.Email = dr["email"].ToString();
             this.Phone = dr["phone"].ToString();
             this.Password = dr["password"].ToString();
-            this.Active = Convert.ToInt32(dr["active"].ToString());
+            this.Active = Convert.ToBoolean(dr["active"]);
         }
     }
 }

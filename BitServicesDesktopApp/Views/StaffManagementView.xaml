@@ -17,15 +17,14 @@
         <Grid Grid.Row="0">
             <DataGrid Grid.Column="0" x:Name="dgStaff" Margin="5" 
                       Grid.RowSpan="2"
-                      ItemsSource="{Binding Staff}"
+                      ItemsSource="{Binding Staffs}"
                       SelectedItem="{Binding SelectedStaff}" AutoGenerateColumns="false">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Staff Id" Binding="{Binding StaffId}"/>
-                    <DataGridTextColumn Header="Staff Type" Binding="{Binding StaffTypeId}"/>
+                    <DataGridTextColumn Header="Staff Type" Binding="{Binding StaffType}"/>
                     <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"/>
                     <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"/>
                     <DataGridTextColumn Header="Phone" Binding="{Binding Phone}"/>
-                    <DataGridTextColumn Header="Active" Binding="{Binding Active}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
