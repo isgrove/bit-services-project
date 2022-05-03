@@ -20,7 +20,7 @@ namespace BitServicesDesktopApp.Models
         private string _state;
         private string _licenceNumber;
         private string _vehicleRegistration;
-        private int _active; // TODO: not sure if this should be an int or bool (in db it is a bit)
+        private bool _active;
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string prop)
         {
@@ -133,7 +133,7 @@ namespace BitServicesDesktopApp.Models
                 OnPropertyChanged("VehicleRegistration");
             }
         }
-        public int Active
+        public bool Active
         {
             get { return _active; }
             set
@@ -150,17 +150,16 @@ namespace BitServicesDesktopApp.Models
         {
             this.ContractorId = Convert.ToInt32(dr["contractor_id"].ToString());
             this.FirstName = dr["first_name"].ToString();
-            this.LastName = dr["first_name"].ToString();
+            this.LastName = dr["last_name"].ToString();
             this.Email = dr["email"].ToString();
             this.Phone = dr["phone"].ToString();
-            this.Password = dr["password"].ToString();
             this.Street = dr["street"].ToString();
             this.Suburb = dr["suburb"].ToString();
             this.Postcode = dr["postcode"].ToString();
             this.State = dr["state"].ToString();
             this.LicenceNumber = dr["licence_number"].ToString();
             this.VehicleRegistration = dr["vehicle_registration"].ToString();
-            this.Active = Convert.ToInt32(dr["active"].ToString());
+            this.Active = Convert.ToBoolean(dr["active"]);
         }
     }
 }
