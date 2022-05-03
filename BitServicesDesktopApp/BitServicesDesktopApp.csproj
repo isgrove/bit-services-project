@@ -82,6 +82,8 @@
     <Compile Include="Models\JobStatus.cs" />
     <Compile Include="Models\JobStatuses.cs" />
     <Compile Include="Models\LoginHelper.cs" />
+    <Compile Include="Models\StaffType.cs" />
+    <Compile Include="Models\StaffTypes.cs" />
     <Compile Include="ViewModels\AddClientViewModel.cs" />
     <Compile Include="ViewModels\AddContractorViewModel.cs" />
     <Compile Include="ViewModels\AddJobViewModel.cs" />
