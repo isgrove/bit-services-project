@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace BitServicesApp.ViewModels
 {
-    class ClientManagementViewModel : INotifyPropertyChanged
+    public class ClientManagementViewModel : INotifyPropertyChanged
     {
         // TODO: Add functionality to all butonns
         private ObservableCollection<Client> _clients;
