@@ -12,7 +12,8 @@ namespace BitServicesDesktopApp.Models
         {
             SQLHelper helper = new SQLHelper();
             string sql = "SELECT client_id, client_name as name, email, phone, password, active" +
-                " FROM client";
+                " FROM client" +
+                " WHERE active = 1";
             DataTable clientsTable = helper.ExecuteSQL(sql);
             foreach (DataRow dr in clientsTable.Rows)
             {
