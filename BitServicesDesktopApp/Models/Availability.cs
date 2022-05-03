@@ -12,7 +12,7 @@ namespace BitServicesDesktopApp.Models
         private DateTime _availabilityDate;
         private int _clientId;
 
-        public DateTime AvilabilityDate
+        public DateTime AvailabilityDate
         {
             get { return _availabilityDate; }
             set { _availabilityDate = value; }
@@ -30,8 +30,8 @@ namespace BitServicesDesktopApp.Models
         }
         public Availability(DataRow dr)
         {
-            this.ClientId = Convert.ToInt32(dr["client_id"].ToString());
-            this.AvilabilityDate = Convert.ToDateTime(dr["availability_date"].ToString());
+            this.ClientId = Convert.ToInt32(dr["contractor_id"].ToString());
+            this.AvailabilityDate = Convert.ToDateTime(dr["availability_date"].ToString());
         }
     }
 }
