@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BitServicesDesktopApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -11,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BitServicesApp.Views
+namespace BitServicesDesktopApp.Views
 {
     /// <summary>
     /// Interaction logic for ContractorManagementView.xaml
@@ -21,6 +22,7 @@ namespace BitServicesApp.Views
         public ContractorManagementView()
         {
             InitializeComponent();
+            this.DataContext = new ContractorManagementViewModel();
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
