@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,8 +24,21 @@ namespace BitServicesDesktopApp.Views
 
         public MainWindow()
         {
+            bool loginEnabled = Convert.ToBoolean(ConfigurationManager.AppSettings["LoginEnabled"]);
             InitializeComponent();
-            contentFrame.Navigate(new LoginView());
+
+            if (loginEnabled)
+            {
+                contentFrame.Navigate(new LoginView());
+            }
+            else
+            {
+                contentFrame.Navigate(new JobManagementView());
+                btnClientManagement.IsEnabled = true;
+                btnContractorManagement.IsEnabled = true;
+                btnJobManagement.IsEnabled = true;
+                btnStaffManagement.IsEnabled = true;
+            }
         }
 
         private void btnJobManagement_Click(object sender, RoutedEventArgs e)
