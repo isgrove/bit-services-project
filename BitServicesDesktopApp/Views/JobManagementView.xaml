@@ -8,13 +8,28 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="JobManagementView">
 
+    <!-- TODO: Add tab for each "Job Status" -->
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="50px" />
         </Grid.RowDefinitions>
-        <DataGrid Grid.Row="0" x:Name="dgBooking" Margin="5" ItemsSource="{Binding AllJobs}" SelectedItem="{Binding SelectedJob}"/>
+        <DataGrid Grid.Row="0" x:Name="dgJobs" Margin="5"
+                  ItemsSource="{Binding Jobs}"
+                  SelectedItem="{Binding SelectedJob}"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Job Id" Binding="{Binding JobId}"/>
+                <DataGridTextColumn Header="Client Id" Binding="{Binding ClientId}"/>
+                <DataGridTextColumn Header="Location Id" Binding="{Binding LocationId}"/>
+                <DataGridTextColumn Header="Contractor Id" Binding="{Binding AssignedContractorId}"/>
+                <DataGridTextColumn Header="Required Skill" Binding="{Binding RequiredSkill}"/>
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+                <DataGridTextColumn Header="Kilometers" Binding="{Binding Kilometers}"/>
+                <DataGridTextColumn Header="Deadline Date" Binding="{Binding DeadlineDate, StringFormat='dddd, dd MMMM yyyy'}"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -34,10 +49,11 @@
             <Label Content="Client Name: " Grid.Row="0" Grid.Column="0"/>
             <TextBox IsReadOnly="True" x:Name="txtClientName" Text="{Binding SelectedJob.ClientName}" Grid.Row="0" Grid.Column="1" Margin="5" />
             <Label Content="Client Location: " Grid.Row="1" Grid.Column="0"/>
-            <ComboBox x:Name="cmbClientLocation" ItemsSource="{Binding ClientLocations, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                DisplayMemberPath="Status"
-                Text="{Binding SelectedJob.LocationId, UpdateSourceTrigger=PropertyChanged}"
-                Grid.Row="1" Grid.Column="1" Margin="5" />
+            <!-- TOOD: Fix text not showing the selected suburb -->
+            <ComboBox x:Name="cmbClientLocation" ItemsSource="{Binding SelectedClientLocations, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      DisplayMemberPath="Suburb"
+                      Text="{Binding SelectedJob.Location.Suburb, UpdateSourceTrigger=PropertyChanged}"
+                      Grid.Row="1" Grid.Column="1" Margin="5" />
             <Label Content="Client Street: " Grid.Row="2" Grid.Column="0"/>
             <TextBox IsReadOnly="True" x:Name="txtClientStreet" Text="{Binding SelectedJob.ClientStreet}" Grid.Row="2" Grid.Column="1" Margin="5" />
             <Label Content="Client Suburb : " Grid.Row="3" Grid.Column="0"/>
@@ -47,22 +63,24 @@
             <Label Content="Deadline Date: " Grid.Row="5" Grid.Column="0"/>
             <DatePicker IsEnabled="False"  x:Name="dtpDeadlineDate" SelectedDate="{Binding SelectedJob.DeadlineDate}" Grid.Row="5" Grid.Column="1" Margin="5" />
 
-            <Label Content="Contractor First Name: " Grid.Row="0" Grid.Column="2"/>
-            <TextBox IsReadOnly="True" x:Name="txtContractorFirstName" Text="{Binding SelectedJob.ContractorFirstName}" Grid.Row="0" Grid.Column="3" Margin="5" />
-            <Label Content="Contractor Last Name: " Grid.Row="1" Grid.Column="2"/>
-            <TextBox IsReadOnly="True" x:Name="txtContractorLastName" Text="{Binding SelectedJob.ContractorLastName}" Grid.Row="1" Grid.Column="3" Margin="5" />
-            <Label Content="Required Skill: " Grid.Row="2" Grid.Column="2"/>
+            <Label Content="Required Skill: " Grid.Row="0" Grid.Column="2"/>
             <ComboBox x:Name="cmbRequiredSkill" ItemsSource="{Binding Skills, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                DisplayMemberPath="Status"
-                Text="{Binding SelectedJob.RequiredSkills, UpdateSourceTrigger=PropertyChanged}"
-                Grid.Row="2" Grid.Column="3" Margin="5" />
-            <Label Content="Job Status: " Grid.Row="3" Grid.Column="2"/>
+                DisplayMemberPath="SkillName"
+                Text="{Binding SelectedJob.RequiredSkill, UpdateSourceTrigger=PropertyChanged}"
+                Grid.Row="0" Grid.Column="3" Margin="5" />
+
+            <Label Content="Contractors: " Grid.Row="1" Grid.Column="2"/>
+            <ComboBox x:Name="cmbContractors" ItemsSource="{Binding Contractors, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      DisplayMemberPath="FirstName"
+                      Text="{Binding SelectedJob.AssignedContractor.FirstName, UpdateSourceTrigger=PropertyChanged}"
+                      Grid.Row="1" Grid.Column="3" Margin="5" />
+            <Label Content="Job Status: " Grid.Row="2" Grid.Column="2"/>
             <ComboBox x:Name="cmbBookingStatus" ItemsSource="{Binding JobStatuses, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 DisplayMemberPath="Status"
                 Text="{Binding SelectedJob.JobStatus, UpdateSourceTrigger=PropertyChanged}"
-                Grid.Row="3" Grid.Column="3" Margin="5" />
-            <Label Content="Description: " Grid.Row="4" Grid.Column="2"/>
-            <TextBox IsReadOnly="True" x:Name="txtDescription" Text="{Binding SelectedJob.Description}" Grid.Row="4" Grid.Column="3" Margin="5" Grid.RowSpan="2" />
+                Grid.Row="2" Grid.Column="3" Margin="5" />
+            <Label Content="Description: " Grid.Row="3" Grid.Column="2"/>
+            <TextBox IsReadOnly="True" x:Name="txtDescription" Text="{Binding SelectedJob.Description}" Grid.Row="3" Grid.Column="3" Margin="5" Grid.RowSpan="3" />
         </Grid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="3">
             <Button Command="{Binding UpdateCommand}" x:Name="btnUpdate" Content="SAVE" Width="150" Margin="10"/>

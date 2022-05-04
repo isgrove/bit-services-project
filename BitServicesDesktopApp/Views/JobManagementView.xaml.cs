@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BitServicesDesktopApp.ViewModels;
 
 namespace BitServicesDesktopApp.Views
 {
@@ -21,6 +22,7 @@ namespace BitServicesDesktopApp.Views
         public JobManagementView()
         {
             InitializeComponent();
+            this.DataContext = new JobManagementViewModel();
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)

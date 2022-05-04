@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BitServicesDesktopApp.Models
 {
@@ -12,6 +14,9 @@ namespace BitServicesDesktopApp.Models
     {
         private int _jobId;
         private int _locationId;
+        private int _clientId;
+        private Contractor _assignedContractor;
+        private ClientLocation _location;
         private int _assignedContractorId;
         private string _requiredSkill;
         private string _jobStatus;
@@ -34,14 +39,27 @@ namespace BitServicesDesktopApp.Models
         public int LocationId
         {
             get { return _locationId; }
-            set { _locationId = value; }
-        }
-        public int AssignedContractorId
-        {
-            get { return _locationId; }
             set
             {
                 _locationId = value;
+                OnPropertyChanged("AssignedContractorId");
+            }
+        }
+        public int ClientId
+        {
+            get { return _clientId; }
+            set
+            {
+                _clientId = value;
+                OnPropertyChanged("ClientId");
+            }
+        }
+        public int AssignedContractorId
+        {
+            get { return _assignedContractorId; }
+            set
+            {
+                _assignedContractorId = value;
                 OnPropertyChanged("AssignedContractorId");
             }
         }
@@ -90,6 +108,24 @@ namespace BitServicesDesktopApp.Models
                 OnPropertyChanged("DeadlineDate");
             }
         }
+        public ClientLocation Location
+        {
+            get { return _location; }
+            set
+            {
+                _location = value;
+                OnPropertyChanged("Location");
+            }
+        }
+        public Contractor AssignedContractor
+        {
+            get { return _assignedContractor; }
+            set
+            {
+                _assignedContractor = value;
+                OnPropertyChanged("AssignedContractor");
+            }
+        }
         public Job()
         {
 
@@ -98,12 +134,15 @@ namespace BitServicesDesktopApp.Models
         {
             this.JobId = Convert.ToInt32(dr["job_id"].ToString());
             this.LocationId = Convert.ToInt32(dr["location_id"].ToString());
+            this.ClientId = Convert.ToInt32(dr["client_id"].ToString());
             this.AssignedContractorId = Convert.ToInt32(dr["assigned_contractor_id"].ToString());
             this.RequiredSkill = dr["required_skill"].ToString();
             this.JobStatus = dr["job_status"].ToString();
             this.Description = dr["description"].ToString();
             this.Kilometers = Convert.ToInt32(dr["kilometers"].ToString());
             this.DeadlineDate = Convert.ToDateTime(dr["deadline_date"].ToString());
+            this.Location = new ClientLocation(this.LocationId);
+            this.AssignedContractor = new Contractor(this.AssignedContractorId);
         }
     }
 }

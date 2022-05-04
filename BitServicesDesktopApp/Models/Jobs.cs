@@ -13,9 +13,10 @@ namespace BitServicesDesktopApp.Models
         public Jobs()
         {
             SQLHelper helper = new SQLHelper();
-            string sql = "SELECT job_id, location_id, assigned_contractor_id, required_skill_name as required_skill, job_status," +
-                " kilometers, description, deadline_date" +
-                " FROM job";
+            string sql = "SELECT j.job_id, j.location_id, j.assigned_contractor_id, j.required_skill_name as required_skill, j.job_status," +
+                " j.kilometers, j.description, j.deadline_date, cl.client_id" +
+                " FROM job j, client_location cl" +
+                " WHERE j.location_id = cl.location_id";
             DataTable jobTable = helper.ExecuteSQL(sql);
             foreach (DataRow dr in jobTable.Rows)
             {

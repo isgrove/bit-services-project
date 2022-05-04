@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Text;
+using System.Windows.Forms;
+using BitServicesDesktopApp.DAL;
 
 namespace BitServicesDesktopApp.Models
 {
@@ -17,6 +20,7 @@ namespace BitServicesDesktopApp.Models
         private string _postcode;
         private string _state;
         private bool _active;
+        private SQLHelper _db;
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string prop)
@@ -101,10 +105,33 @@ namespace BitServicesDesktopApp.Models
         }
         public ClientLocation()
         {
-
+            _db = new SQLHelper();
         }
         public ClientLocation(DataRow dr)
         {
+            _db = new SQLHelper();
+            this.LocationId = Convert.ToInt32(dr["location_id"].ToString());
+            this.ClientId = Convert.ToInt32(dr["client_id"].ToString());
+            this.Email = dr["email"].ToString();
+            this.Phone = dr["phone"].ToString();
+            this.Street = dr["street"].ToString();
+            this.Suburb = dr["suburb"].ToString();
+            this.Postcode = dr["postcode"].ToString();
+            this.State = dr["state"].ToString();
+            this.Active = Convert.ToBoolean(dr["active"]);
+        }
+
+        public ClientLocation(int locationId)
+        {
+            _db = new SQLHelper();
+            string sql = "SELECT location_id, client_id, email, phone, street, suburb, postcode, state, active" +
+                         " FROM client_location" +
+                         " WHERE location_id = @LocationId";
+            SqlParameter[] objParams = new SqlParameter[1];
+            objParams[0] = new SqlParameter("@LocationId", DbType.Int32);
+            objParams[0].Value = locationId;
+            DataRow dr = _db.ExecuteSQL(sql, objParams).Rows[0];
+
             this.LocationId = Convert.ToInt32(dr["location_id"].ToString());
             this.ClientId = Convert.ToInt32(dr["client_id"].ToString());
             this.Email = dr["email"].ToString();
