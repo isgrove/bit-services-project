@@ -117,7 +117,6 @@ namespace BitServicesDesktopApp.Models
         }
         public int DeleteClient()
         {
-            GeneratePassword();
             string sql = "UPDATE client" +
                          " SET active = 0" +
                          " WHERE client_id = @ClientId";
