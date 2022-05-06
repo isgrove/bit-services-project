@@ -69,7 +69,7 @@ namespace BitServicesDesktopApp.ViewModels
                     message = "There was an issue when deleting " + SelectedClient.Name + ", please try again!";
                 }
                 UpdateClients();
-                MessageBox.Show(message);
+                MessageBox.Show(message, $"Delete {SelectedClient.Name}");
             }
 
         }
