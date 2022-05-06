@@ -178,5 +178,60 @@ namespace BitServicesDesktopApp.Models
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
             return rowsAffected;
         }
+        public int DeleteClientLocation()
+        {
+            string sql = "UPDATE client_location" +
+                         " SET active = 0" +
+                         " WHERE location_id = @LocationId";
+            SqlParameter[] objParams = new SqlParameter[1];
+            objParams[0] = new SqlParameter("@LocationId", DbType.String)
+            {
+                Value = this.LocationId
+            };
+            int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
+            return rowsAffected;
+        }
+
+        public int UpdateClientLocation()
+        {
+            string sql = "UPDATE client_location" +
+                         " SET client_id = @ClientId, email = @Email, phone = @Phone, street = @Street, suburb = @Suburb, postcode = @Postcode, state = @State" +
+                         " WHERE location_id = @LocationId";
+            SqlParameter[] objParams = new SqlParameter[8];
+            objParams[0] = new SqlParameter("@ClientId", DbType.Int32)
+            {
+                Value = this.ClientId
+            };
+            objParams[1] = new SqlParameter("@Email", DbType.String)
+            {
+                Value = this.Email
+            };
+            objParams[2] = new SqlParameter("@Phone", DbType.String)
+            {
+                Value = this.Phone
+            };
+            objParams[3] = new SqlParameter("@Street", DbType.String)
+            {
+                Value = this.Street
+            };
+            objParams[4] = new SqlParameter("@Suburb", DbType.String)
+            {
+                Value = this.Suburb
+            };
+            objParams[5] = new SqlParameter("@Postcode", DbType.String)
+            {
+                Value = this.Postcode
+            };
+            objParams[6] = new SqlParameter("@State", DbType.String)
+            {
+                Value = this.State
+            };
+            objParams[7] = new SqlParameter("@LocationId", DbType.String)
+            {
+                Value = this.LocationId
+            };
+            int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
+            return rowsAffected;
+        }
     }
 }

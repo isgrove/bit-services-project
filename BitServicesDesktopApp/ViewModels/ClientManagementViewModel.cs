@@ -19,6 +19,8 @@ namespace BitServicesDesktopApp.ViewModels
         private ClientLocation _selectedLocation;
         private RelayCommand _deleteCommand;
         private RelayCommand _saveCommand;
+        private RelayCommand _deleteLocationCommand;
+        private RelayCommand _saveLocationCommand;
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string prop)
@@ -51,6 +53,30 @@ namespace BitServicesDesktopApp.ViewModels
                 return _saveCommand;
             }
             set { _saveCommand = value; }
+        }
+        public RelayCommand DeleteLocationCommand
+        {
+            get
+            {
+                if (_deleteLocationCommand == null)
+                {
+                    _deleteLocationCommand = new RelayCommand(this.DeleteLocationMethod, true);
+                }
+                return _deleteLocationCommand;
+            }
+            set { _deleteLocationCommand = value; }
+        }
+        public RelayCommand SaveLocationCommand
+        {
+            get
+            {
+                if (_saveLocationCommand == null)
+                {
+                    _saveLocationCommand = new RelayCommand(this.SaveLocationMethod, true);
+                }
+                return _saveLocationCommand;
+            }
+            set { _saveLocationCommand = value; }
         }
         public void DeleteMethod()
         {
@@ -91,6 +117,51 @@ namespace BitServicesDesktopApp.ViewModels
             }
 
         }
+        public void DeleteLocationMethod()
+        {
+            MessageBoxResult messageBoxResult = MessageBox.Show($"Are you sure that you want to delete {SelectedClient.Name} {SelectedLocation.Suburb}?", $"Delete {SelectedClient.Name} {SelectedLocation.Suburb}", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                string message;
+                int rowsAffected = SelectedLocation.DeleteClientLocation();
+                if (rowsAffected >= 1)
+                {
+                    message = $"You have successfully deleted {SelectedClient.Name} {SelectedLocation.Suburb}!";
+                }
+                else
+                {
+                    message = $"There was an issue when deleting {SelectedClient.Name} {SelectedLocation.Suburb}, please try again!";
+                }
+                MessageBox.Show(message, $"Delete {SelectedClient.Name} {SelectedLocation.Suburb}");
+                UpdateClients();
+            }
+
+        }
+
+        public void SaveLocationMethod()
+        {
+            MessageBoxResult messageBoxResult =
+                MessageBox.Show(
+                    $"Are you sure that you would like to update {SelectedClient.Name} {SelectedLocation.Suburb}?",
+                    $"Update {SelectedClient.Name} {SelectedLocation.Suburb}", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                string message;
+                int rowsAffected = SelectedLocation.UpdateClientLocation();
+                if (rowsAffected >= 1)
+                {
+                    message = $"You have successfully saved {SelectedClient.Name} {SelectedLocation.Suburb}!";
+                }
+                else
+                {
+                    message =
+                        $"There was an issue when saving {SelectedClient.Name} {SelectedLocation.Suburb}, please try again!";
+                }
+
+                MessageBox.Show(message, $"Update {SelectedClient.Name} {SelectedLocation.Suburb}");
+                UpdateClientLocations();
+            }
+        }
         public ObservableCollection<Client> Clients
         {
             get { return _clients; }
@@ -118,8 +189,7 @@ namespace BitServicesDesktopApp.ViewModels
                 OnPropertyChanged("SelectedClient");
                 if (_selectedClient != null)
                 {
-                    ClientLocations allLocations = new ClientLocations(SelectedClient.ClientId);
-                    this.ClientLocations = new ObservableCollection<ClientLocation>(allLocations);
+                    UpdateClientLocations();
                 }
             }
         }
@@ -137,6 +207,14 @@ namespace BitServicesDesktopApp.ViewModels
         {
             Clients allClients = new Clients();
             this.Clients = new ObservableCollection<Client>(allClients);
+        }
+        private void UpdateClientLocations()
+        {
+            if (SelectedClient != null)
+            {
+                ClientLocations allClientLocations = new ClientLocations(SelectedClient.ClientId);
+                this.ClientLocations = new ObservableCollection<ClientLocation>(allClientLocations);
+            }
         }
         public ClientManagementViewModel()
         {

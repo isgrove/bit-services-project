@@ -13,7 +13,8 @@ namespace BitServicesDesktopApp.Models
         {
             SQLHelper helper = new SQLHelper();
             string sql = "SELECT location_id, client_id, email, phone, street, suburb, postcode, state, active" +
-                " FROM client_location";
+                " FROM client_location" +
+                " WHERE active = 1";
             DataTable locationTable = helper.ExecuteSQL(sql);
             foreach (DataRow dr in locationTable.Rows)
             {
@@ -26,7 +27,8 @@ namespace BitServicesDesktopApp.Models
             SQLHelper db = new SQLHelper();
             string sql = "SELECT location_id, client_id, email, phone, street, suburb, postcode, state, active" +
                  " FROM client_location" +
-                 " WHERE client_id = @ClientId";
+                 " WHERE client_id = @ClientId" +
+                 " AND active = 1";
             SqlParameter[] objParams = new SqlParameter[1];
             objParams[0] = new SqlParameter("@ClientId", DbType.Int32);
             objParams[0].Value = clientId;

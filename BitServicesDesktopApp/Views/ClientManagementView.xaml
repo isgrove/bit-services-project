@@ -109,9 +109,9 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Button Content="SAVE LOCATION" x:Name="btnSaveLocation" Margin="5" Grid.Column="0"/>
+                        <Button Command="{Binding SaveLocationCommand}" Content="SAVE LOCATION" x:Name="btnSaveLocation" Margin="5" Grid.Column="0"/>
                         <Button Click="btnAddLocation_Click" Content="ADD LOCATION" x:Name="btnAddLocation" Margin="5" Grid.Column="1"/>
-                        <Button Content="DELETE LOCATION" x:Name="btnDeleteLocation" Margin="5" Grid.Column="2"/>
+                        <Button Command="{Binding DeleteLocationCommand}" Content="DELETE LOCATION" x:Name="btnDeleteLocation" Margin="5" Grid.Column="2"/>
                     </Grid>
                 </Grid>
             </TabItem>
