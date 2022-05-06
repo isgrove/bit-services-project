@@ -115,6 +115,20 @@ namespace BitServicesDesktopApp.Models
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
             return rowsAffected;
         }
+        public int DeleteClient()
+        {
+            GeneratePassword();
+            string sql = "UPDATE client" +
+                         " SET active = 0" +
+                         " WHERE client_id = @ClientId";
+            SqlParameter[] objParams = new SqlParameter[1];
+            objParams[0] = new SqlParameter("@ClientId", DbType.String)
+            {
+                Value = this.ClientId
+            };
+            int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
+            return rowsAffected;
+        }
 
         // TODO: Generate a random password
         private void GeneratePassword()

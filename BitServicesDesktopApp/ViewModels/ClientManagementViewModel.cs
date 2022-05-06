@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using System.Windows;
 using System.Windows.Forms;
+using MessageBox = System.Windows.MessageBox;
 
 namespace BitServicesDesktopApp.ViewModels
 {
@@ -16,6 +18,7 @@ namespace BitServicesDesktopApp.ViewModels
         private ObservableCollection<ClientLocation> _clientLocations;
         private Client _selectedClient;
         private ClientLocation _selectedLocation;
+        private RelayCommand _deleteCommand;
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string prop)
@@ -25,7 +28,38 @@ namespace BitServicesDesktopApp.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
             }
         }
+        public RelayCommand DeleteCommand
+        {
+            get
+            {
+                if (_deleteCommand == null)
+                {
+                    _deleteCommand = new RelayCommand(this.DeleteMethod, true);
+                }
+                return _deleteCommand;
+            }
+            set { _deleteCommand = value; }
+        }
+        public void DeleteMethod()
+        {
+            MessageBoxResult messageBoxResult = MessageBox.Show($"Are you sure that you want to delete {SelectedClient.Name}?", $"Delete {SelectedClient.Name}", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                string message;
+                int rowsAffected = SelectedClient.DeleteClient();
+                if (rowsAffected >= 1)
+                {
+                    message = "You have successfully deleted " + SelectedClient.Name + "!";
+                }
+                else
+                {
+                    message = "There was an issue when deleting " + SelectedClient.Name + ", please try again!";
+                }
+                UpdateClients();
+                MessageBox.Show(message);
+            }
 
+        }
         public ObservableCollection<Client> Clients
         {
             get { return _clients; }
@@ -51,8 +85,11 @@ namespace BitServicesDesktopApp.ViewModels
             {
                 _selectedClient = value;
                 OnPropertyChanged("SelectedClient");
-                ClientLocations allLocations = new ClientLocations(SelectedClient.ClientId);
-                this.ClientLocations = new ObservableCollection<ClientLocation>(allLocations);
+                if (_selectedClient != null)
+                {
+                    ClientLocations allLocations = new ClientLocations(SelectedClient.ClientId);
+                    this.ClientLocations = new ObservableCollection<ClientLocation>(allLocations);
+                }
             }
         }
         public ClientLocation SelectedLocation
@@ -64,10 +101,15 @@ namespace BitServicesDesktopApp.ViewModels
                 OnPropertyChanged("SelectedLocation");
             }
         }
-        public ClientManagementViewModel()
+
+        private void UpdateClients()
         {
             Clients allClients = new Clients();
             this.Clients = new ObservableCollection<Client>(allClients);
+        }
+        public ClientManagementViewModel()
+        {
+            UpdateClients();
         }
     }
 }

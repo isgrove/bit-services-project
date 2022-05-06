@@ -54,7 +54,7 @@
                         </Grid.ColumnDefinitions>
                         <Button x:Name="btnUpdate" Content="SAVE CLIENT" Margin="5" Grid.Column="0"/>
                         <Button x:Name="btnAdd" Content="ADD CLIENT" Margin="5" Click="btnAdd_Click" Grid.Column="1"/>
-                        <Button x:Name="btnDelete" Content="DELETE CLIENT" Margin="5" Grid.Column="2"/>
+                        <Button Command="{Binding DeleteCommand}" x:Name="btnDelete" Content="DELETE CLIENT" Margin="5" Grid.Column="2"/>
                     </Grid>
                 </Grid>
             </TabItem>
