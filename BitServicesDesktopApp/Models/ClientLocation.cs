@@ -142,5 +142,41 @@ namespace BitServicesDesktopApp.Models
             this.State = dr["state"].ToString();
             this.Active = Convert.ToBoolean(dr["active"]);
         }
+        public int InsertClientLocation()
+        {
+            string sql = "INSERT INTO client_location (client_id, email, phone, street, suburb, postcode, state, active)" +
+                         " VALUES(@ClientId, @Email, @Phone, @Street, @Suburb, @Postcode, @State, 1)";
+            SqlParameter[] objParams = new SqlParameter[7];
+            objParams[0] = new SqlParameter("@ClientId", DbType.Int32)
+            {
+                Value = this.ClientId
+            };
+            objParams[1] = new SqlParameter("@Email", DbType.String)
+            {
+                Value = this.Email
+            };
+            objParams[2] = new SqlParameter("@Phone", DbType.String)
+            {
+                Value = this.Phone
+            };
+            objParams[3] = new SqlParameter("@Street", DbType.String)
+            {
+                Value = this.Street
+            };
+            objParams[4] = new SqlParameter("@Suburb", DbType.String)
+            {
+                Value = this.Street
+            };
+            objParams[5] = new SqlParameter("@Postcode", DbType.String)
+            {
+                Value = this.Postcode
+            };
+            objParams[6] = new SqlParameter("@State", DbType.String)
+            {
+                Value = this.State
+            };
+            int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
+            return rowsAffected;
+        }
     }
 }

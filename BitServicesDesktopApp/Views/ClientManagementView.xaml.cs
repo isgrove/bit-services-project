@@ -19,10 +19,12 @@ namespace BitServicesDesktopApp.Views
     /// </summary>
     public partial class ClientManagementView : Page
     {
+        static ClientManagementViewModel vm;
         public ClientManagementView()
         {
             InitializeComponent();
-            this.DataContext = new ClientManagementViewModel();
+            vm = new ClientManagementViewModel();
+            this.DataContext = vm;
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -32,12 +34,7 @@ namespace BitServicesDesktopApp.Views
 
         private void btnAddLocation_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("Views/AddClientLocationView.xaml", UriKind.Relative));
-        }
-
-        private void dgClientLocations_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
+            NavigationService.Navigate(new AddClientLocationView(vm));
         }
     }
 }

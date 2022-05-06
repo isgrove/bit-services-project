@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BitServicesDesktopApp.ViewModels;
 
 namespace BitServicesDesktopApp.Views
 {
@@ -20,12 +21,21 @@ namespace BitServicesDesktopApp.Views
     /// </summary>
     public partial class AddClientLocationView : Page
     {
-        public AddClientLocationView()
+        private ClientManagementViewModel _vm;
+
+        public AddClientLocationView(ClientManagementViewModel vm)
         {
             InitializeComponent();
+            this._vm = vm;
+            this.DataContext = new AddClientLocationViewModel(this._vm);
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("Views/ClientManagementView.xaml", UriKind.Relative));
+        }
+
+        private void BtnSave_OnClick(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("Views/ClientManagementView.xaml", UriKind.Relative));
         }

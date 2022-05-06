@@ -29,21 +29,36 @@
         </Grid.ColumnDefinitions>
         <TextBlock Text="New Client Location" FontSize="28px"
                        FontWeight="bold" Margin="0,0,0,0" Grid.ColumnSpan="3"/>
-        <Label Content="Email: " Grid.Row="1" Grid.Column="0"/>
-        <TextBox x:Name="txtEmail" Text="{Binding NewClientLocation.Email}" Grid.Row="1" Grid.Column="1" Margin="5" />
-        <Label Content="Phone: " Grid.Row="2" Grid.Column="0"/>
-        <TextBox x:Name="txtPhone" Text="{Binding NewClientLocation.Phone}" Grid.Row="2" Grid.Column="1" Margin="5" />
-        <Label Content="Street: " Grid.Row="3" Grid.Column="0"/>
-        <TextBox x:Name="txtStreet" Text="{Binding NewClientLocation.Street}" Grid.Row="3" Grid.Column="1" Margin="5" />
-        <Label Content="Suburb: " Grid.Row="4" Grid.Column="0"/>
-        <TextBox x:Name="txtSuburb" Text="{Binding NewClientLocation.Suburb}" Grid.Row="4" Grid.Column="1" Margin="5" />
-        <Label Content="Postcode: " Grid.Row="5" Grid.Column="0"/>
-        <TextBox x:Name="txtPostcode" Text="{Binding NewClientLocation.Postcode}" Grid.Row="5" Grid.Column="1" Margin="5" />
-        <Label Content="State: " Grid.Row="6" Grid.Column="0"/>
-        <TextBox x:Name="txtState" Text="{Binding NewClientLocation.State}" Grid.Row="6" Grid.Column="1" Margin="5" />
+        <Label Content="Client: " Grid.Row="1" Grid.Column="0"/>
+        <ComboBox x:Name="cmbClient" ItemsSource="{Binding Clients, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  DisplayMemberPath="Name"
+                  Text="{Binding SelectedClient.Name, UpdateSourceTrigger=PropertyChanged}"
+                  Grid.Row="1" Grid.Column="1" Margin="10" />
+        <Label Content="Email: " Grid.Row="2" Grid.Column="0"/>
+        <TextBox x:Name="txtEmail" Text="{Binding NewClientLocation.Email}" Grid.Row="2" Grid.Column="1" Margin="10" />
+        <Label Content="Phone: " Grid.Row="3" Grid.Column="0"/>
+        <TextBox x:Name="txtPhone" Text="{Binding NewClientLocation.Phone}" Grid.Row="3" Grid.Column="1" Margin="10" />
+        <Label Content="Street: " Grid.Row="4" Grid.Column="0"/>
+        <TextBox x:Name="txtStreet" Text="{Binding NewClientLocation.Street}" Grid.Row="4" Grid.Column="1" Margin="10" />
+        <Label Content="Suburb: " Grid.Row="5" Grid.Column="0"/>
+        <TextBox x:Name="txtSuburb" Text="{Binding NewClientLocation.Suburb}" Grid.Row="5" Grid.Column="1" Margin="10" />
+        <Label Content="Postcode: " Grid.Row="6" Grid.Column="0"/>
+        <TextBox x:Name="txtPostcode" Text="{Binding NewClientLocation.Postcode}" Grid.Row="6" Grid.Column="1" Margin="10" />
+        <Label Content="State: " Grid.Row="7" Grid.Column="0"/>
+        <ComboBox x:Name="cmbState" Text="{Binding NewClientLocation.State, UpdateSourceTrigger=PropertyChanged}"
+                  Grid.Row="7" Grid.Column="1" Margin="10"
+                  >
+            <ComboBoxItem>NSW</ComboBoxItem>
+            <ComboBoxItem>VIC</ComboBoxItem>
+            <ComboBoxItem>QLD</ComboBoxItem>
+            <ComboBoxItem>SA</ComboBoxItem>
+            <ComboBoxItem>WA</ComboBoxItem>
+            <ComboBoxItem>TAS</ComboBoxItem>
+            <ComboBoxItem>ACT</ComboBoxItem>
+        </ComboBox>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="9" Grid.ColumnSpan="4">
-            <Button Command="{Binding AddCommand}" x:Name="btnSave" Content="SAVE" Width="150" Margin="10"/>
-            <Button x:Name="btnClear" Content="CLEAR" Width="150" Margin="10"/>
+            <Button Command="{Binding AddCommand}" Click="BtnSave_OnClick" x:Name="btnSave" Content="SAVE" Width="150" Margin="10"/>
+            <Button Command="{Binding ClearCommand}" x:Name="btnClear" Content="CLEAR" Width="150" Margin="10"/>
             <Button x:Name="btnCancel" Content="CANCEL" Width="150" Margin="10" Click="btnCancel_Click"/>
         </StackPanel>
     </Grid>
