@@ -135,5 +135,31 @@ namespace BitServicesDesktopApp.Models
         {
             this.Password = "Password";
         }
+
+        public int UpdateClient()
+        {
+            string sql = "UPDATE client" +
+                         " SET client_name = @Name, email = @Email, phone = @Phone" +
+                         " WHERE client_id = @ClientId";
+            SqlParameter[] objParams = new SqlParameter[4];
+            objParams[0] = new SqlParameter("@Name", DbType.String)
+            {
+                Value = this.Name
+            };
+            objParams[1] = new SqlParameter("@Email", DbType.String)
+            {
+                Value = this.Email
+            };
+            objParams[2] = new SqlParameter("@Phone", DbType.String)
+            {
+                Value = this.Phone
+            };
+            objParams[3] = new SqlParameter("@ClientId", DbType.String)
+            {
+                Value = this.ClientId
+            };
+            int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
+            return rowsAffected;
+        }
     }
 }

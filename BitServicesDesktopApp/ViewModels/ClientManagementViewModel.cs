@@ -19,6 +19,7 @@ namespace BitServicesDesktopApp.ViewModels
         private Client _selectedClient;
         private ClientLocation _selectedLocation;
         private RelayCommand _deleteCommand;
+        private RelayCommand _saveCommand;
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string prop)
@@ -40,6 +41,18 @@ namespace BitServicesDesktopApp.ViewModels
             }
             set { _deleteCommand = value; }
         }
+        public RelayCommand SaveCommand
+        {
+            get
+            {
+                if (_saveCommand == null)
+                {
+                    _saveCommand = new RelayCommand(this.SaveMethod, true);
+                }
+                return _saveCommand;
+            }
+            set { _saveCommand = value; }
+        }
         public void DeleteMethod()
         {
             MessageBoxResult messageBoxResult = MessageBox.Show($"Are you sure that you want to delete {SelectedClient.Name}?", $"Delete {SelectedClient.Name}", MessageBoxButton.YesNo);
@@ -57,6 +70,25 @@ namespace BitServicesDesktopApp.ViewModels
                 }
                 UpdateClients();
                 MessageBox.Show(message);
+            }
+
+        }
+        public void SaveMethod()
+        {
+            MessageBoxResult messageBoxResult = MessageBox.Show($"Are you sure that you would like to update {SelectedClient.Name}?", $"Update {SelectedClient.Name}", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                string message;
+                int rowsAffected = SelectedClient.UpdateClient();
+                if (rowsAffected >= 1)
+                {
+                    message = "You have successfully saved " + SelectedClient.Name + "!";
+                }
+                else
+                {
+                    message = "There was an issue when saving " + SelectedClient.Name + ", please try again!";
+                }
+                MessageBox.Show(message, $"Update {SelectedClient.Name}");
             }
 
         }

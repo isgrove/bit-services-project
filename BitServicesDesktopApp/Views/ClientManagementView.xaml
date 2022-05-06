@@ -52,7 +52,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="btnUpdate" Content="SAVE CLIENT" Margin="5" Grid.Column="0"/>
+                        <Button Command="{Binding SaveCommand}" x:Name="btnUpdate" Content="SAVE CLIENT" Margin="5" Grid.Column="0"/>
                         <Button x:Name="btnAdd" Content="ADD CLIENT" Margin="5" Click="btnAdd_Click" Grid.Column="1"/>
                         <Button Command="{Binding DeleteCommand}" x:Name="btnDelete" Content="DELETE CLIENT" Margin="5" Grid.Column="2"/>
                     </Grid>
