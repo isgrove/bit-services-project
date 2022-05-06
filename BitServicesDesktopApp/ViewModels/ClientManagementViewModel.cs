@@ -13,7 +13,6 @@ namespace BitServicesDesktopApp.ViewModels
 {
     public class ClientManagementViewModel : INotifyPropertyChanged
     {
-        // TODO: Add functionality to all butonns
         private ObservableCollection<Client> _clients;
         private ObservableCollection<ClientLocation> _clientLocations;
         private Client _selectedClient;
