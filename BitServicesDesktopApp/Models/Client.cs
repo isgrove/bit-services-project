@@ -89,6 +89,23 @@ namespace BitServicesDesktopApp.Models
             this.Password = dr["password"].ToString();
             this.Active = Convert.ToBoolean(dr["active"]);
         }
+        public Client(int clientId)
+        {
+            this._db = new SQLHelper();
+            _db = new SQLHelper();
+            string sql = "SELECT client_id, client_name, email, phone, active" +
+                         " FROM client" +
+                         " WHERE client_id = @ClientId";
+            SqlParameter[] objParams = new SqlParameter[1];
+            objParams[0] = new SqlParameter("@ClientId", DbType.Int32);
+            objParams[0].Value = clientId;
+            DataRow dr = _db.ExecuteSQL(sql, objParams).Rows[0];
+            this.ClientId = Convert.ToInt32(dr["client_id"]);
+            this.Name = dr["client_name"].ToString();
+            this.Email = dr["email"].ToString();
+            this.Phone = dr["phone"].ToString();
+            this.Active = Convert.ToBoolean(dr["active"]);
+        }
 
         public int InsertClient()
         {
