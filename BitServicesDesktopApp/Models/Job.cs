@@ -16,6 +16,7 @@ namespace BitServicesDesktopApp.Models
         private int _locationId;
         private int _clientId;
         private Contractor _assignedContractor;
+        private Client _client;
         private ClientLocation _location;
         private int _assignedContractorId;
         private string _requiredSkill;
@@ -108,6 +109,15 @@ namespace BitServicesDesktopApp.Models
                 OnPropertyChanged("DeadlineDate");
             }
         }
+        public Client Client
+        {
+            get { return _client; }
+            set
+            {
+                _client = value;
+                OnPropertyChanged("Client");
+            }
+        }
         public ClientLocation Location
         {
             get { return _location; }
@@ -143,6 +153,7 @@ namespace BitServicesDesktopApp.Models
             this.DeadlineDate = Convert.ToDateTime(dr["deadline_date"].ToString());
             this.Location = new ClientLocation(this.LocationId);
             this.AssignedContractor = new Contractor(this.AssignedContractorId);
+            this.Client = new Client(Location.ClientId);
         }
     }
 }
