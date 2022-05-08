@@ -145,7 +145,7 @@
             <!-- TOOD: Fix text not showing the selected suburb -->
             <ComboBox x:Name="cmbClientLocation" ItemsSource="{Binding SelectedClientLocations, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       DisplayMemberPath="Suburb"
-                      Text="{Binding SelectedJob.Location.Suburb, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedValue="{Binding SelectedJob.Location, UpdateSourceTrigger=PropertyChanged}"
                       Grid.Row="1" Grid.Column="1" Margin="5" />
             <Label Content="Client Street: " Grid.Row="2" Grid.Column="0"/>
             <TextBox IsReadOnly="True" x:Name="txtClientStreet" Text="{Binding SelectedJob.Location.Street}" Grid.Row="2" Grid.Column="1" Margin="5"/>
@@ -181,9 +181,9 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Command="{Binding UpdateCommand}" x:Name="btnUpdate" Content="SAVE JOB" Margin="5"/>
+            <Button Grid.Column="0" Command="{Binding SaveCommand}" x:Name="btnUpdate" Content="SAVE JOB" Margin="5"/>
             <Button Grid.Column="1" x:Name="btnAdd" Content="ADD JOB" Margin="5" Click="btnAdd_Click"/>
-            <Button Grid.Column="2" x:Name="btnDelete" Content="DELETE JOB" Margin="5"/>
+            <Button Grid.Column="2" Command="{Binding DeleteCommand}" x:Name="btnDelete" Content="DELETE JOB" Margin="5"/>
         </Grid>
     </Grid>
 </Page>

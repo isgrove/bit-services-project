@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using BitServicesDesktopApp.Commands;
 using BitServicesDesktopApp.Models;
 
 namespace BitServicesDesktopApp.ViewModels
@@ -23,6 +24,8 @@ namespace BitServicesDesktopApp.ViewModels
         private ObservableCollection<JobStatus> _jobStatuses;
         private ObservableCollection<Skill> _skills;
         private Job _selectedJob;
+        private RelayCommand _deleteCommand;
+        private RelayCommand _saveCommand;
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string prop)
@@ -31,6 +34,69 @@ namespace BitServicesDesktopApp.ViewModels
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
             }
+        }
+        public RelayCommand DeleteCommand
+        {
+            get
+            {
+                if (_deleteCommand == null)
+                {
+                    _deleteCommand = new RelayCommand(this.DeleteMethod, true);
+                }
+                return _deleteCommand;
+            }
+            set { _deleteCommand = value; }
+        }
+        public RelayCommand SaveCommand
+        {
+            get
+            {
+                if (_saveCommand == null)
+                {
+                    _saveCommand = new RelayCommand(this.SaveMethod, true);
+                }
+                return _saveCommand;
+            }
+            set { _saveCommand = value; }
+        }
+        public void DeleteMethod()
+        {
+            MessageBoxResult messageBoxResult = MessageBox.Show($"Are you sure that you want to delete this job for {SelectedJob.Client.Name} {SelectedJob.Location.Suburb}?", $"Delete Job", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                string message;
+                int rowsAffected = SelectedJob.DeleteJob();
+                if (rowsAffected >= 1)
+                {
+                    message = $"You have successfully deleted this job for {SelectedJob.Client.Name} {SelectedJob.Location.Suburb}!";
+                }
+                else
+                {
+                    message = $"There was an issue when deleting this job for {SelectedJob.Client.Name} {SelectedJob.Location.Suburb}, please try again!";
+                }
+                UpdateJobs();
+                MessageBox.Show(message, $"Delete Job");
+            }
+
+        }
+        public void SaveMethod()
+        {
+            MessageBoxResult messageBoxResult = MessageBox.Show($"Are you sure that you want to update this job for {SelectedJob.Client.Name} {SelectedJob.Location.Suburb}?", $"Update Job", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                string message;
+                int rowsAffected = SelectedJob.UpdateJob();
+                if (rowsAffected >= 1)
+                {
+                    message = $"You have successfully saved this job for {SelectedJob.Client.Name} {SelectedJob.Location.Suburb}!";
+                }
+                else
+                {
+                    message = $"There was an issue when saving this job for {SelectedJob.Client.Name} {SelectedJob.Location.Suburb}, please try again!";
+                }
+                MessageBox.Show(message, $"Update Job");
+            }
+
         }
         public ObservableCollection<Job> Jobs
         {
@@ -140,18 +206,14 @@ namespace BitServicesDesktopApp.ViewModels
             {
                 _selectedJob = value;
                 OnPropertyChanged("SelectedJob");
-                ClientLocations alllClientLocations = new ClientLocations(SelectedJob.ClientId);
-                // By updating the SelectedClientLocations variable, the binding on cmbClientLocation text breaks
-                this.SelectedClientLocations = new ObservableCollection<ClientLocation>(alllClientLocations);
+                if (this.SelectedJob != null)
+                {
+                    ClientLocations alllClientLocations = new ClientLocations(SelectedJob.ClientId);
+                    // By updating the SelectedClientLocations variable, the binding on cmbClientLocation text breaks
+                    this.SelectedClientLocations = new ObservableCollection<ClientLocation>(alllClientLocations);
+                }
             }
         }
-        /*
-        Accepted
-        Awaiting Payment
-        Completed
-        Pending
-        Rejected
-         */
         public void UpdateJobs()
         {
             Jobs allJobs = new Jobs();

@@ -14,7 +14,7 @@ namespace BitServicesDesktopApp.Models
 {
     public class Job : INotifyPropertyChanged
     {
-        //TODO: Add required time (days)
+        //TODO: Add required time (days) and job title
         private int _jobId;
         private int _locationId;
         private int _clientId;
@@ -158,7 +158,7 @@ namespace BitServicesDesktopApp.Models
             this.DeadlineDate = Convert.ToDateTime(dr["deadline_date"].ToString());
             this.Location = new ClientLocation(this.LocationId);
             this.AssignedContractor = new Contractor(this.AssignedContractorId);
-            this.Client = new Client(Location.ClientId);
+            this.Client = new Client(this.Location.ClientId);
         }
         public int InsertJob()
         {
@@ -192,6 +192,60 @@ namespace BitServicesDesktopApp.Models
             objParams[6] = new SqlParameter("@DeadlineDate", DbType.Date)
             {
                 Value = this.DeadlineDate
+            };
+            int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
+            return rowsAffected;
+        }
+        public int DeleteJob()
+        {
+            string sql = "DELETE FROM job" +
+                         " WHERE job_id = @JobId";
+            SqlParameter[] objParams = new SqlParameter[1];
+            objParams[0] = new SqlParameter("@JobId", DbType.Int32)
+            {
+                Value = this.JobId
+            };
+            int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
+            return rowsAffected;
+        }
+        public int UpdateJob()
+        {
+            string sql = "UPDATE job" +
+                         " SET location_id = @LocationId, assigned_contractor_id = @AssignedContractorId, required_skill_name = @RequiredSkill," +
+                         " job_status = @JobStatus, kilometers = @Kilometers, description = @Description, deadline_date = @DeadlineDate" +
+                         " WHERE job_id = @JobId";
+            SqlParameter[] objParams = new SqlParameter[8];
+            objParams[0] = new SqlParameter("@LocationId", DbType.Int32)
+            {
+                Value = this.Location.LocationId
+            };
+            objParams[1] = new SqlParameter("@AssignedContractorId", DbType.Int32)
+            {
+                Value = this.AssignedContractor.ContractorId
+            };
+            objParams[2] = new SqlParameter("@RequiredSkill", DbType.String)
+            {
+                Value = this.RequiredSkill
+            };
+            objParams[3] = new SqlParameter("@JobStatus", DbType.String)
+            {
+                Value = this.JobStatus
+            };
+            objParams[4] = new SqlParameter("@Kilometers", DbType.Int32)
+            {
+                Value = this.Kilometers
+            };
+            objParams[5] = new SqlParameter("@Description", DbType.String)
+            {
+                Value = this.Description
+            };
+            objParams[6] = new SqlParameter("@DeadlineDate", DbType.Date)
+            {
+                Value = this.DeadlineDate
+            };
+            objParams[7] = new SqlParameter("@JobId", DbType.Int32)
+            {
+                Value = this.JobId
             };
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
             return rowsAffected;
