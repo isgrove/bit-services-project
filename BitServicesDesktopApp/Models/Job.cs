@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BitServicesDesktopApp.DAL;
 
 namespace BitServicesDesktopApp.Models
 {
     public class Job : INotifyPropertyChanged
     {
+        //TODO: Add required time (days)
         private int _jobId;
         private int _locationId;
         private int _clientId;
@@ -24,6 +27,7 @@ namespace BitServicesDesktopApp.Models
         private string _description;
         private int _kilometers;
         private DateTime _deadlineDate;
+        private SQLHelper _db;
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string prop)
         {
@@ -138,10 +142,11 @@ namespace BitServicesDesktopApp.Models
         }
         public Job()
         {
-
+            _db = new SQLHelper();
         }
         public Job(DataRow dr)
         {
+            _db = new SQLHelper();
             this.JobId = Convert.ToInt32(dr["job_id"].ToString());
             this.LocationId = Convert.ToInt32(dr["location_id"].ToString());
             this.ClientId = Convert.ToInt32(dr["client_id"].ToString());
@@ -154,6 +159,42 @@ namespace BitServicesDesktopApp.Models
             this.Location = new ClientLocation(this.LocationId);
             this.AssignedContractor = new Contractor(this.AssignedContractorId);
             this.Client = new Client(Location.ClientId);
+        }
+        public int InsertJob()
+        {
+            string sql = "INSERT INTO job (location_id, assigned_contractor_id, required_skill_name, job_status, kilometers, description, deadline_date)" +
+                         " VALUES(@LocationId, @AssignedContractorId, @RequiredSkill, @JobStatus, @Kilometers, @Description, @DeadlineDate)";
+            SqlParameter[] objParams = new SqlParameter[7];
+            objParams[0] = new SqlParameter("@LocationId", DbType.Int32)
+            {
+                Value = this.Location.LocationId
+            };
+            objParams[1] = new SqlParameter("@AssignedContractorId", DbType.Int32)
+            {
+                Value = this.AssignedContractor.ContractorId
+            };
+            objParams[2] = new SqlParameter("@RequiredSkill", DbType.String)
+            {
+                Value = this.RequiredSkill
+            };
+            objParams[3] = new SqlParameter("@JobStatus", DbType.String)
+            {
+                Value = this.JobStatus
+            };
+            objParams[4] = new SqlParameter("@Kilometers", DbType.Int32)
+            {
+                Value = this.Kilometers
+            };
+            objParams[5] = new SqlParameter("@Description", DbType.String)
+            {
+                Value = this.Description
+            };
+            objParams[6] = new SqlParameter("@DeadlineDate", DbType.Date)
+            {
+                Value = this.DeadlineDate
+            };
+            int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
+            return rowsAffected;
         }
     }
 }

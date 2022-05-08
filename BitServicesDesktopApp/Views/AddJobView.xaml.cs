@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BitServicesDesktopApp.ViewModels;
 
 namespace BitServicesDesktopApp.Views
 {
@@ -21,9 +22,15 @@ namespace BitServicesDesktopApp.Views
         public AddJobView()
         {
             InitializeComponent();
+            this.DataContext = new AddJobViewModel();
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("Views/JobManagementView.xaml", UriKind.Relative));
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("Views/JobManagementView.xaml", UriKind.Relative));
         }

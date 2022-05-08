@@ -41,7 +41,6 @@ namespace BitServicesDesktopApp.ViewModels
                 OnPropertyChanged("Jobs");
             }
         }
-
         public ObservableCollection<Job> AcceptedJobs
         {
             get { return _acceptedJobs; }

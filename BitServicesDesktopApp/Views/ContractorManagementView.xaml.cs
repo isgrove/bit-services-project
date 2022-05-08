@@ -29,5 +29,10 @@ namespace BitServicesDesktopApp.Views
         {
             NavigationService.Navigate(new Uri("Views/AddContractorView.xaml", UriKind.Relative));
         }
+
+        private void dgContractorSkills_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
