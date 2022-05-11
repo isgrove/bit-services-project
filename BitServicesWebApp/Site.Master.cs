@@ -13,5 +13,10 @@ namespace BitServicesWebApp
         {
 
         }
+
+        protected void lbtnLogin_OnClick(object sender, EventArgs e)
+        {
+            Response.Redirect("Pages/LoginPage.aspx");
+        }
     }
 }

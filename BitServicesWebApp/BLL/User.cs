@@ -23,7 +23,7 @@ namespace BitServicesWebApp.BLL
         {
             string sql = "SELECT client_id" +
                 " FROM client" +
-                "WHERE email = @Email and password = @Password";
+                " WHERE email = @Email and password = @Password";
             SqlParameter[] objParams = new SqlParameter[2];
             objParams[0] = new SqlParameter("@Email", DbType.String);
             objParams[0].Value = this.Email;
@@ -59,7 +59,7 @@ namespace BitServicesWebApp.BLL
         {
             string sql = "SELECT staff_id" +
                 " FROM staff" +
-                "WHERE email = @Email and password = @Password";
+                " WHERE email = @Email and password = @Password";
             SqlParameter[] objParams = new SqlParameter[2];
             objParams[0] = new SqlParameter("@Email", DbType.String);
             objParams[0].Value = this.Email;

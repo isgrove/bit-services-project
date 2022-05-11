@@ -23,7 +23,7 @@
         <div>
             <nav class="navbar navbar-expand-lg navbar-light">
                 <a class="navbar-brand" href="#">
-                    <img src="Images/BitServicesLogo.png" height="50"/>
+                    <img src="Images/BitServicesLogo.png" height="50" alt="BitServices Logo"/>
                 </a>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
@@ -46,7 +46,7 @@
                         </li>
                         <li class="nav-time active">
                             <asp:LinkButton CssClass="nav-link" ID="lbtnLogin"
-                                runat="server">
+                                OnClick="lbtnLogin_OnClick" runat="server">
                             Login
                             </asp:LinkButton>
                         </li>
