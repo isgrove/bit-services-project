@@ -56,13 +56,6 @@ namespace BitServicesWebApp.Pages.Client
             newJob.Client.ClientId = Convert.ToInt32(Session["ClientId"].ToString());
             newJob.Location.LocationId = Convert.ToInt32(ddlLocation.SelectedValue);
 
-            //TODO REMOVE DEBUG
-            Response.Write($"<script>console.log('New Job:') </script>)");
-            Response.Write($"<script>console.log('LocationId: {newJob.Location.LocationId}') </script>)");
-            Response.Write($"<script>console.log('Description: {newJob.Description}') </script>)");
-            Response.Write($"<script>console.log('Deadline Date: {newJob.DeadlineDate}') </script>)");
-            Response.Write($"<script>console.log('ClientId {newJob.Client.ClientId}') </script>)");
-
             int returnValue = newJob.InsertJob(false);
             if (returnValue > 0)
             {
