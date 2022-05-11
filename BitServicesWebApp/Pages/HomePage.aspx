@@ -15,7 +15,7 @@
     <div class="container">
         <div class="row">
             <div class="col-4">
-                <img src="../Images/JBHiFiLogo.jpg" height="50" style="margin-bottom: 20px"/>
+                <asp:Image runat="server" imageurl="~/Images/JBHiFiLogo.jpg" height="50" style="margin-bottom: 20px" AlternateText="JBHiFi Logo"/>
                 <p class="text-justify">
                     Bit Services has made our lives so much easier with their superb service and support.
                     Their communication is always refreshing and they've always been up to our expectations
@@ -23,13 +23,13 @@
                 </p>
             </div>
             <div class="col-4">
-                <img src="../Images/WoolworthsLogo.png" height="50" style="margin-bottom: 20px">
+                <asp:Image runat="server" imageurl="~/Images/WoolworthsLogo.png" height="50" style="margin-bottom: 20px" AlternateText="Woolworths Logo"/>
                 <p class="text-justify">
                     We are never been disappointed with Bit Services. They solve most of the technical issues in blink of an eye. Highly technical team.
                 </p>
             </div>
             <div class="col-4">
-                <img src="../Images/TargetLogo.png" height="50" style="margin-bottom: 20px"/>
+                <asp:Image runat="server" imageurl="~/Images/TargetLogo.png" height="50" style="margin-bottom: 20px" AlternateText="Target Logo"/>
                 <p class="text-justify">
                     Bit Services are excellent. Always so helpful and they go above and beyond to assist. They always respond very quickly and can resolve any issue.
                 </p>
