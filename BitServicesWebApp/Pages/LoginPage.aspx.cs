@@ -26,7 +26,7 @@ namespace BitServicesWebApp.Pages
             if (id > 0)
             {
                 Session.Add("ClientId", id);
-                Response.Redirect("Client/JobsPage.aspx");
+                Response.Redirect("~/Pages/Client/JobsPage.aspx");
             }
             else
             {
@@ -34,7 +34,7 @@ namespace BitServicesWebApp.Pages
                 if (id > 0)
                 {
                     Session.Add("ContractorId", id);
-                    Response.Redirect("HomePage.aspx");
+                    Response.Redirect("~/Pages/HomePage.aspx");
                 }
                 else
                 {
@@ -42,7 +42,7 @@ namespace BitServicesWebApp.Pages
                     if (id > 0)
                     {
                         Session.Add("StaffId", id);
-                        Response.Redirect("HomePage.aspx");
+                        Response.Redirect("~/Pages/HomePage.aspx");
                     }
                     else
                     {

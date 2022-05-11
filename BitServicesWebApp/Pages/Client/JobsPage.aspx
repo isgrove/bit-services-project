@@ -12,7 +12,7 @@
                     </div>
                     <div class="col text-right">
                         <asp:LinkButton CssClass="btn btn-primary" ID="lbtnNewJob"
-                            runat="server">
+                            runat="server" OnClick="lbtnNewJob_OnClick">
                                     New Job
                         </asp:LinkButton>
                     </div>

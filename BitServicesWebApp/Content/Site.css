@@ -14,3 +14,7 @@
 .jumbotron h1, .jumbotron p {
     color: #efefef
 }
+
+.resize-none {
+    resize: none;
+}

@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 using System.Text;
 using BitServicesWebApp.DAL;
 
-namespace BitServicesDesktopApp.Models
+namespace BitServicesWebApp.BLL
 {
     public class Client
     {

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using BitServicesDesktopApp.Models;
 using BitServicesWebApp.BLL;
 
 namespace BitServicesWebApp.Pages
@@ -23,7 +22,7 @@ namespace BitServicesWebApp.Pages
                 }
                 else
                 {
-                    Response.Redirect("LoginPage.aspx");
+                    Response.Redirect("~/Pages/LoginPage.aspx");
                 }
             }
         }
@@ -32,6 +31,11 @@ namespace BitServicesWebApp.Pages
             ClientJobs clientJobs = new ClientJobs();
             gvCompletedBookings.DataSource = clientJobs.AllCompletedBookings().DefaultView;
             gvCompletedBookings.DataBind();
+        }
+
+        protected void lbtnNewJob_OnClick(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Pages/Client/NewJobPage.aspx");
         }
     }
 }
