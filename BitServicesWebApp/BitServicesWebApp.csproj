@@ -128,7 +128,7 @@
     <Content Include="Images\TargetLogo.png" />
     <Content Include="Images\WoolworthsLogo.png" />
     <Content Include="Pages\AcceptedJobsPage.aspx" />
-    <Content Include="Pages\AllJobsPage.aspx" />
+    <Content Include="Pages\Client\JobsPage.aspx" />
     <Content Include="Pages\AssignedJobsPage.aspx" />
     <Content Include="Pages\CompletedJobsPage.aspx" />
     <Content Include="Pages\HomePage.aspx" />
@@ -171,6 +171,9 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BLL\ButtonManager.cs" />
+    <Compile Include="BLL\Client.cs" />
+    <Compile Include="BLL\ClientJobs.cs" />
     <Compile Include="BLL\User.cs" />
     <Compile Include="DAL\SQLHelper.cs" />
     <Compile Include="Global.asax.cs">
@@ -183,12 +186,12 @@
     <Compile Include="Pages\AcceptedJobsPage.aspx.designer.cs">
       <DependentUpon>AcceptedJobsPage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\AllJobsPage.aspx.cs">
-      <DependentUpon>AllJobsPage.aspx</DependentUpon>
+    <Compile Include="Pages\Client\JobsPage.aspx.cs">
+      <DependentUpon>JobsPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\AllJobsPage.aspx.designer.cs">
-      <DependentUpon>AllJobsPage.aspx</DependentUpon>
+    <Compile Include="Pages\Client\JobsPage.aspx.designer.cs">
+      <DependentUpon>JobsPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\AssignedJobsPage.aspx.cs">
       <DependentUpon>AssignedJobsPage.aspx</DependentUpon>

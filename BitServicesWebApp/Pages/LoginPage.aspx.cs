@@ -26,7 +26,7 @@ namespace BitServicesWebApp.Pages
             if (id > 0)
             {
                 Session.Add("ClientId", id);
-                Response.Redirect("HomePage.aspx");
+                Response.Redirect("Client/JobsPage.aspx");
             }
             else
             {
