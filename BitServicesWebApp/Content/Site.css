@@ -18,3 +18,7 @@
 .resize-none {
     resize: none;
 }
+
+td {
+    vertical-align: middle !important;
+}

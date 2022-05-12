@@ -34,7 +34,7 @@ namespace BitServicesWebApp.Pages
                 if (id > 0)
                 {
                     Session.Add("ContractorId", id);
-                    Response.Redirect("~/Pages/HomePage.aspx");
+                    Response.Redirect("~/Pages/Contractor/AcceptedJobsPage.aspx");
                 }
                 else
                 {

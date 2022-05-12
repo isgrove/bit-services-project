@@ -84,5 +84,42 @@ namespace BitServicesWebApp.BLL
             this.VehicleRegistration = dr["vehicle_registration"].ToString();
             this.Active = Convert.ToBoolean(dr["active"]);
         }
+
+        public int CompleteJob(int jobId, int kilometers)
+        {
+            string sql = "UPDATE Job" +
+                         " SET job_status = 'Completed', kilometers = @Kilometers " +
+                         " WHERE job_id = @JobId";
+
+            SqlParameter[] objParams = new SqlParameter[2];
+            objParams[0] = new SqlParameter("@Kilometers", DbType.Int32)
+            {
+                Value = kilometers
+            };
+            objParams[1] = new SqlParameter("@JobId", DbType.Int32)
+            {
+                Value = jobId
+            };
+            int returnValue = _db.ExecuteNonQuery(sql, objParams);
+            return returnValue;
+        }
+        public DataTable AssignedJobs()
+        {
+            SQLHelper helper = new SQLHelper();
+            string sql = "SELECT cl.suburb AS [Location Suburb], j.job_status AS [Status], j.required_skill_name [Job Skill]," +
+                         " j.description AS [Description], format(j.deadline_date, 'D') AS [Deadline Date], j.job_id" +
+                         " FROM job j" +
+                         " INNER JOIN client_location cl ON cl.location_id = j.location_id" +
+                         " INNER JOIN  client c ON c.client_id = cl.client_id" +
+                         " WHERE j.assigned_contractor_id = @ContractorId" +
+                         " AND j.job_status = 'Accepted'";
+            SqlParameter[] objParams = new SqlParameter[1];
+            objParams[0] = new SqlParameter("@ContractorId", DbType.String)
+            {
+                Value = this.ContractorId
+            };
+            DataTable jobsTable = helper.ExecuteSQL(sql, objParams);
+            return jobsTable;
+        }
     }
 }
