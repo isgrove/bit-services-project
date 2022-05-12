@@ -7,7 +7,7 @@
             <h1>Bit Services</h1>
             <p class="lead">Providing IT services to over 2,500 satisfied customers!</p>
             <p><asp:LinkButton CssClass="btn btn-primary" ID="lbtnLogin"
-                                runat="server">
+                                runat="server" OnClick="lbtnLogin_OnClick">
                             Login
                             </asp:LinkButton></p>
         </div>
