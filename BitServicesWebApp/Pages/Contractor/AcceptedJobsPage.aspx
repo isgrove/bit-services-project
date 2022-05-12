@@ -22,7 +22,6 @@
                                       CssClass="table table-striped table-bordered" AutoGenerateColumns="false"
                                       OnRowCommand="gvAcceptedJobs_OnRowCommand" runat="server" DataKeyNames="job_id">
                             <Columns>
-                                <%--<asp:BoundField DataField="job_id" HeaderText="Jod Id" Visible="False"/>--%>
                                 <asp:BoundField DataField="Location Suburb" HeaderText="Location Suburb"/>
                                 <asp:BoundField DataField="Status" HeaderText="Status"/>
                                 <asp:BoundField DataField="Job Skill" HeaderText="Job Skill"/>
