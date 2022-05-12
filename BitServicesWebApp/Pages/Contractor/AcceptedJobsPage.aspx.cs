@@ -31,11 +31,11 @@ namespace BitServicesWebApp.Pages
             {
                 ContractorId = Convert.ToInt32(Session["ContractorId"])
             };
-            gvAssignedJobs.DataSource = contractor.AssignedJobs().DefaultView;
-            gvAssignedJobs.DataBind();
+            gvAcceptedJobs.DataSource = contractor.AcceptedJobs().DefaultView;
+            gvAcceptedJobs.DataBind();
         }
 
-        protected void gvAssignedJobs_OnRowCommand(object sender, GridViewCommandEventArgs e)
+        protected void gvAcceptedJobs_OnRowCommand(object sender, GridViewCommandEventArgs e)
         {
             Contractor currentContractor = new Contractor
             {
@@ -43,11 +43,11 @@ namespace BitServicesWebApp.Pages
             };
 
             int rowIndex = Convert.ToInt32(e.CommandArgument);
-            GridViewRow row = gvAssignedJobs.Rows[rowIndex];
+            GridViewRow row = gvAcceptedJobs.Rows[rowIndex];
 
             if (e.CommandName == "Complete")
             {
-                var varJobId = gvAssignedJobs.DataKeys[rowIndex]?.Value;
+                var varJobId = gvAcceptedJobs.DataKeys[rowIndex]?.Value;
                 string strKilometers = ((TextBox)row.FindControl("txtKilometers")).Text.Trim();
                 if (int.TryParse(strKilometers, out int kilometers) && varJobId != null)
                 {

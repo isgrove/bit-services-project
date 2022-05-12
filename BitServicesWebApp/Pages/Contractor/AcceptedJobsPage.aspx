@@ -18,9 +18,9 @@
                 </div>
                 <div class="row">
                     <div class="col-12 mx-auto">
-                        <asp:GridView ID="gvAssignedJobs"
+                        <asp:GridView ID="gvAcceptedJobs"
                                       CssClass="table table-striped table-bordered" AutoGenerateColumns="false"
-                                      OnRowCommand="gvAssignedJobs_OnRowCommand" runat="server" DataKeyNames="job_id">
+                                      OnRowCommand="gvAcceptedJobs_OnRowCommand" runat="server" DataKeyNames="job_id">
                             <Columns>
                                 <%--<asp:BoundField DataField="job_id" HeaderText="Jod Id" Visible="False"/>--%>
                                 <asp:BoundField DataField="Location Suburb" HeaderText="Location Suburb"/>

@@ -103,16 +103,18 @@ namespace BitServicesWebApp.BLL
             int returnValue = _db.ExecuteNonQuery(sql, objParams);
             return returnValue;
         }
-        public DataTable AssignedJobs()
+
+        public DataTable AcceptedJobs()
         {
             SQLHelper helper = new SQLHelper();
-            string sql = "SELECT cl.suburb AS [Location Suburb], j.job_status AS [Status], j.required_skill_name [Job Skill]," +
-                         " j.description AS [Description], format(j.deadline_date, 'D') AS [Deadline Date], j.job_id" +
-                         " FROM job j" +
-                         " INNER JOIN client_location cl ON cl.location_id = j.location_id" +
-                         " INNER JOIN  client c ON c.client_id = cl.client_id" +
-                         " WHERE j.assigned_contractor_id = @ContractorId" +
-                         " AND j.job_status = 'Accepted'";
+            string sql =
+                "SELECT cl.suburb AS [Location Suburb], j.job_status AS [Status], j.required_skill_name [Job Skill]," +
+                " j.description AS [Description], format(j.deadline_date, 'D') AS [Deadline Date], j.job_id" +
+                " FROM job j" +
+                " INNER JOIN client_location cl ON cl.location_id = j.location_id" +
+                " INNER JOIN  client c ON c.client_id = cl.client_id" +
+                " WHERE j.assigned_contractor_id = @ContractorId" +
+                " AND j.job_status = 'Accepted'";
             SqlParameter[] objParams = new SqlParameter[1];
             objParams[0] = new SqlParameter("@ContractorId", DbType.String)
             {
