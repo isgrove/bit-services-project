@@ -38,12 +38,12 @@
                                    </asp:TextBox>
                                </div>
                                <div class="form-group">
-                                   <asp:Button CssClass="btn btn-success btn-block btn-lg"
+                                   <asp:Button CssClass="btn btn-primary btn-block"
                                        runat="server" Text="Login" ID="btnLogin" 
                                        OnClick="btnLogin_OnClick"/>
                                </div>
                                 <div class="form-group">
-                                   <asp:Button CssClass="btn btn-info btn-block btn-lg"
+                                   <asp:Button CssClass="btn btn-block"
                                        runat="server" Text="Sign Up" ID="btnSignUp" />
                                </div>
                            </div>
