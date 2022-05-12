@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -33,6 +34,13 @@ namespace BitServicesWebApp.Pages
             };
             gvAcceptedJobs.DataSource = contractor.AcceptedJobs().DefaultView;
             gvAcceptedJobs.DataBind();
+
+            int numberOfAssignedJobs = contractor.AssignedJobs().Rows.Count;
+            if (numberOfAssignedJobs> 0)
+            {
+                lbtnPendingJobs.CssClass = lbtnPendingJobs.CssClass.Replace("d-none", "").Trim();
+                lblPendingJobs.Text = numberOfAssignedJobs.ToString();
+            }
         }
 
         protected void gvAcceptedJobs_OnRowCommand(object sender, GridViewCommandEventArgs e)
@@ -57,6 +65,11 @@ namespace BitServicesWebApp.Pages
             }
 
             RefreshGrid();
+        }
+
+        protected void lbtnPendingJobs_OnClick(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Pages/Contractor/AssignedJobsPage.aspx");
         }
     }
 }

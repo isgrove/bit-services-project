@@ -7,12 +7,13 @@
             <div class="col-12">
                 <div class="row mb-2">
                     <div class="col">
-                        <h3>All your assigned jobs</h3>
+                        <h3>All your accepted jobs</h3>
                     </div>
                     <div class="col text-right">
-                        <asp:LinkButton CssClass="btn btn-primary" ID="lbtnPendingJobs"
-                                        runat="server">
+                        <asp:LinkButton CssClass="btn btn-outline d-none" ID="lbtnPendingJobs"
+                                        runat="server" OnClick="lbtnPendingJobs_OnClick">
                             Pending Jobs
+                            <asp:Label runat="server" ID="lblPendingJobs" CssClass="new"></asp:Label>
                         </asp:LinkButton>
                     </div>
                 </div>

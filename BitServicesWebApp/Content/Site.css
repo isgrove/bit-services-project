@@ -3,6 +3,7 @@
 }
 
 .btn-primary {
+    color: #FFFFFF !important;
     background: #EA5D32 !important;
     border-color: #EA5D32 !important;
 }
@@ -21,4 +22,18 @@
 
 td {
     vertical-align: middle !important;
+}
+
+.new {
+    color: #FFFFFF;
+    padding: 3.5px 7px;
+    border-radius: 8px;
+    background: #EA5D32 !important;
+    border-color: #EA5D32 !important;
+}
+
+.btn-outline {
+    border-color: #dddddd;
+    color: #212529;
+    background: none;
 }
