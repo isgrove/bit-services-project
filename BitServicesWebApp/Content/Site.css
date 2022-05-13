@@ -12,9 +12,9 @@
     background: #3B0E00 !important;
 }
 
-.jumbotron h1, .jumbotron p {
-    color: #efefef
-}
+    .jumbotron h1, .jumbotron p {
+        color: #efefef
+    }
 
 .resize-none {
     resize: none;
@@ -36,4 +36,27 @@ td {
     border-color: #dddddd;
     color: #212529;
     background: none;
+}
+
+.img-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.jumbotron {
+    padding: 4rem 1rem;
+}
+
+.testimonial-card {
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    padding: 8px 16px;
+    margin: 0 8px
+}
+
+@media (min-width: 576px) {
+    .jumbotron {
+        padding: 8rem 2rem;
+    }
 }
