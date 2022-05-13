@@ -133,7 +133,6 @@ namespace BitServicesWebApp.BLL
         }
         public DataTable AcceptedJobs()
         {
-            SQLHelper helper = new SQLHelper();
             string sql =
                 "SELECT cl.suburb AS [Location Suburb], j.job_status AS [Status], j.required_skill_name [Job Skill]," +
                 " j.description AS [Description], format(j.deadline_date, 'D') AS [Deadline Date], j.job_id" +
@@ -147,12 +146,11 @@ namespace BitServicesWebApp.BLL
             {
                 Value = this.ContractorId
             };
-            DataTable jobsTable = helper.ExecuteSQL(sql, objParams);
+            DataTable jobsTable = _db.ExecuteSQL(sql, objParams);
             return jobsTable;
         }
         public DataTable AssignedJobs()
         {
-            SQLHelper helper = new SQLHelper();
             string sql = "SELECT cl.suburb AS [Location Suburb], j.job_status AS [Status], j.required_skill_name [Job Skill]," +
                          " j.description AS [Description], format(j.deadline_date, 'D') AS [Deadline Date], j.job_id" +
                          " FROM job j" +
@@ -165,7 +163,7 @@ namespace BitServicesWebApp.BLL
             {
                 Value = this.ContractorId
             };
-            DataTable jobsTable = helper.ExecuteSQL(sql, objParams);
+            DataTable jobsTable = _db.ExecuteSQL(sql, objParams);
             return jobsTable;
         }
     }
