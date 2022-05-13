@@ -175,5 +175,19 @@ namespace BitServicesWebApp.BLL
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
             return rowsAffected;
         }
+
+        public int VerifyJob()
+        {
+            string sql = "UPDATE job" +
+                         " SET job_status = 'Verified'" +
+                         " WHERE job_id = @JobId";
+            SqlParameter[] objParams = new SqlParameter[1];
+            objParams[0] = new SqlParameter("@JobId", DbType.Int32)
+            {
+                Value = this.JobId
+            };
+            int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
+            return rowsAffected;
+        }
     }
 }

@@ -131,6 +131,7 @@
     <Content Include="Pages\Client\JobsPage.aspx" />
     <Content Include="Pages\Contractor\AssignedJobsPage.aspx" />
     <Content Include="Pages\Client\NewJobPage.aspx" />
+    <Content Include="Pages\Staff\AllJobsPage.aspx" />
     <Content Include="Pages\Staff\CompletedJobsPage.aspx" />
     <Content Include="Pages\HomePage.aspx" />
     <Content Include="Pages\LoginPage.aspx" />
@@ -177,6 +178,7 @@
     <Compile Include="BLL\ClientJobs.cs" />
     <Compile Include="BLL\ClientLocation.cs" />
     <Compile Include="BLL\ClientLocations.cs" />
+    <Compile Include="BLL\CompletedJobs.cs" />
     <Compile Include="BLL\Contractor.cs" />
     <Compile Include="BLL\Job.cs" />
     <Compile Include="BLL\Skills.cs" />
@@ -212,6 +214,13 @@
     </Compile>
     <Compile Include="Pages\Client\NewJobPage.aspx.designer.cs">
       <DependentUpon>NewJobPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Staff\AllJobsPage.aspx.cs">
+      <DependentUpon>AllJobsPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Staff\AllJobsPage.aspx.designer.cs">
+      <DependentUpon>AllJobsPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Staff\CompletedJobsPage.aspx.cs">
       <DependentUpon>CompletedJobsPage.aspx</DependentUpon>
