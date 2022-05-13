@@ -15,6 +15,15 @@ namespace BitServicesWebApp.Pages.Client
     {
 
         /// <summary>
+        /// ddlRequiredSkill control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlRequiredSkill;
+
+        /// <summary>
         /// calDeadlineDate control.
         /// </summary>
         /// <remarks>
@@ -33,13 +42,13 @@ namespace BitServicesWebApp.Pages.Client
         protected global::System.Web.UI.WebControls.DropDownList ddlLocation;
 
         /// <summary>
-        /// ddlRequiredSkill control.
+        /// txtTitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlRequiredSkill;
+        protected global::System.Web.UI.WebControls.TextBox txtTitle;
 
         /// <summary>
         /// txtDescription control.

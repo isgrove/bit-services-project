@@ -20,6 +20,7 @@ namespace BitServicesWebApp.BLL
 
         public string JobStatus { get; set; }
 
+        public string Title { get; set; }
         public string Description { get; set; }
 
         public int Kilometers { get; set; }
@@ -90,9 +91,9 @@ namespace BitServicesWebApp.BLL
             }
             else
             {
-                sql = "INSERT INTO job (location_id, required_skill_name, job_status, kilometers, description, deadline_date)" +
-                             " VALUES(@LocationId, @RequiredSkill, @JobStatus, @Kilometers, @Description, @DeadlineDate)";
-                objParams = new SqlParameter[6];
+                sql = "INSERT INTO job (location_id, required_skill, job_status, kilometers, title, description, deadline_date)" +
+                             " VALUES(@LocationId, @RequiredSkill, @JobStatus, @Kilometers, @Title, @Description, @DeadlineDate)";
+                objParams = new SqlParameter[7];
                 objParams[0] = new SqlParameter("@LocationId", DbType.Int32)
                 {
                     Value = this.Location.LocationId
@@ -109,11 +110,15 @@ namespace BitServicesWebApp.BLL
                 {
                     Value = this.Kilometers
                 };
-                objParams[4] = new SqlParameter("@Description", DbType.String)
+                objParams[4] = new SqlParameter("@Title", DbType.String)
+                {
+                    Value = this.Title
+                };
+                objParams[5] = new SqlParameter("@Description", DbType.String)
                 {
                     Value = this.Description
                 };
-                objParams[5] = new SqlParameter("@DeadlineDate", DbType.Date)
+                objParams[6] = new SqlParameter("@DeadlineDate", DbType.Date)
                 {
                     Value = this.DeadlineDate
                 };

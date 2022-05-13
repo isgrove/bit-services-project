@@ -9,9 +9,10 @@ namespace BitServicesWebApp.BLL
 {
     public class ClientJobs
     {
+        // TODO move this into client model
         public DataTable AllCompletedBookings()
         {
-            string sql = "SELECT cl.suburb AS [Location Suburb], j.job_status AS [Status], j.required_skill_name [Job Skill]," +
+            string sql = "SELECT cl.suburb AS [Location Suburb], j.job_status AS [Status], j.required_skill [Job Skill]," +
                          " j.description AS [Description], format(j.deadline_date, 'D') AS [Deadline Date]" + 
                          " FROM job j" +
                          " INNER JOIN client_location cl ON cl.location_id = j.location_id" +
