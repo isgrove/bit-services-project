@@ -208,7 +208,7 @@ namespace BitServicesDesktopApp.ViewModels
                 OnPropertyChanged("SelectedJob");
                 if (this.SelectedJob != null)
                 {
-                    ClientLocations alllClientLocations = new ClientLocations(SelectedJob.ClientId);
+                    ClientLocations alllClientLocations = new ClientLocations(SelectedJob.Client.ClientId);
                     // By updating the SelectedClientLocations variable, the binding on cmbClientLocation text breaks
                     this.SelectedClientLocations = new ObservableCollection<ClientLocation>(alllClientLocations);
                 }

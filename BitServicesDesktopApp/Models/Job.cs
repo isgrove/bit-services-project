@@ -16,12 +16,10 @@ namespace BitServicesDesktopApp.Models
     {
         //TODO: Add required time (days) and job title
         private int _jobId;
-        private int _locationId;
-        private int _clientId;
+        // Aggregation relationship
         private Contractor _assignedContractor;
         private Client _client;
         private ClientLocation _location;
-        private int _assignedContractorId;
         private string _requiredSkill;
         private string _jobStatus;
         private string _description;
@@ -40,33 +38,6 @@ namespace BitServicesDesktopApp.Models
         {
             get { return _jobId; }
             set { _jobId = value; }
-        }
-        public int LocationId
-        {
-            get { return _locationId; }
-            set
-            {
-                _locationId = value;
-                OnPropertyChanged("AssignedContractorId");
-            }
-        }
-        public int ClientId
-        {
-            get { return _clientId; }
-            set
-            {
-                _clientId = value;
-                OnPropertyChanged("ClientId");
-            }
-        }
-        public int AssignedContractorId
-        {
-            get { return _assignedContractorId; }
-            set
-            {
-                _assignedContractorId = value;
-                OnPropertyChanged("AssignedContractorId");
-            }
         }
         public string RequiredSkill
         {
@@ -148,17 +119,14 @@ namespace BitServicesDesktopApp.Models
         {
             _db = new SQLHelper();
             this.JobId = Convert.ToInt32(dr["job_id"].ToString());
-            this.LocationId = Convert.ToInt32(dr["location_id"].ToString());
-            this.ClientId = Convert.ToInt32(dr["client_id"].ToString());
-            this.AssignedContractorId = Convert.ToInt32(dr["assigned_contractor_id"].ToString());
             this.RequiredSkill = dr["required_skill"].ToString();
             this.JobStatus = dr["job_status"].ToString();
             this.Description = dr["description"].ToString();
             this.Kilometers = Convert.ToInt32(dr["kilometers"].ToString());
             this.DeadlineDate = Convert.ToDateTime(dr["deadline_date"].ToString());
-            this.Location = new ClientLocation(this.LocationId);
-            this.AssignedContractor = new Contractor(this.AssignedContractorId);
-            this.Client = new Client(this.Location.ClientId);
+            this.Location = new ClientLocation(Convert.ToInt32(dr["location_id"]));
+            this.AssignedContractor = new Contractor(Convert.ToInt32(dr["assigned_contractor_id"]));
+            this.Client = new Client(Convert.ToInt32(dr["location_id"]));
         }
         public int InsertJob()
         {
