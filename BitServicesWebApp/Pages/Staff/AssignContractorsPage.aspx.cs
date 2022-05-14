@@ -33,10 +33,10 @@ namespace BitServicesWebApp.Pages
 
             int numberOfAssignedJobs = assignedJobs.Rows.Count;
 
-            //if (numberOfAssignedJobs == 0)
-            //{
-            //    Response.Redirect("~/Pages/Contractor/AcceptedJobsPage.aspx");
-            //}
+            if (numberOfAssignedJobs == 0)
+            {
+                Response.Redirect("~/Pages/Staff/AllJobsPage.aspx");
+            }
 
             gvUnassignedJobs.DataSource = assignedJobs.DefaultView;
             gvUnassignedJobs.DataBind();
@@ -93,7 +93,7 @@ namespace BitServicesWebApp.Pages
 
         protected void lbtnBack_OnClick(object sender, EventArgs e)
         {
-            Response.Redirect("~/Pages/Contractor/AcceptedJobsPage.aspx");
+            Response.Redirect("~/Pages/Staff/AllJobsPage.aspx");
         }
     }
 }

@@ -35,7 +35,7 @@ namespace BitServicesWebApp.Pages
 
             if (numberOfCompletedJobs == 0)
             {
-                Response.Redirect("~/Pages/Staff/AllJobsPage.aspx.aspx");
+                Response.Redirect("~/Pages/Staff/AllJobsPage.aspx");
             }
 
             gvCompletedJobs.DataSource = completedJobs;
@@ -70,7 +70,7 @@ namespace BitServicesWebApp.Pages
 
         protected void lbtnBack_OnClick(object sender, EventArgs e)
         {
-            Response.Redirect("~/Pages/Staff/AllJobsPage.aspx.aspx");
+            Response.Redirect("~/Pages/Staff/CompletedJobsPage.aspx");
         }
     }
 }
