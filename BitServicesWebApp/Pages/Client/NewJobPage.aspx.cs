@@ -35,7 +35,7 @@ namespace BitServicesWebApp.Pages.Client
                     ddlRequiredSkill.DataSource = skillsTable;
                     ddlRequiredSkill.DataValueField = "skill_name";
                     ddlRequiredSkill.DataBind();
-                    ddlLocation.SelectedIndex = 0;
+                    ddlRequiredSkill.SelectedIndex = 0;
                 }
                 else
                 {
