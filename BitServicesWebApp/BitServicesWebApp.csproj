@@ -182,6 +182,7 @@
     <Compile Include="BLL\Contractor.cs" />
     <Compile Include="BLL\Job.cs" />
     <Compile Include="BLL\Skills.cs" />
+    <Compile Include="BLL\UnassignedJobs.cs" />
     <Compile Include="BLL\User.cs" />
     <Compile Include="DAL\SQLHelper.cs" />
     <Compile Include="Global.asax.cs">

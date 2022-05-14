@@ -42,7 +42,7 @@ namespace BitServicesWebApp.Pages
                     if (id > 0)
                     {
                         Session.Add("StaffId", id);
-                        Response.Redirect("~/Pages/HomePage.aspx");
+                        Response.Redirect("~/Pages/Staff/AssignContractorsPage.aspx");
                     }
                     else
                     {

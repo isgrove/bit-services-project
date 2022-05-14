@@ -194,5 +194,37 @@ namespace BitServicesWebApp.BLL
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
             return rowsAffected;
         }
+
+        public int AssignContractor(int contractorId, int staffId)
+        {
+            string sql = "usp_AssignContractor";
+            SqlParameter[] objParams = new SqlParameter[3];
+            objParams[0] = new SqlParameter("@JobId", DbType.Int32)
+            {
+                Value = this.JobId
+            };
+            objParams[1] = new SqlParameter("@StaffId", DbType.Int32)
+            {
+                Value = staffId
+            };
+            objParams[2] = new SqlParameter("@ContractorId", DbType.Int32)
+            {
+                Value = contractorId
+            };
+            int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
+            return rowsAffected;
+        }
+
+        public DataTable GetContractorsForJob()
+        {
+            string sql = "usp_GetContractorsForJob";
+            SqlParameter[] objParams = new SqlParameter[1];
+            objParams[0] = new SqlParameter("@JodId", DbType.Int32)
+            {
+                Value = this.JobId
+            };
+            DataTable contractorsTable = _db.ExecuteSQL(sql, objParams, true);
+            return contractorsTable;
+        }
     }
 }
