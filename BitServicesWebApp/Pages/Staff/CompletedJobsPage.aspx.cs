@@ -29,7 +29,7 @@ namespace BitServicesWebApp.Pages
 
         private void RefreshGrid()
         {
-            DataTable completedJobs = new CompletedJobs().AllCompletedJobs();
+            DataTable completedJobs = new Jobs().AllCompletedJobs();
 
             int numberOfCompletedJobs = completedJobs.Rows.Count;
 
