@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -8,6 +9,7 @@ using BitServicesWebApp.BLL;
 
 namespace BitServicesWebApp.Pages
 {
+
     public partial class AssignedJobsPage : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
@@ -18,6 +20,11 @@ namespace BitServicesWebApp.Pages
                 {
                     new ButtonManager().UpdateButtons(Master, "Contractor", true);
                     RefreshGrid();
+
+                    Contractor currentContractor = new Contractor()
+                    {
+                        ContractorId = Convert.ToInt32(Session["ContractorId"])
+                    };
                 }
                 else
                 {
@@ -32,14 +39,16 @@ namespace BitServicesWebApp.Pages
                 ContractorId = Convert.ToInt32(Session["ContractorId"])
             };
 
-            int numberOfAssignedJobs = contractor.AssignedJobs().Rows.Count;
+            DataTable assignedJobs = contractor.AssignedJobs();
+
+            int numberOfAssignedJobs = assignedJobs.Rows.Count;
 
             if (numberOfAssignedJobs == 0)
             {
                 Response.Redirect("~/Pages/Contractor/AcceptedJobsPage.aspx");
             }
 
-            gvAssignedJobs.DataSource = contractor.AssignedJobs().DefaultView;
+            gvAssignedJobs.DataSource = assignedJobs.DefaultView;
             gvAssignedJobs.DataBind();
         }
 
@@ -56,10 +65,13 @@ namespace BitServicesWebApp.Pages
             if (e.CommandName == "Accept")
             {
                 var varJobId = gvAssignedJobs.DataKeys[rowIndex]?.Value;
-                if (varJobId != null)
+                DropDownList ddlCompletionDate = ((DropDownList)row.FindControl("ddlCompletionDate"));
+                if (varJobId != null && ddlCompletionDate.SelectedIndex != 0)
                 {
+
+                    DateTime completionDate = Convert.ToDateTime(ddlCompletionDate.SelectedValue);
                     int jobId = (int)varJobId;
-                    currentContractor.AcceptJob(jobId);
+                    currentContractor.AcceptJob(jobId, completionDate);
                 }
             }
             if (e.CommandName == "Reject")
@@ -73,6 +85,36 @@ namespace BitServicesWebApp.Pages
         protected void lbtnBack_OnClick(object sender, EventArgs e)
         {
             Response.Redirect("~/Pages/Contractor/AcceptedJobsPage.aspx");
+        }
+
+        protected void gvAssignedJobs_OnRowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            Contractor currentContractor = new Contractor
+            {
+                ContractorId = Convert.ToInt32(Session["ContractorId"].ToString())
+            };
+
+            DateTime jobDeadlineDate = Convert.ToDateTime(DataBinder.Eval(e.Row.DataItem, "Deadline Date"));
+            DropDownList drop = (DropDownList)e.Row.FindControl("ddlCompletionDate");
+            if (drop != null)
+            {
+                DataTable availabilitiesTable = currentContractor.GetAvailabilityForJob(jobDeadlineDate.Date);
+                drop.DataSource = availabilitiesTable;
+                drop.DataValueField = "Date";
+                drop.DataTextField = "Formatted Date";
+                drop.DataBind();
+                drop.SelectedIndex = 0;
+
+                Response.Write("<script>console.log('Dropdown found')</script>");
+                Response.Write($"<script>console.log('Deadline date: {jobDeadlineDate}')</script>");
+                Response.Write($"<script>console.log('Deadline type: {jobDeadlineDate.GetType()}')</script>");
+
+                foreach (DataRow x in availabilitiesTable.Rows)
+                {
+                    Response.Write($"<script>console.log('Avb Date: {x["Date"]}')</script>");
+                }
+            }
+
         }
     }
 }

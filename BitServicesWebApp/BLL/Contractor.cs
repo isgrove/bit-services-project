@@ -103,18 +103,24 @@ namespace BitServicesWebApp.BLL
             int returnValue = _db.ExecuteNonQuery(sql, objParams);
             return returnValue;
         }
-        public int AcceptJob(int jobId)
+        public int AcceptJob(int jobId, DateTime completionDate)
         {
-            string sql = "UPDATE Job" +
-                         " SET job_status = 'Accepted'" +
-                         " WHERE job_id = @JobId";
+            string sql = "usp_AcceptJob";
 
-            SqlParameter[] objParams = new SqlParameter[1];
-            objParams[0] = new SqlParameter("@JobId", DbType.Int32)
+            SqlParameter[] objParams = new SqlParameter[3];
+            objParams[0] = new SqlParameter("@ContractorId", DbType.Int32)
+            {
+                Value = this.ContractorId
+            };
+            objParams[1] = new SqlParameter("@JobId", DbType.Int32)
             {
                 Value = jobId
             };
-            int returnValue = _db.ExecuteNonQuery(sql, objParams);
+            objParams[2] = new SqlParameter("@CompletionDate", DbType.Date)
+            {
+                Value = completionDate
+            };
+            int returnValue = _db.ExecuteNonQuery(sql, objParams, true);
             return returnValue;
         }
         public int RejectJob(int jobId)
@@ -133,38 +139,41 @@ namespace BitServicesWebApp.BLL
         }
         public DataTable AcceptedJobs()
         {
-            string sql =
-                "SELECT cl.suburb AS [Location Suburb], j.job_status AS [Status], j.required_skill_name [Job Skill]," +
-                " j.description AS [Description], format(j.deadline_date, 'D') AS [Deadline Date], j.job_id" +
-                " FROM job j" +
-                " INNER JOIN client_location cl ON cl.location_id = j.location_id" +
-                " INNER JOIN  client c ON c.client_id = cl.client_id" +
-                " WHERE j.assigned_contractor_id = @ContractorId" +
-                " AND j.job_status = 'Accepted'";
+            string sql = "usp_GetInProgressJobs";
             SqlParameter[] objParams = new SqlParameter[1];
             objParams[0] = new SqlParameter("@ContractorId", DbType.String)
             {
                 Value = this.ContractorId
             };
-            DataTable jobsTable = _db.ExecuteSQL(sql, objParams);
+            DataTable jobsTable = _db.ExecuteSQL(sql, objParams, true);
             return jobsTable;
         }
         public DataTable AssignedJobs()
         {
-            string sql = "SELECT cl.suburb AS [Location Suburb], j.job_status AS [Status], j.required_skill_name [Job Skill]," +
-                         " j.description AS [Description], format(j.deadline_date, 'D') AS [Deadline Date], j.job_id" +
-                         " FROM job j" +
-                         " INNER JOIN client_location cl ON cl.location_id = j.location_id" +
-                         " INNER JOIN  client c ON c.client_id = cl.client_id" +
-                         " WHERE j.assigned_contractor_id = @ContractorId" +
-                         " AND j.job_status = 'Pending'";
+            string sql = "usp_GetPendingJobs";
             SqlParameter[] objParams = new SqlParameter[1];
             objParams[0] = new SqlParameter("@ContractorId", DbType.String)
             {
                 Value = this.ContractorId
             };
-            DataTable jobsTable = _db.ExecuteSQL(sql, objParams);
+            DataTable jobsTable = _db.ExecuteSQL(sql, objParams, true);
             return jobsTable;
+        }
+
+        public DataTable GetAvailabilityForJob(DateTime deadlineDate)
+        {
+            string sql = "usp_GetAvailabilityForJob";
+            SqlParameter[] objParams = new SqlParameter[2];
+            objParams[0] = new SqlParameter("@ContractorId", DbType.String)
+            {
+                Value = this.ContractorId   
+            };
+            objParams[1] = new SqlParameter("@DeadlineDate", DbType.DateTime)
+            {
+                Value = deadlineDate
+            };
+            DataTable availabilitiesTable = _db.ExecuteSQL(sql, objParams, true);
+            return availabilitiesTable;
         }
     }
 }
