@@ -34,5 +34,13 @@ namespace BitServicesWebApp.BLL
             return jobsTable;
 
         }
+
+        public DataTable AllRejectionReasons()
+        {
+            SQLHelper helper = new SQLHelper();
+            string sql = "usp_GetAllRejectionReasons";
+            DataTable reasonsTable = helper.ExecuteSQL(sql, null, true);
+            return reasonsTable;
+        }
     }
 }

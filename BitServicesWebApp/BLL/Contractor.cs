@@ -123,18 +123,28 @@ namespace BitServicesWebApp.BLL
             int returnValue = _db.ExecuteNonQuery(sql, objParams, true);
             return returnValue;
         }
-        public int RejectJob(int jobId)
+        public int RejectJob(int jobId, string reason, string description)
         {
-            string sql = "UPDATE Job" +
-                         " SET job_status = 'Rejected'" +
-                         " WHERE job_id = @JobId";
+            string sql = "usp_RejectJob";
 
-            SqlParameter[] objParams = new SqlParameter[2];
-            objParams[0] = new SqlParameter("@JobId", DbType.Int32)
+            SqlParameter[] objParams = new SqlParameter[4];
+            objParams[0] = new SqlParameter("@ContractorId", DbType.Int32)
+            {
+                Value = this.ContractorId
+            };
+            objParams[1] = new SqlParameter("@JobId", DbType.Int32)
             {
                 Value = jobId
             };
-            int returnValue = _db.ExecuteNonQuery(sql, objParams);
+            objParams[2] = new SqlParameter("@Reason", DbType.String)
+            {
+                Value = reason
+            };
+            objParams[3] = new SqlParameter("@Description", DbType.String)
+            {
+                Value = description
+            };
+            int returnValue = _db.ExecuteNonQuery(sql, objParams, true);
             return returnValue;
         }
         public DataTable AcceptedJobs()

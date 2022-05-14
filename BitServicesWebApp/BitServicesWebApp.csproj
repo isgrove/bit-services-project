@@ -132,6 +132,7 @@
     <Content Include="Pages\Client\JobsPage.aspx" />
     <Content Include="Pages\Contractor\AssignedJobsPage.aspx" />
     <Content Include="Pages\Client\NewJobPage.aspx" />
+    <Content Include="Pages\Contractor\RejectJobPage.aspx" />
     <Content Include="Pages\Staff\AllJobsPage.aspx" />
     <Content Include="Pages\Staff\CompletedJobsPage.aspx" />
     <Content Include="Pages\HomePage.aspx" />
@@ -214,6 +215,13 @@
     </Compile>
     <Compile Include="Pages\Client\NewJobPage.aspx.designer.cs">
       <DependentUpon>NewJobPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Contractor\RejectJobPage.aspx.cs">
+      <DependentUpon>RejectJobPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Contractor\RejectJobPage.aspx.designer.cs">
+      <DependentUpon>RejectJobPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Staff\AllJobsPage.aspx.cs">
       <DependentUpon>AllJobsPage.aspx</DependentUpon>

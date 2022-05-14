@@ -42,6 +42,13 @@
                                                     CommandArgument="<%#Container.DataItemIndex %>" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
+                                <asp:TemplateField HeaderText="">
+                                    <ItemTemplate>
+                                        <asp:Button ID="btnReject" runat="server" Height="40px" Width="120px"
+                                                    Text="Reject Job" CommandName="Reject" CssClass="btn"
+                                                    CommandArgument="<%#Container.DataItemIndex %>" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                             </Columns>
                         </asp:GridView>
                     </div>

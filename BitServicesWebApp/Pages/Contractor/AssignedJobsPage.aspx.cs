@@ -62,24 +62,30 @@ namespace BitServicesWebApp.Pages
             int rowIndex = Convert.ToInt32(e.CommandArgument);
             GridViewRow row = gvAssignedJobs.Rows[rowIndex];
 
-            if (e.CommandName == "Accept")
+            var varJobId = gvAssignedJobs.DataKeys[rowIndex]?.Value;
+
+            if (varJobId != null)
             {
-                var varJobId = gvAssignedJobs.DataKeys[rowIndex]?.Value;
-                DropDownList ddlCompletionDate = ((DropDownList)row.FindControl("ddlCompletionDate"));
-                if (varJobId != null && ddlCompletionDate.SelectedIndex != 0)
+                int jobId = (int)varJobId;
+
+                if (e.CommandName == "Accept")
                 {
-
-                    DateTime completionDate = Convert.ToDateTime(ddlCompletionDate.SelectedValue);
-                    int jobId = (int)varJobId;
-                    currentContractor.AcceptJob(jobId, completionDate);
+                    DropDownList ddlCompletionDate = ((DropDownList)row.FindControl("ddlCompletionDate"));
+                    if (ddlCompletionDate.SelectedIndex != 0)
+                    {
+                        DateTime completionDate = Convert.ToDateTime(ddlCompletionDate.SelectedValue);
+                        currentContractor.AcceptJob(jobId, completionDate);
+                    }
                 }
-            }
-            if (e.CommandName == "Reject")
-            {
-                //TODO Implement Job Rejection
-            }
 
-            RefreshGrid();
+                if (e.CommandName == "Reject")
+                {
+                    Session.Add("JobId", jobId);
+                    Response.Redirect("~/Pages/Contractor/RejectJobPage.aspx");
+                }
+
+                RefreshGrid();
+            }
         }
 
         protected void lbtnBack_OnClick(object sender, EventArgs e)
