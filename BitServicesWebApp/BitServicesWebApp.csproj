@@ -178,11 +178,10 @@
     <Compile Include="BLL\ClientJobs.cs" />
     <Compile Include="BLL\ClientLocation.cs" />
     <Compile Include="BLL\ClientLocations.cs" />
-    <Compile Include="BLL\CompletedJobs.cs" />
+    <Compile Include="BLL\Jobs.cs" />
     <Compile Include="BLL\Contractor.cs" />
     <Compile Include="BLL\Job.cs" />
     <Compile Include="BLL\Skills.cs" />
-    <Compile Include="BLL\UnassignedJobs.cs" />
     <Compile Include="BLL\User.cs" />
     <Compile Include="DAL\SQLHelper.cs" />
     <Compile Include="Global.asax.cs">

@@ -29,7 +29,7 @@ namespace BitServicesWebApp.Pages
 
         private void RefreshGrid()
         {
-            DataTable assignedJobs = new UnassignedJobs().AllUnasignedJobs();
+            DataTable assignedJobs = new Jobs().AllUnasignedJobs();
 
             int numberOfAssignedJobs = assignedJobs.Rows.Count;
 
