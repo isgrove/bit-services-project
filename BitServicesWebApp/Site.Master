@@ -32,12 +32,6 @@
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-time active">
-                            <asp:LinkButton CssClass="nav-link" ID="lbtnSignUp"
-                                runat="server">
-                            Sign Up
-                            </asp:LinkButton>
-                        </li>
-                        <li class="nav-time active">
                             <asp:LinkButton CssClass="nav-link" ID="lbtnLogin"
                                 OnClick="lbtnLogin_OnClick" runat="server">
                             Login

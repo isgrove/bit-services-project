@@ -8,11 +8,6 @@
                <div class="card">
                    <div class="card-body">
                        <div class="row">
-<%--                           <div class="col">
-                               <img width="150px" src="../Images/login.png" />
-                           </div>--%>
-                       </div>                       
-                       <div class="row">
                            <div class="col text-center">
                                     <h3> Member Login</h3>
                            </div>
@@ -41,10 +36,6 @@
                                    <asp:Button CssClass="btn btn-primary btn-block"
                                        runat="server" Text="Login" ID="btnLogin" 
                                        OnClick="btnLogin_OnClick"/>
-                               </div>
-                                <div class="form-group">
-                                   <asp:Button CssClass="btn btn-block"
-                                       runat="server" Text="Sign Up" ID="btnSignUp" />
                                </div>
                            </div>
                        </div>
