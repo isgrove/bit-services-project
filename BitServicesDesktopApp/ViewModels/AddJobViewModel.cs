@@ -144,7 +144,8 @@ namespace BitServicesDesktopApp.ViewModels
         {
             NewJob.JobStatus = "Pending";
             string message;
-            int rowsAffected = NewJob.InsertJob();
+            // TODO: Get the id of the logged in staff member and pass that instead
+            int rowsAffected = NewJob.InsertJob(1);
             if (rowsAffected >= 1)
             {
                 message = $"You have successfully added a new job for {SelectedClient.Name} {NewJob.Location.Suburb}!";

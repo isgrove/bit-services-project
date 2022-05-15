@@ -215,6 +215,7 @@ namespace BitServicesWebApp.BLL
             return rowsAffected;
         }
 
+        // TODO: Change to match updating stored proc
         public DataTable GetContractorsForJob()
         {
             string sql = "usp_GetContractorsForJob";

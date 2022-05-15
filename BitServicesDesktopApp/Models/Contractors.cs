@@ -26,16 +26,9 @@ namespace BitServicesDesktopApp.Models
         public Contractors(string requiredSkill, DateTime deadlineDate)
         {
             SQLHelper helper = new SQLHelper();
-            string sql = "SELECT DISTINCT c.contractor_id, c.first_name, c.last_name, c.email, c.phone, c.street, c.suburb, c.postcode, c.state," +
-                         " c.suburb, c.postcode, c.state, c.licence_number, c.vehicle_registration, c.active, c.performance_rating" +
-                         " FROM contractor c, contractor_skill s, contractor_availability a" +
-                         " WHERE c.contractor_id = s.contractor_id" +
-                         " AND c.contractor_id = a.contractor_id" +
-                         " AND s.skill_name = @RequiredSkill" +
-                         " AND a.availability_date between CONVERT(char(10), GetDate(),126) and @DeadlineDate" +
-                         " WHERE c.active = 1";
+            string sql = "usp_GetContractorsForJob";
             SqlParameter[] objParams = new SqlParameter[2];
-            objParams[0] = new SqlParameter("@RequiredSkill", DbType.String)
+            objParams[0] = new SqlParameter("@JobSkillName", DbType.String)
             {
                 Value = requiredSkill
             };
@@ -43,7 +36,7 @@ namespace BitServicesDesktopApp.Models
             {
                 Value = deadlineDate
             };
-            DataTable contractorsTable = helper.ExecuteSQL(sql, objParams);
+            DataTable contractorsTable = helper.ExecuteSQL(sql, objParams, true);
             foreach (DataRow dr in contractorsTable.Rows)
             {
                 Contractor newContractor = new Contractor(dr);

@@ -160,31 +160,29 @@ namespace BitServicesDesktopApp.Models
                 this.CompletionDate = Convert.ToDateTime(completionDate);
             }
         }
-        // TODO: Insert the contractor that has been assigned and the staff member that has assigned them (the logged in contractor) into the job_contractor table
         public int InsertJob()
         {
-            string sql = "INSERT INTO job (location_id, assigned_contractor_id, required_skill_name, job_status, kilometers, description, deadline_date)" +
-                         " VALUES(@LocationId, @AssignedContractorId, @RequiredSkill, @JobStatus, @Kilometers, @Description, @DeadlineDate)";
+            string sql = "usp_InsertJob";
             SqlParameter[] objParams = new SqlParameter[7];
             objParams[0] = new SqlParameter("@LocationId", DbType.Int32)
             {
                 Value = this.Location.LocationId
             };
-            objParams[1] = new SqlParameter("@AssignedContractorId", DbType.Int32)
-            {
-                Value = this.AssignedContractor.ContractorId
-            };
-            objParams[2] = new SqlParameter("@RequiredSkill", DbType.String)
+            objParams[1] = new SqlParameter("@RequiredSkill", DbType.String)
             {
                 Value = this.RequiredSkill
             };
-            objParams[3] = new SqlParameter("@JobStatus", DbType.String)
+            objParams[2] = new SqlParameter("@JobStatus", DbType.String)
             {
                 Value = this.JobStatus
             };
-            objParams[4] = new SqlParameter("@Kilometers", DbType.Int32)
+            objParams[3] = new SqlParameter("@Kilometers", DbType.Int32)
             {
                 Value = this.Kilometers
+            };
+            objParams[4] = new SqlParameter("@Title", DbType.String)
+            {
+                Value = this.Title
             };
             objParams[5] = new SqlParameter("@Description", DbType.String)
             {
@@ -194,7 +192,50 @@ namespace BitServicesDesktopApp.Models
             {
                 Value = this.DeadlineDate
             };
-            int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
+            int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
+            return rowsAffected;
+        }
+        public int InsertJob(int staffId)
+        {
+            string sql = "usp_InsertJob";
+            SqlParameter[] objParams = new SqlParameter[9];
+            objParams[0] = new SqlParameter("@LocationId", DbType.Int32)
+            {
+                Value = this.Location.LocationId
+            };
+            objParams[1] = new SqlParameter("@RequiredSkill", DbType.String)
+            {
+                Value = this.RequiredSkill
+            };
+            objParams[2] = new SqlParameter("@JobStatus", DbType.String)
+            {
+                Value = this.JobStatus
+            };
+            objParams[3] = new SqlParameter("@Kilometers", DbType.Int32)
+            {
+                Value = this.Kilometers
+            };
+            objParams[4] = new SqlParameter("@Title", DbType.String)
+            {
+                Value = this.Title
+            };
+            objParams[5] = new SqlParameter("@Description", DbType.String)
+            {
+                Value = this.Description
+            };
+            objParams[6] = new SqlParameter("@DeadlineDate", DbType.Date)
+            {
+                Value = this.DeadlineDate
+            };
+            objParams[7] = new SqlParameter("@StaffId", DbType.Int32)
+            {
+                Value = staffId
+            };
+            objParams[8] = new SqlParameter("@ContractorId", DbType.Int32)
+            {
+                Value = this.AssignedContractor.ContractorId
+            };
+            int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
             return rowsAffected;
         }
         public int DeleteJob()

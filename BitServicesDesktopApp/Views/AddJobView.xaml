@@ -51,8 +51,10 @@
                 Grid.Row="3" Grid.Column="1" Margin="5" />
         <Label Content="Deadline Date: " Grid.Row="4" Grid.Column="0"/>
         <DatePicker x:Name="dtpDeadlineDate" SelectedDate="{Binding NewJob.DeadlineDate}" Grid.Row="4" Grid.Column="1" Margin="5" />
-        <Label Content="Job Description: " Grid.Row="1" Grid.Column="2"/>
-        <TextBox x:Name="txtDescription" Text="{Binding NewJob.Description}" Grid.Row="1" Grid.Column="3" Margin="5" Grid.RowSpan="3" />
+        <Label Content="Job Title: " Grid.Row="1" Grid.Column="2"/>
+        <TextBox x:Name="txtTitle" Text="{Binding NewJob.Title}" Grid.Row="1" Grid.Column="3" Margin="5"/>
+        <Label Content="Job Description: " Grid.Row="2" Grid.Column="2"/>
+        <TextBox x:Name="txtDescription" Text="{Binding NewJob.Description}" Grid.Row="2" Grid.Column="3" Margin="5" Grid.RowSpan="2" />
         <Button x:Name="btnFind" Command="{Binding FindCommand}" Content="FIND CONTRACTOR" Margin="5" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2"/>
         <DataGrid x:Name="dgAvailableContractors" Grid.Row="5" Grid.RowSpan="5" Grid.ColumnSpan="4"
                   ItemsSource="{Binding AvailableContractors}" SelectedItem="{Binding NewJob.AssignedContractor}"
