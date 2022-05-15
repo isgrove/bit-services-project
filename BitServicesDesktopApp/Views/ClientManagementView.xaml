@@ -34,7 +34,6 @@
                       ItemsSource="{Binding Clients}"
                       SelectedItem="{Binding SelectedClient}" AutoGenerateColumns="false">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Client Id" Binding="{Binding ClientId}"/>
                             <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
                             <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
                             <DataGridTextColumn Header="Phone" Binding="{Binding Phone}"/>
@@ -79,7 +78,6 @@
                     <DataGrid x:Name="dgClientLocations"
                       Margin="5" ItemsSource="{Binding ClientLocations}" SelectedItem="{Binding SelectedLocation}" Grid.RowSpan="3" Grid.ColumnSpan="4">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Location Id" Binding="{Binding LocationId}"/>
                             <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
                             <DataGridTextColumn Header="Phone" Binding="{Binding Phone}"/>
                             <DataGridTextColumn Header="Street" Binding="{Binding Street}"/>

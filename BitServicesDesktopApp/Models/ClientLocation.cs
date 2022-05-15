@@ -9,7 +9,7 @@ using BitServicesDesktopApp.DAL;
 
 namespace BitServicesDesktopApp.Models
 {
-    public class ClientLocation : INotifyPropertyChanged // TODO: maybe inherit client?
+    public class ClientLocation : INotifyPropertyChanged
     {
         private int _locationId;
         private int _clientId;
