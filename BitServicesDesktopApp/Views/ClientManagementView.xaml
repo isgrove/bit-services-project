@@ -76,7 +76,7 @@
                     </Grid.ColumnDefinitions>
                     <!-- TODO: Fix bug where all object variables are being showed as DataGrid coulmns -->
                     <DataGrid x:Name="dgClientLocations"
-                      Margin="5" ItemsSource="{Binding ClientLocations}" SelectedItem="{Binding SelectedLocation}" Grid.RowSpan="3" Grid.ColumnSpan="4">
+                      Margin="5" ItemsSource="{Binding ClientLocations}" SelectedItem="{Binding SelectedLocation}" Grid.RowSpan="3" Grid.ColumnSpan="4" AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
                             <DataGridTextColumn Header="Phone" Binding="{Binding Phone}"/>
