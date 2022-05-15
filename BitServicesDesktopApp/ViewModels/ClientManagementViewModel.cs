@@ -80,6 +80,7 @@ namespace BitServicesDesktopApp.ViewModels
         }
         public void DeleteMethod()
         {
+            string ClientName = SelectedClient.Name;
             MessageBoxResult messageBoxResult = MessageBox.Show($"Are you sure that you want to delete {SelectedClient.Name}?", $"Delete {SelectedClient.Name}", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
@@ -94,7 +95,7 @@ namespace BitServicesDesktopApp.ViewModels
                     message = "There was an issue when deleting " + SelectedClient.Name + ", please try again!";
                 }
                 UpdateClients();
-                MessageBox.Show(message, $"Delete {SelectedClient.Name}");
+                MessageBox.Show(message, $"Delete {ClientName}");
             }
 
         }
