@@ -8,6 +8,8 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AddJobView">
 
+    <!--Ask Chaitali how to get the ID of the logged in staff-->
+
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="50px" />
