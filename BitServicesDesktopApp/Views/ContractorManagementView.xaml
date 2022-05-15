@@ -17,21 +17,20 @@
         <DataGrid Grid.Row="0" x:Name="dgContractors" Margin="5"
                       ItemsSource="{Binding Contractors}"
                       SelectedItem="{Binding SelectedContractor}" AutoGenerateColumns="false">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Contractor" Binding="{Binding ContractorId}"/>
-                    <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"/>
-                    <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"/>
-                    <DataGridTextColumn Header="Phone" Binding="{Binding Phone}"/>
-                    <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
-                    <DataGridTextColumn Header="Street" Binding="{Binding Street}"/>
-                    <DataGridTextColumn Header="Suburb" Binding="{Binding Suburb}"/>
-                    <DataGridTextColumn Header="PostCode" Binding="{Binding PostCode}"/>
-                    <DataGridTextColumn Header="State" Binding="{Binding State}"/>
-                    <DataGridTextColumn Header="Licence Number" Binding="{Binding LicenceNumber}"/>
-                    <DataGridTextColumn Header="Vehicle Registration" Binding="{Binding VehicleRegistration}"/>
-                    <DataGridTextColumn Header="Active" Binding="{Binding Active}"/>
-                </DataGrid.Columns>
-            </DataGrid>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"/>
+                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"/>
+                <DataGridTextColumn Header="Phone" Binding="{Binding Phone}"/>
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
+                <DataGridTextColumn Header="Performance Rating" Binding="{Binding PerformanceRating}"/>
+                <DataGridTextColumn Header="Street" Binding="{Binding Street}"/>
+                <DataGridTextColumn Header="Suburb" Binding="{Binding Suburb}"/>
+                <DataGridTextColumn Header="Postcode" Binding="{Binding Postcode}"/>
+                <DataGridTextColumn Header="State" Binding="{Binding State}"/>
+                <DataGridTextColumn Header="Licence Number" Binding="{Binding LicenceNumber}"/>
+                <DataGridTextColumn Header="Vehicle Registration" Binding="{Binding VehicleRegistration}"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <TabControl Grid.Row="1">
             <TabItem Header="Details">
                 <Grid Margin="5">
@@ -53,12 +52,14 @@
                     <TextBox Text="{Binding SelectedContractor.FirstName}" x:Name="txtFirstName" Grid.Row="0" Grid.Column="1" Margin="5" />
                     <Label Content="Last Name: " Grid.Row="1" Grid.Column="0"/>
                     <TextBox Text="{Binding SelectedContractor.LastName}" x:Name="txtLastName" Grid.Row="1" Grid.Column="1" Margin="5" />
-                    <Label Content="Phone : " Grid.Row="2" Grid.Column="0"/>
+                    <Label Content="Phone: " Grid.Row="2" Grid.Column="0"/>
                     <TextBox Text="{Binding SelectedContractor.Phone}" x:Name="txtPhone" Grid.Row="2" Grid.Column="1" Margin="5" />
                     <Label Content="Email: " Grid.Row="3" Grid.Column="0"/>
                     <TextBox Text="{Binding SelectedContractor.Email}" x:Name="txtEmail" Grid.Row="3" Grid.Column="1" Margin="5" />
-                    <Label Content="Licence Number : " Grid.Row="4" Grid.Column="0"/>
+                    <Label Content="Licence Number: " Grid.Row="4" Grid.Column="0"/>
                     <TextBox Text="{Binding SelectedContractor.LicenceNumber}" x:Name="txtLicenceNumber" Grid.Row="4" Grid.Column="1" Margin="5" />
+                    <Label Content="Performance Rating: " Grid.Row="5" Grid.Column="0"/>
+                    <TextBox Text="{Binding SelectedContractor.PerformanceRating}" x:Name="txtPerformanceRating" Grid.Row="5" Grid.Column="1" Margin="5" />
 
                     <Label Content="Street: " Grid.Row="0" Grid.Column="2"/>
                     <TextBox Text="{Binding SelectedContractor.Street}" x:Name="txtStreet" Grid.Row="0" Grid.Column="3" Margin="5" />

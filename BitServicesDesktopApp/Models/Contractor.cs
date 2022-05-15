@@ -22,6 +22,7 @@ namespace BitServicesDesktopApp.Models
         private string _state;
         private string _licenceNumber;
         private string _vehicleRegistration;
+        private int _performanceRating;
         private bool _active;
         private SQLHelper _db;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -136,6 +137,15 @@ namespace BitServicesDesktopApp.Models
                 OnPropertyChanged("VehicleRegistration");
             }
         }
+        public int PerformanceRating
+        {
+            get { return _performanceRating; }
+            set
+            {
+                _performanceRating = value;
+                OnPropertyChanged("PerformanceRating");
+            }
+        }
         public bool Active
         {
             get { return _active; }
@@ -162,6 +172,7 @@ namespace BitServicesDesktopApp.Models
             this.Postcode = dr["postcode"].ToString();
             this.State = dr["state"].ToString();
             this.LicenceNumber = dr["licence_number"].ToString();
+            this.PerformanceRating = Convert.ToInt32(dr["performance_rating"]);
             this.VehicleRegistration = dr["vehicle_registration"].ToString();
             this.Active = Convert.ToBoolean(dr["active"]);
         }
@@ -170,7 +181,7 @@ namespace BitServicesDesktopApp.Models
         {
             _db = new SQLHelper();
             string sql = "SELECT contractor_id, first_name, last_name, email, phone, street, suburb, postcode, state" +
-                         " suburb, postcode, state, licence_number, vehicle_registration, active" +
+                         " suburb, postcode, state, licence_number, performance_rating, vehicle_registration, active" +
                          " FROM contractor" +
                          " WHERE contractor_id = @ContractorId";
             SqlParameter[] objParams = new SqlParameter[1];
@@ -189,6 +200,7 @@ namespace BitServicesDesktopApp.Models
             this.Postcode = dr["postcode"].ToString();
             this.State = dr["state"].ToString();
             this.LicenceNumber = dr["licence_number"].ToString();
+            this.PerformanceRating = Convert.ToInt32(dr["performance_rating"].ToString());
             this.VehicleRegistration = dr["vehicle_registration"].ToString();
             this.Active = Convert.ToBoolean(dr["active"]);
         }

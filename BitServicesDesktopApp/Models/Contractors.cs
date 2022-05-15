@@ -13,8 +13,9 @@ namespace BitServicesDesktopApp.Models
         {
             SQLHelper helper = new SQLHelper();
             string sql = "SELECT contractor_id, first_name, last_name, email, phone, street, suburb, postcode, state" +
-                " suburb, postcode, state, licence_number, vehicle_registration, active" +
-                " FROM contractor";
+                " suburb, postcode, state, licence_number, vehicle_registration, performance_rating, active" +
+                " FROM contractor" +
+                " WHERE active = 1";
             DataTable contractorsTable = helper.ExecuteSQL(sql);
             foreach (DataRow dr in contractorsTable.Rows)
             {
@@ -26,12 +27,13 @@ namespace BitServicesDesktopApp.Models
         {
             SQLHelper helper = new SQLHelper();
             string sql = "SELECT DISTINCT c.contractor_id, c.first_name, c.last_name, c.email, c.phone, c.street, c.suburb, c.postcode, c.state," +
-                         " c.suburb, c.postcode, c.state, c.licence_number, c.vehicle_registration, c.active" +
+                         " c.suburb, c.postcode, c.state, c.licence_number, c.vehicle_registration, c.active, c.performance_rating" +
                          " FROM contractor c, contractor_skill s, contractor_availability a" +
                          " WHERE c.contractor_id = s.contractor_id" +
                          " AND c.contractor_id = a.contractor_id" +
                          " AND s.skill_name = @RequiredSkill" +
-                         " AND a.availability_date between CONVERT(char(10), GetDate(),126) and @DeadlineDate";
+                         " AND a.availability_date between CONVERT(char(10), GetDate(),126) and @DeadlineDate" +
+                         " WHERE c.active = 1";
             SqlParameter[] objParams = new SqlParameter[2];
             objParams[0] = new SqlParameter("@RequiredSkill", DbType.String)
             {
