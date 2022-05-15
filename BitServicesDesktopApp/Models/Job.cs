@@ -14,7 +14,6 @@ namespace BitServicesDesktopApp.Models
 {
     public class Job : INotifyPropertyChanged
     {
-        //TODO: Add required time (days) and job title
         private int _jobId;
         // Aggregation relationship
         private Contractor _assignedContractor;
@@ -22,9 +21,11 @@ namespace BitServicesDesktopApp.Models
         private ClientLocation _location;
         private string _requiredSkill;
         private string _jobStatus;
+        private string _title;
         private string _description;
         private int _kilometers;
         private DateTime _deadlineDate;
+        private DateTime _completionDate;
         private SQLHelper _db;
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string prop)
@@ -57,6 +58,15 @@ namespace BitServicesDesktopApp.Models
                 OnPropertyChanged("JobStatus");
             }
         }
+        public string Title
+        {
+            get { return _title; }
+            set
+            {
+                _title = value;
+                OnPropertyChanged("Title");
+            }
+        }
         public string Description
         {
             get { return _description; }
@@ -82,6 +92,15 @@ namespace BitServicesDesktopApp.Models
             {
                 _deadlineDate = value;
                 OnPropertyChanged("DeadlineDate");
+            }
+        }
+        public DateTime CompletionDate
+        {
+            get { return _completionDate; }
+            set
+            {
+                _completionDate = value;
+                OnPropertyChanged("CompletionDate");
             }
         }
         public Client Client
@@ -119,15 +138,29 @@ namespace BitServicesDesktopApp.Models
         {
             _db = new SQLHelper();
             this.JobId = Convert.ToInt32(dr["job_id"].ToString());
-            this.RequiredSkill = dr["required_skill"].ToString();
-            this.JobStatus = dr["job_status"].ToString();
-            this.Description = dr["description"].ToString();
+            this.RequiredSkill = dr["Required Skill"].ToString();
+            this.JobStatus = dr["Status"].ToString();
+            this.Title = dr["Title"].ToString();
+            this.Description = dr["Description"].ToString();
             this.Kilometers = Convert.ToInt32(dr["kilometers"].ToString());
-            this.DeadlineDate = Convert.ToDateTime(dr["deadline_date"].ToString());
+            this.DeadlineDate = Convert.ToDateTime(dr["Deadline Date"].ToString());
             this.Location = new ClientLocation(Convert.ToInt32(dr["location_id"]));
-            this.AssignedContractor = new Contractor(Convert.ToInt32(dr["assigned_contractor_id"]));
             this.Client = new Client(Convert.ToInt32(dr["location_id"]));
+
+            var contractorId = dr["contractor_id"];
+            var completionDate = dr["Completion Date"];
+
+            if (contractorId != DBNull.Value)
+            {
+                this.AssignedContractor = new Contractor(Convert.ToInt32(contractorId));
+            }
+
+            if (completionDate != DBNull.Value)
+            {
+                this.CompletionDate = Convert.ToDateTime(completionDate);
+            }
         }
+        // TODO: Insert the contractor that has been assigned and the staff member that has assigned them (the logged in contractor) into the job_contractor table
         public int InsertJob()
         {
             string sql = "INSERT INTO job (location_id, assigned_contractor_id, required_skill_name, job_status, kilometers, description, deadline_date)" +
@@ -166,7 +199,8 @@ namespace BitServicesDesktopApp.Models
         }
         public int DeleteJob()
         {
-            string sql = "DELETE FROM job" +
+            string sql = "UPDATE job" +
+                         " SET job_status = 'Canceled'" +
                          " WHERE job_id = @JobId";
             SqlParameter[] objParams = new SqlParameter[1];
             objParams[0] = new SqlParameter("@JobId", DbType.Int32)
@@ -176,13 +210,14 @@ namespace BitServicesDesktopApp.Models
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
             return rowsAffected;
         }
+        // TODO: Let users update the assigned contractor of the job
         public int UpdateJob()
         {
             string sql = "UPDATE job" +
-                         " SET location_id = @LocationId, assigned_contractor_id = @AssignedContractorId, required_skill_name = @RequiredSkill," +
-                         " job_status = @JobStatus, kilometers = @Kilometers, description = @Description, deadline_date = @DeadlineDate" +
+                         " SET location_id = @LocationId, required_skill = @RequiredSkill," +
+                         " job_status = @JobStatus, kilometers = @Kilometers, title = @Title, description = @Description, deadline_date = @DeadlineDate" +
                          " WHERE job_id = @JobId";
-            SqlParameter[] objParams = new SqlParameter[8];
+            SqlParameter[] objParams = new SqlParameter[9];
             objParams[0] = new SqlParameter("@LocationId", DbType.Int32)
             {
                 Value = this.Location.LocationId
@@ -203,15 +238,19 @@ namespace BitServicesDesktopApp.Models
             {
                 Value = this.Kilometers
             };
-            objParams[5] = new SqlParameter("@Description", DbType.String)
+            objParams[5] = new SqlParameter("@Title", DbType.String)
+            {
+                Value = this.Title
+            };
+            objParams[6] = new SqlParameter("@Description", DbType.String)
             {
                 Value = this.Description
             };
-            objParams[6] = new SqlParameter("@DeadlineDate", DbType.Date)
+            objParams[7] = new SqlParameter("@DeadlineDate", DbType.Date)
             {
                 Value = this.DeadlineDate
             };
-            objParams[7] = new SqlParameter("@JobId", DbType.Int32)
+            objParams[8] = new SqlParameter("@JobId", DbType.Int32)
             {
                 Value = this.JobId
             };

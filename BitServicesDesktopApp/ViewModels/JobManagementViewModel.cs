@@ -13,11 +13,11 @@ namespace BitServicesDesktopApp.ViewModels
     public class JobManagementViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<Job> _jobs;
-        private ObservableCollection<Job> _acceptedJobs;
-        private ObservableCollection<Job> _awaitingPaymentJobs;
+        private ObservableCollection<Job> _inProgressJobs;
+        private ObservableCollection<Job> _verifiedJobs;
         private ObservableCollection<Job> _completedJobs;
         private ObservableCollection<Job> _pendingJobs;
-        private ObservableCollection<Job> _rejectedJobs;
+        private ObservableCollection<Job> _canceledJobs;
         private ObservableCollection<ClientLocation> _selectedClientLocations;
         private ObservableCollection<Client> _clients;
         private ObservableCollection<Contractor> _contractors;
@@ -107,13 +107,13 @@ namespace BitServicesDesktopApp.ViewModels
                 OnPropertyChanged("Jobs");
             }
         }
-        public ObservableCollection<Job> AcceptedJobs
+        public ObservableCollection<Job> InProgressJobs
         {
-            get { return _acceptedJobs; }
+            get { return _inProgressJobs; }
             set
             {
-                _acceptedJobs = value;
-                OnPropertyChanged("AcceptedJobs");
+                _inProgressJobs = value;
+                OnPropertyChanged("InProgressJobs");
             }
         }
         public ObservableCollection<Job> CompletedJobs
@@ -134,23 +134,23 @@ namespace BitServicesDesktopApp.ViewModels
                 OnPropertyChanged("PendingJobs");
             }
         }
-        public ObservableCollection<Job> RejectedJobs
+        public ObservableCollection<Job> CanceledJobs
         {
-            get { return _rejectedJobs; }
+            get { return _canceledJobs; }
             set
             {
-                _rejectedJobs = value;
-                OnPropertyChanged("RejectedJobs");
+                _canceledJobs = value;
+                OnPropertyChanged("CanceledJobs");
             }
         }
 
-        public ObservableCollection<Job> AwaitingPaymentJobs
+        public ObservableCollection<Job> VerifiedJobs
         {
-            get { return _awaitingPaymentJobs; }
+            get { return _verifiedJobs; }
             set
             {
-                _awaitingPaymentJobs = value;
-                OnPropertyChanged("AwaitingPaymentJobs");
+                _verifiedJobs = value;
+                OnPropertyChanged("VerifiedJobs");
             }
         }
         public ObservableCollection<ClientLocation> SelectedClientLocations
@@ -219,11 +219,11 @@ namespace BitServicesDesktopApp.ViewModels
             Jobs allJobs = new Jobs();
             this.Jobs = new ObservableCollection<Job>(allJobs);
 
-            Jobs allAcceptedJobs = new Jobs("Accepted");
-            this.AcceptedJobs = new ObservableCollection<Job>(allAcceptedJobs);
+            Jobs allInProgressJobs = new Jobs("In Progress");
+            this.InProgressJobs = new ObservableCollection<Job>(allInProgressJobs);
 
-            Jobs allAwaitingPaymentJobs = new Jobs("AwaitingPayment");
-            this.AwaitingPaymentJobs = new ObservableCollection<Job>(allAwaitingPaymentJobs);
+            Jobs allVerifiedJobs = new Jobs("Verified");
+            this.VerifiedJobs = new ObservableCollection<Job>(allVerifiedJobs);
 
             Jobs allCompletedJobs = new Jobs("Completed");
             this.CompletedJobs = new ObservableCollection<Job>(allCompletedJobs);
@@ -231,8 +231,8 @@ namespace BitServicesDesktopApp.ViewModels
             Jobs allPendingJobs = new Jobs("Pending");
             this.PendingJobs = new ObservableCollection<Job>(allPendingJobs);
 
-            Jobs allRejectedJobs = new Jobs("Rejected");
-            this.RejectedJobs = new ObservableCollection<Job>(allRejectedJobs);
+            Jobs allCanceledJobs = new Jobs("Canceled");
+            this.CanceledJobs = new ObservableCollection<Job>(allCanceledJobs);
         }
         public JobManagementViewModel()
         {
