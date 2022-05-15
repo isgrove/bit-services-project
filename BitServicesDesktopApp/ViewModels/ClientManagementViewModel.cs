@@ -134,7 +134,7 @@ namespace BitServicesDesktopApp.ViewModels
                     message = $"There was an issue when deleting {SelectedClient.Name} {SelectedLocation.Suburb}, please try again!";
                 }
                 MessageBox.Show(message, $"Delete {SelectedClient.Name} {SelectedLocation.Suburb}");
-                UpdateClients();
+                UpdateClientLocations();
             }
 
         }
