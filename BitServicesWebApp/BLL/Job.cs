@@ -214,15 +214,17 @@ namespace BitServicesWebApp.BLL
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
             return rowsAffected;
         }
-
-        // TODO: Change to match updating stored proc
         public DataTable GetContractorsForJob()
         {
             string sql = "usp_GetContractorsForJob";
-            SqlParameter[] objParams = new SqlParameter[1];
-            objParams[0] = new SqlParameter("@JodId", DbType.Int32)
+            SqlParameter[] objParams = new SqlParameter[2];
+            objParams[0] = new SqlParameter("@JobSkillName", DbType.String)
             {
-                Value = this.JobId
+                Value = this.RequiredSkill
+            };
+            objParams[1] = new SqlParameter("@DeadlineDate", DbType.Date)
+            {
+                Value = this.DeadlineDate
             };
             DataTable contractorsTable = _db.ExecuteSQL(sql, objParams, true);
             return contractorsTable;

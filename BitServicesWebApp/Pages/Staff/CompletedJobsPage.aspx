@@ -26,7 +26,7 @@
                                 <asp:BoundField DataField="Contractor Name" HeaderText="Contractor Name"/>
                                 <asp:BoundField DataField="Description" HeaderText="Description"/>
                                 <asp:BoundField DataField="Deadline Date" HeaderText="Deadline Date"/>
-                                <asp:BoundField DataField="Completed Date" HeaderText="Completed Date"/>
+                                <asp:BoundField DataField="Completion Date" HeaderText="Completion Date"/>
                                 <asp:TemplateField HeaderText="">
                                     <ItemTemplate>
                                         <asp:Button ID="btnVerifyJob" runat="server" Height="40px" Width="100px"

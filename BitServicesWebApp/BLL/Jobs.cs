@@ -13,8 +13,13 @@ namespace BitServicesWebApp.BLL
         public DataTable AllCompletedJobs()
         {
             SQLHelper helper = new SQLHelper();
-            string sql = "usp_GetCompletedJobs";
-            DataTable jobsTable = helper.ExecuteSQL(sql, null, true);
+            string sql = "usp_GetAllJobs";
+            SqlParameter[] objParams = new SqlParameter[1];
+            objParams[0] = new SqlParameter("@JobStatus", DbType.String)
+            {
+                Value = "Completed"
+            };
+            DataTable jobsTable = helper.ExecuteSQL(sql, objParams, true);
             return jobsTable;
 
         }

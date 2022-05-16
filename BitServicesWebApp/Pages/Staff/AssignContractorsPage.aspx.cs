@@ -73,9 +73,14 @@ namespace BitServicesWebApp.Pages
         {
             if (e.Row.DataItemIndex >= 0)
             {
+                int rowIndex = e.Row.RowIndex;
+                DateTime deadlineDate = Convert.ToDateTime(DataBinder.Eval(e.Row.DataItem, "Deadline Date"));
+                string requiredSkill = DataBinder.Eval(e.Row.DataItem, "Job Skill").ToString();
                 Job currentJob = new Job
                 {
-                    JobId = Convert.ToInt32(gvUnassignedJobs.DataKeys[e.Row.DataItemIndex]?.Value)
+                    JobId = Convert.ToInt32(gvUnassignedJobs.DataKeys[e.Row.DataItemIndex]?.Value),
+                    DeadlineDate = deadlineDate,
+                    RequiredSkill = requiredSkill
                 };
 
                 DropDownList drop = (DropDownList)e.Row.FindControl("ddlContractors");
