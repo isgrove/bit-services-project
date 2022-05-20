@@ -26,6 +26,7 @@
                                 <asp:BoundField DataField="Location Suburb" HeaderText="Location Suburb"/>
                                 <asp:BoundField DataField="Status" HeaderText="Status"/>
                                 <asp:BoundField DataField="Job Skill" HeaderText="Job Skill"/>
+                                <asp:BoundField DataField="Title" HeaderText="Title"/>
                                 <asp:BoundField DataField="Description" HeaderText="Description"/>
                                 <asp:BoundField DataField="Deadline Date" HeaderText="	Deadline Date"/>
                                 <asp:TemplateField HeaderText="Kilometers">
