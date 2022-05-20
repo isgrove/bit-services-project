@@ -125,5 +125,18 @@ namespace BitServicesWebApp.BLL
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
             return rowsAffected;
         }
+
+        public DataTable AllJobs()
+        {
+            SQLHelper helper = new SQLHelper();
+            string sql = "usp_GetAllJobs";
+            SqlParameter[] objParams = new SqlParameter[1];
+            objParams[0] = new SqlParameter("@ClientId", DbType.Int32)
+            {
+                Value = this.ClientId
+            };
+            DataTable jobsTable = helper.ExecuteSQL(sql, objParams, true);
+            return jobsTable;
+        }
     }
 }

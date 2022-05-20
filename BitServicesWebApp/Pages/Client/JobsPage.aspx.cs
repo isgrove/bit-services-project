@@ -28,8 +28,12 @@ namespace BitServicesWebApp.Pages
         }
         private void RefreshGrid()
         {
-            ClientJobs clientJobs = new ClientJobs();
-            gvCompletedBookings.DataSource = clientJobs.AllCompletedBookings().DefaultView;
+            int clientId = Convert.ToInt32(Session["ClientId"]);
+            BLL.Client currentClient = new BLL.Client()
+            {
+                ClientId = clientId
+            };
+            gvCompletedBookings.DataSource = currentClient.AllJobs().DefaultView;
             gvCompletedBookings.DataBind();
         }
 

@@ -176,7 +176,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BLL\ButtonManager.cs" />
     <Compile Include="BLL\Client.cs" />
-    <Compile Include="BLL\ClientJobs.cs" />
     <Compile Include="BLL\ClientLocation.cs" />
     <Compile Include="BLL\ClientLocations.cs" />
     <Compile Include="BLL\Jobs.cs" />
