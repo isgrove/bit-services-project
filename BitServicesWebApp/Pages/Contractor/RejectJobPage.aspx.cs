@@ -58,9 +58,9 @@ namespace BitServicesWebApp.Pages
 
                 int jobId = Convert.ToInt32(Session["JobId"].ToString());
                 string reason = ddlReason.SelectedValue;
-                string description = txtDescription.Text;
+                //string description = txtDescription.Text;
 
-                int returnValue = currentContractor.RejectJob(jobId, reason, description);
+                int returnValue = currentContractor.RejectJob(jobId, reason);
                 if (returnValue > 0)
                 {
                     Session.Remove("JobId");

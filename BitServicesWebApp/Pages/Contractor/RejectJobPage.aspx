@@ -22,13 +22,13 @@
                     </asp:DropDownList>
                 </div>
             </div>
-            <div class="col p-0">
+<%--            <div class="col p-0">
                 <label>Description (Max 100 chars)</label>
                 <div class="form-group">
                     <asp:TextBox CssClass="form-control resize-none" ID="txtDescription" runat="server"
                         placeholder="Rejection Description" Rows="5" TextMode="MultiLine" />
                 </div>
-            </div>
+            </div>--%>
         </div>
         <div class="row">
             <div class="col">

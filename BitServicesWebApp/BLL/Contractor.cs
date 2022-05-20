@@ -123,11 +123,11 @@ namespace BitServicesWebApp.BLL
             int returnValue = _db.ExecuteNonQuery(sql, objParams, true);
             return returnValue;
         }
-        public int RejectJob(int jobId, string reason, string description)
+        public int RejectJob(int jobId, string reason)
         {
             string sql = "usp_RejectJob";
 
-            SqlParameter[] objParams = new SqlParameter[4];
+            SqlParameter[] objParams = new SqlParameter[3];
             objParams[0] = new SqlParameter("@ContractorId", DbType.Int32)
             {
                 Value = this.ContractorId
@@ -139,10 +139,6 @@ namespace BitServicesWebApp.BLL
             objParams[2] = new SqlParameter("@Reason", DbType.String)
             {
                 Value = reason
-            };
-            objParams[3] = new SqlParameter("@Description", DbType.String)
-            {
-                Value = description
             };
             int returnValue = _db.ExecuteNonQuery(sql, objParams, true);
             return returnValue;
