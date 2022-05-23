@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -33,8 +34,16 @@ namespace BitServicesWebApp.Pages
             {
                 ClientId = clientId
             };
-            gvCompletedBookings.DataSource = currentClient.AllJobs().DefaultView;
+
+            DataTable allJobs = currentClient.AllJobs();
+
+            gvCompletedBookings.DataSource = allJobs.DefaultView;
             gvCompletedBookings.DataBind();
+
+            if (allJobs.Rows.Count == 0)
+            {
+                pnlNoJobs.CssClass = pnlNoJobs.CssClass.Replace("d-none", "").Trim();
+            }
         }
 
         protected void lbtnNewJob_OnClick(object sender, EventArgs e)

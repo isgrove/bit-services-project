@@ -19,6 +19,10 @@
                 </div>
                 <div class="row">
                     <div class="col-12 mx-auto">
+                        <asp:Panel runat="server" CssClass="text-center mt-5 d-none" ID="pnlNoJobs">
+                            <i class="fa-solid fa-building-circle-exclamation h1 mb-3"></i>
+                            <p class="">You have no jobs with us.</p>
+                        </asp:Panel>
                         <asp:GridView ID="gvCompletedBookings" AutoGenerateColumns="false"
                             CssClass="table table-striped table-bordered"
                             runat="server">
