@@ -32,14 +32,23 @@ namespace BitServicesWebApp.Pages
             {
                 ContractorId = Convert.ToInt32(Session["ContractorId"])
             };
-            gvAcceptedJobs.DataSource = contractor.AcceptedJobs().DefaultView;
+
+            DataTable acceptedJobs = contractor.AcceptedJobs();
+
+            gvAcceptedJobs.DataSource = acceptedJobs.DefaultView;
             gvAcceptedJobs.DataBind();
 
             int numberOfAssignedJobs = contractor.AssignedJobs().Rows.Count;
-            if (numberOfAssignedJobs> 0)
+            Response.Write($"<script> console.log('Assigned jobs: {numberOfAssignedJobs}') </script>");
+            if (numberOfAssignedJobs > 0)
             {
                 lbtnPendingJobs.CssClass = lbtnPendingJobs.CssClass.Replace("d-none", "").Trim();
                 lblPendingJobs.Text = numberOfAssignedJobs.ToString();
+            }
+
+            if (acceptedJobs.Rows.Count == 0)
+            {
+                pnlNoJobs.CssClass = pnlNoJobs.CssClass.Replace("d-none", "").Trim();
             }
         }
 
@@ -59,7 +68,7 @@ namespace BitServicesWebApp.Pages
                 string strKilometers = ((TextBox)row.FindControl("txtKilometers")).Text.Trim();
                 if (int.TryParse(strKilometers, out int kilometers) && varJobId != null)
                 {
-                    int jobId = (int) varJobId;
+                    int jobId = (int)varJobId;
                     currentContractor.CompleteJob(jobId, kilometers);
                 }
             }
