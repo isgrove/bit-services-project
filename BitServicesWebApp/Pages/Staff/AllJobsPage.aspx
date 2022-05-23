@@ -8,16 +8,16 @@
             <div class="col-12">
                 <div class="row mb-2">
                     <div class="col">
-                        <h3>All Jobs</h3>
+                        <h3>All jobs</h3>
                     </div>
                     <div class="col text-right">
                         <asp:LinkButton CssClass="btn btn-outline d-none" ID="lbtnAssignContractors"
-                                        runat="server" OnClick="lbtnAssignContractors_OnClick">
+                            runat="server" OnClick="lbtnAssignContractors_OnClick">
                             Assign Contractors
                             <asp:Label runat="server" ID="lblAssignContractors" CssClass="new"></asp:Label>
                         </asp:LinkButton>
                         <asp:LinkButton CssClass="btn btn-outline ml-4 d-none" ID="lbtnVerifyJobs"
-                                        runat="server" OnClick="lbtnVerifyJobs_OnClick">
+                            runat="server" OnClick="lbtnVerifyJobs_OnClick">
                             Verify Jobs
                             <asp:Label runat="server" ID="lblVerifyJobs" CssClass="new"></asp:Label>
                         </asp:LinkButton>
@@ -25,6 +25,10 @@
                 </div>
                 <div class="row">
                     <div class="col-12 mx-auto">
+                        <asp:Panel runat="server" CssClass="text-center mt-5 d-none" ID="pnlNoJobs">
+                            <i class="fa-solid fa-building-circle-exclamation h1 mb-3"></i>
+                            <p class="">There are currently no jobs in the system.</p>
+                        </asp:Panel>
                         <asp:GridView ID="gvAllJobs"
                             CssClass="table table-striped table-bordered" AutoGenerateColumns="false"
                             runat="server" DataKeyNames="job_id">

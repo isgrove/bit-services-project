@@ -51,6 +51,15 @@ namespace BitServicesWebApp.Pages.Staff
         protected global::System.Web.UI.WebControls.Label lblVerifyJobs;
 
         /// <summary>
+        /// pnlNoJobs control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlNoJobs;
+
+        /// <summary>
         /// gvAllJobs control.
         /// </summary>
         /// <remarks>

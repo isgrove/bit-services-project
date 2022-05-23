@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -30,8 +31,15 @@ namespace BitServicesWebApp.Pages.Staff
         {
             Jobs jobs = new Jobs();
 
-            gvAllJobs.DataSource = jobs.AllJobs().DefaultView;
+            DataTable allJobs = jobs.AllJobs();
+
+            gvAllJobs.DataSource = allJobs.DefaultView;
             gvAllJobs.DataBind();
+
+            if (allJobs.Rows.Count == 0)
+            {
+                pnlNoJobs.CssClass = pnlNoJobs.CssClass.Replace("d-none", "").Trim();
+            }
 
             int numberOfUnassignedJobs = jobs.AllUnasignedJobs().Rows.Count;
             if (numberOfUnassignedJobs > 0)
