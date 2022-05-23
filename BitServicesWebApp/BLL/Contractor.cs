@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text;
-using BitServicesWebApp.DAL;
+using BitServicesWebApp.Helpers;
 
 namespace BitServicesWebApp.BLL
 {

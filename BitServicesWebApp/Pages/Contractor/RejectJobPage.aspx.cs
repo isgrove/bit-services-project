@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using BitServicesWebApp.BLL;
+using BitServicesWebApp.Helpers;
 
 namespace BitServicesWebApp.Pages
 {
@@ -19,8 +20,8 @@ namespace BitServicesWebApp.Pages
                 {
                     if (Session["JobId"] != null)
                     {
-                        ButtonManager buttonManager = new ButtonManager();
-                        buttonManager.UpdateButtons(Master, "Contractor", true);
+                        ButtonHelper buttonHelper = new ButtonHelper();
+                        buttonHelper.UpdateButtons(Master, "Contractor", true);
 
                         DataTable rejectionReasonsTable = new Jobs().AllRejectionReasons();
 

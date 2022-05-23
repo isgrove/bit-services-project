@@ -7,7 +7,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BitServicesWebApp.DAL;
+using BitServicesWebApp.Helpers;
 
 namespace BitServicesWebApp.BLL
 {

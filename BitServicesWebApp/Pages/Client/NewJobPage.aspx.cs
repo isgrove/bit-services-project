@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using BitServicesWebApp.BLL;
+using BitServicesWebApp.Helpers;
 
 namespace BitServicesWebApp.Pages.Client
 {
@@ -17,8 +18,8 @@ namespace BitServicesWebApp.Pages.Client
             {
                 if (Session["ClientId"] != null)
                 {
-                    ButtonManager buttonManager = new ButtonManager();
-                    buttonManager.UpdateButtons(Master, "Client", true);
+                    ButtonHelper buttonHelper = new ButtonHelper();
+                    buttonHelper.UpdateButtons(Master, "Client", true);
 
                     ClientLocations clientLocations = new ClientLocations();
                     DataTable locationsTable = clientLocations.AllClientLocations(Convert.ToInt32(Session["ClientId"]));

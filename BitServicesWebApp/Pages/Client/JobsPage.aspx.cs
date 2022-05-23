@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using BitServicesWebApp.BLL;
+using BitServicesWebApp.Helpers;
 
 namespace BitServicesWebApp.Pages
 {
@@ -17,7 +18,7 @@ namespace BitServicesWebApp.Pages
             {
                 if (Session["ClientId"] != null)
                 {
-                    new ButtonManager().UpdateButtons(Master, "Client", true);
+                    new ButtonHelper().UpdateButtons(Master, "Client", true);
 
                     RefreshGrid();
                 }

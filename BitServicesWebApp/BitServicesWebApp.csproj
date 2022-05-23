@@ -174,7 +174,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="BLL\ButtonManager.cs" />
+    <Compile Include="Helpers\ButtonHelper.cs" />
     <Compile Include="BLL\Client.cs" />
     <Compile Include="BLL\ClientLocation.cs" />
     <Compile Include="BLL\ClientLocations.cs" />
@@ -183,7 +183,7 @@
     <Compile Include="BLL\Job.cs" />
     <Compile Include="BLL\Skills.cs" />
     <Compile Include="BLL\User.cs" />
-    <Compile Include="DAL\SQLHelper.cs" />
+    <Compile Include="Helpers\SQLHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

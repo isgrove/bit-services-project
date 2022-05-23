@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using BitServicesWebApp.BLL;
+using BitServicesWebApp.Helpers;
 
 namespace BitServicesWebApp.Pages
 {
@@ -18,7 +19,7 @@ namespace BitServicesWebApp.Pages
             {
                 if (Session["ContractorId"] != null)
                 {
-                    new ButtonManager().UpdateButtons(Master, "Contractor", true);
+                    new ButtonHelper().UpdateButtons(Master, "Contractor", true);
                     RefreshGrid();
 
                     Contractor currentContractor = new Contractor()
