@@ -60,11 +60,6 @@ namespace BitServicesWebApp.Pages
                     currentJob.VerifyJob();
                 }
             }
-            if (e.CommandName == "Reject")
-            {
-                //TODO Implement Job Rejection
-            }
-
             RefreshGrid();
         }
 
