@@ -10,6 +10,7 @@
                     <div class="col">
                         <h3>All your in progress jobs</h3>
                     </div>
+                    <%-- TODO: add filter to filter jobs via the status (in progress, completed, verified) and rejected jobs. Rejected jobs will be shown in a seperate GridView --%>
                     <div class="col text-right">
                         <asp:LinkButton CssClass="btn btn-outline d-none" ID="lbtnPendingJobs"
                             runat="server" OnClick="lbtnPendingJobs_OnClick">
