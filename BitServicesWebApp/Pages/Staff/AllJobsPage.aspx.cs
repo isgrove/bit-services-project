@@ -66,5 +66,10 @@ namespace BitServicesWebApp.Pages.Staff
         {
             Response.Redirect("~/Pages/Staff/CompletedJobsPage.aspx");
         }
+
+        protected void lbtnApplyFilters_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

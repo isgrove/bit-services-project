@@ -8,10 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fast Drivers Web Application</title>
     <link href="BootStrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="Datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <%--<link href="/Datatables/css/jquery.dataTables.min.css" rel="stylesheet" />--%>
     <link href="FontAwesome/css/all.css" rel="stylesheet" />
     <link href="Content/Site.css" rel="stylesheet" />
-    <script src="BootStrap/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="/BootStrap/js/bootstrap.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <script src="https://kit.fontawesome.com/0e078c1712.js" crossorigin="anonymous"></script>
