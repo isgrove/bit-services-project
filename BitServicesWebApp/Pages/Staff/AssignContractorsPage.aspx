@@ -39,7 +39,7 @@
                                 <asp:TemplateField HeaderText="">
                                     <ItemTemplate>
                                         <asp:Button ID="btnAssignContractor" runat="server" Height="40px" Width="100px"
-                                            Text="Assign Contractor" CommandName="AssignContractor" CssClass="btn"
+                                            Text="Assign" CommandName="AssignContractor" CssClass="btn"
                                             CommandArgument="<%#Container.DataItemIndex %>" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
