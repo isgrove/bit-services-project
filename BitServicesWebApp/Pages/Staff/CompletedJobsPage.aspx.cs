@@ -70,7 +70,7 @@ namespace BitServicesWebApp.Pages
 
         protected void lbtnBack_OnClick(object sender, EventArgs e)
         {
-            Response.Redirect("~/Pages/Staff/CompletedJobsPage.aspx");
+            Response.Redirect("~/Pages/Staff/AllJobsPage.aspx");
         }
     }
 }

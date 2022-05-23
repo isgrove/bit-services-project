@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="row mb-2">
                     <div class="col">
-                        <h3>All your assigned jobs</h3>
+                        <h3>Jobs to be verified</h3>
                     </div>
                     <div class="col text-right">
                         <asp:LinkButton CssClass="btn btn-outline" ID="lbtnBack"
