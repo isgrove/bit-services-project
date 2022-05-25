@@ -20,41 +20,101 @@ namespace BitServicesWebApp.Pages.Staff
                 {
                     new ButtonHelper().UpdateButtons(Master, "Staff", true);
                     RefreshGrid();
+                    RefreshButtons();
                 }
                 else
                 {
                     Response.Redirect("~/Pages/LoginPage.aspx");
                 }
             }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "setButtonStyle();", true);
+                RefreshButtons();
+            }
         }
 
         private void RefreshGrid()
         {
+            FilterHelper filterHelper = new FilterHelper();
             Jobs jobs = new Jobs();
+            
+            List<String> filters = GetActiveFilters();
+            DataTable[] filteredJobs = filterHelper.GetFilteredJobs(filters);
 
-            DataTable allJobs = jobs.AllJobs();
-
+            DataTable allJobs = filteredJobs[0];
             gvAllJobs.DataSource = allJobs.DefaultView;
             gvAllJobs.DataBind();
 
-            if (allJobs.Rows.Count == 0)
+            if (allJobs.Rows.Count == 0 && !(filters.Contains("Rejected") && filters.Count == 1))
             {
                 pnlNoJobs.CssClass = pnlNoJobs.CssClass.Replace("d-none", "").Trim();
             }
 
+            DataTable rejectedJobs = filteredJobs[1];
+            gvRejectedJobs.DataSource = rejectedJobs.DefaultView;
+            gvRejectedJobs.DataBind();
+
+            if (rejectedJobs.Rows.Count == 0 && filters.Contains("Rejected"))
+            {
+                pnlNoRejectedJobs.CssClass = pnlNoRejectedJobs.CssClass.Replace("d-none", "").Trim();
+            }
+        }
+
+        private void RefreshButtons()
+        {
+            Jobs jobs = new Jobs();
             int numberOfUnassignedJobs = jobs.AllUnasignedJobs().Rows.Count;
             if (numberOfUnassignedJobs > 0)
             {
                 lbtnAssignContractors.CssClass = lbtnAssignContractors.CssClass.Replace("d-none", "").Trim();
+
+                txtAssignContractors.Text = "Assign Contractors ";
                 lblAssignContractors.Text = numberOfUnassignedJobs.ToString();
+            }
+            else if (!lbtnAssignContractors.CssClass.Contains("d-none"))
+            {
+                lbtnAssignContractors.CssClass += " d-none";
             }
 
             int numberOfCompletedJobs = jobs.AllCompletedJobs().Rows.Count;
             if (numberOfCompletedJobs > 0)
             {
                 lbtnVerifyJobs.CssClass = lbtnVerifyJobs.CssClass.Replace("d-none", "").Trim();
+                txtVerifyJobs.Text = "Verify Jobs ";
                 lblVerifyJobs.Text = numberOfCompletedJobs.ToString();
             }
+            else if (!lbtnVerifyJobs.CssClass.Contains("d-none"))
+            {
+                lbtnVerifyJobs.CssClass += " d-none";
+            }
+        }
+
+        private List<string> GetActiveFilters()
+        {
+            CheckBox[] checkBoxes = { cbPending, cbIn_Progress, cbCompleted, cbVerified, cbRejected, cbCanceled };
+            List<string> activeFilters = new List<string>();
+
+            foreach (CheckBox checkBox in checkBoxes)
+            {
+                if (checkBox.Checked)
+                {
+                    string filterName = checkBox.ID.Replace("cb", "").Replace("_", " ");
+                    activeFilters.Add(filterName);
+                    Response.Write($"<script> console.log('Active filter: {filterName}') </script>");
+                }
+            }
+            // If not filters are "active" we want to activate all filters
+            if (activeFilters.Count == 0)
+            {
+                return new List<string>() { "Pending", "In Progress", "Completed", "Verified", "Rejected", "Canceled" };
+            }
+            return activeFilters;
+        }
+
+        protected void lbtnApplyFilters_Click(object sender, EventArgs e)
+        {
+            RefreshGrid();
         }
 
         protected void lbtnAssignContractors_OnClick(object sender, EventArgs e)
@@ -67,7 +127,7 @@ namespace BitServicesWebApp.Pages.Staff
             Response.Redirect("~/Pages/Staff/CompletedJobsPage.aspx");
         }
 
-        protected void lbtnApplyFilters_Click(object sender, EventArgs e)
+        protected void lbtnFilter_OnClick(object sender, EventArgs e)
         {
 
         }

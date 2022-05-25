@@ -183,6 +183,7 @@
     <Compile Include="BLL\Job.cs" />
     <Compile Include="BLL\Skills.cs" />
     <Compile Include="BLL\User.cs" />
+    <Compile Include="Helpers\FilterHelper.cs" />
     <Compile Include="Helpers\SQLHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

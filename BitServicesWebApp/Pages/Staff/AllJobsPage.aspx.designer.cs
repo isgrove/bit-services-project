@@ -15,22 +15,40 @@ namespace BitServicesWebApp.Pages.Staff
     {
 
         /// <summary>
-        /// lbtnPendingJobs control.
+        /// lbtnPending control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnPendingJobs;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnPending;
 
         /// <summary>
-        /// lbtnInProgressJobs control.
+        /// cbPending control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnInProgressJobs;
+        protected global::System.Web.UI.WebControls.CheckBox cbPending;
+
+        /// <summary>
+        /// lbtnIn_Progress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnIn_Progress;
+
+        /// <summary>
+        /// cbIn_Progress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cbIn_Progress;
 
         /// <summary>
         /// lbtnCompleted control.
@@ -42,6 +60,15 @@ namespace BitServicesWebApp.Pages.Staff
         protected global::System.Web.UI.WebControls.LinkButton lbtnCompleted;
 
         /// <summary>
+        /// cbCompleted control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cbCompleted;
+
+        /// <summary>
         /// lbtnVerified control.
         /// </summary>
         /// <remarks>
@@ -51,13 +78,31 @@ namespace BitServicesWebApp.Pages.Staff
         protected global::System.Web.UI.WebControls.LinkButton lbtnVerified;
 
         /// <summary>
-        /// lbtnRejectedJobs control.
+        /// cbVerified control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnRejectedJobs;
+        protected global::System.Web.UI.WebControls.CheckBox cbVerified;
+
+        /// <summary>
+        /// lbtnRejected control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnRejected;
+
+        /// <summary>
+        /// cbRejected control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cbRejected;
 
         /// <summary>
         /// lbtnCanceled control.
@@ -67,6 +112,15 @@ namespace BitServicesWebApp.Pages.Staff
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lbtnCanceled;
+
+        /// <summary>
+        /// cbCanceled control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cbCanceled;
 
         /// <summary>
         /// lbtnClearFilters control.
@@ -96,6 +150,15 @@ namespace BitServicesWebApp.Pages.Staff
         protected global::System.Web.UI.WebControls.LinkButton lbtnAssignContractors;
 
         /// <summary>
+        /// txtAssignContractors control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label txtAssignContractors;
+
+        /// <summary>
         /// lblAssignContractors control.
         /// </summary>
         /// <remarks>
@@ -112,6 +175,15 @@ namespace BitServicesWebApp.Pages.Staff
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lbtnVerifyJobs;
+
+        /// <summary>
+        /// txtVerifyJobs control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label txtVerifyJobs;
 
         /// <summary>
         /// lblVerifyJobs control.
@@ -148,5 +220,23 @@ namespace BitServicesWebApp.Pages.Staff
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvAllJobs;
+
+        /// <summary>
+        /// pnlNoRejectedJobs control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlNoRejectedJobs;
+
+        /// <summary>
+        /// gvRejectedJobs control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvRejectedJobs;
     }
 }

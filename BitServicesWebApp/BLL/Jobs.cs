@@ -10,41 +10,61 @@ namespace BitServicesWebApp.BLL
 {
     public class Jobs
     {
+        private SQLHelper _db;
+
+        public Jobs()
+        {
+            _db = new SQLHelper();
+        }
         public DataTable AllCompletedJobs()
         {
-            SQLHelper helper = new SQLHelper();
             string sql = "usp_GetAllJobs";
             SqlParameter[] objParams = new SqlParameter[1];
             objParams[0] = new SqlParameter("@JobStatus", DbType.String)
             {
                 Value = "Completed"
             };
-            DataTable jobsTable = helper.ExecuteSQL(sql, objParams, true);
+            DataTable jobsTable = _db.ExecuteSQL(sql, objParams, true);
             return jobsTable;
 
         }
         public DataTable AllUnasignedJobs()
         {
-            SQLHelper helper = new SQLHelper();
             string sql = "usp_GetJobsToAssign";
-            DataTable unassignedJobsTable = helper.ExecuteSQL(sql);
+            DataTable unassignedJobsTable = _db.ExecuteSQL(sql);
             return unassignedJobsTable;
         }
 
         public DataTable AllJobs()
         {
-            SQLHelper helper = new SQLHelper();
             string sql = "usp_GetAllJobs";
-            DataTable jobsTable = helper.ExecuteSQL(sql, null, true);
+            DataTable jobsTable = _db.ExecuteSQL(sql, null, true);
             return jobsTable;
+        }
 
+        public DataTable AllJobs(DataTable jobStatuses)
+        {
+            string sql = "usp_GetAllJobsFromStatuses";
+            SqlParameter[] objParams = new SqlParameter[1];
+            objParams[0] = new SqlParameter("@JobStatuses", SqlDbType.Structured)
+            {
+                Value = jobStatuses
+            };
+            DataTable jobsTable = _db.ExecuteSQL(sql, objParams, true);
+            return jobsTable;
+        }
+
+        public DataTable AllRejectedJobs()
+        {
+            string sql = "usp_GetAllRejectedJobs";
+            DataTable jobsTable = _db.ExecuteSQL(sql, null, true);
+            return jobsTable;
         }
 
         public DataTable AllRejectionReasons()
         {
-            SQLHelper helper = new SQLHelper();
             string sql = "usp_GetAllRejectionReasons";
-            DataTable reasonsTable = helper.ExecuteSQL(sql, null, true);
+            DataTable reasonsTable = _db.ExecuteSQL(sql, null, true);
             return reasonsTable;
         }
     }
