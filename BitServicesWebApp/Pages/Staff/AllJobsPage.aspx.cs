@@ -101,7 +101,6 @@ namespace BitServicesWebApp.Pages.Staff
                 {
                     string filterName = checkBox.ID.Replace("cb", "").Replace("_", " ");
                     activeFilters.Add(filterName);
-                    Response.Write($"<script> console.log('Active filter: {filterName}') </script>");
                 }
             }
             // If not filters are "active" we want to activate all filters
