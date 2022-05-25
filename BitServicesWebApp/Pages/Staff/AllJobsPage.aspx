@@ -4,35 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container">
-        <script>
-            function toggleFilter(btnElement) {
-                btnElement.classList.toggle("filter-active");
-                const cbName = btnElement.id.replace("lbtn", "cb");
-                const comboBox = document.getElementById(cbName);
-                comboBox.checked = !comboBox.checked;
-            }
-            function clearFilters() {
-                const buttons = document.querySelectorAll('.modal-body .btn');
-                buttons.forEach(button => {
-                    button.classList.remove('filter-active');
-                });
-
-                const checkBoxes = document.querySelectorAll('.checkbox input');
-                checkBoxes.forEach(checkBox => {
-                    checkBox.checked = false;
-                });
-            }
-            function setButtonStyle()
-            {
-                const checkBoxes = document.querySelectorAll('.checkbox input');
-                checkBoxes.forEach(checkBox => {
-                    if (checkBox.checked) {
-                        const button = document.querySelector('#' + checkBox.id.replace("cb", "lbtn"));
-                        button.classList.add("filter-active");
-                    }
-                });
-            }
-        </script>
+        <script src="/Scripts/FilterManager.js"></script>
         <!-- Modal -->
         <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
