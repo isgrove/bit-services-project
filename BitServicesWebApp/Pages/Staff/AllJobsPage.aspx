@@ -19,7 +19,7 @@
 
                 const checkBoxes = document.querySelectorAll('.checkbox input');
                 checkBoxes.forEach(checkBox => {
-                    checkBox.active = false;
+                    checkBox.checked = false;
                 });
             }
             function setButtonStyle()
@@ -124,12 +124,12 @@
                     <div class="col text-right align-middle">
                         <asp:LinkButton CssClass="btn btn-outline d-none" ID="lbtnAssignContractors"
                             runat="server" OnClick="lbtnAssignContractors_OnClick">
-                            <asp:Label runat="server" ID="txtAssignContractors"></asp:Label>
+                            <asp:Label runat="server" ID="txtAssignContractors">Assign Contractors </asp:Label>
                             <asp:Label runat="server" ID="lblAssignContractors" CssClass="new"></asp:Label>
                         </asp:LinkButton>
                         <asp:LinkButton CssClass="btn btn-outline ml-2 d-none" ID="lbtnVerifyJobs"
                             runat="server" OnClick="lbtnVerifyJobs_OnClick">
-                            <asp:Label runat="server" ID="txtVerifyJobs"></asp:Label>
+                            <asp:Label runat="server" ID="txtVerifyJobs">Verify Jobs </asp:Label>
                             <asp:Label runat="server" ID="lblVerifyJobs" CssClass="new"></asp:Label>
                         </asp:LinkButton>
                         <!-- Button trigger modal -->
