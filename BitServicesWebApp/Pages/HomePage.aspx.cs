@@ -16,7 +16,7 @@ namespace BitServicesWebApp.Page
 
         protected void lbtnLogin_OnClick(object sender, EventArgs e)
         {
-            Response.Redirect("~/Pages/LoginPage.aspx");
+            Response.Redirect(GetRouteUrl("LoginRoute", null));
         }
     }
 }

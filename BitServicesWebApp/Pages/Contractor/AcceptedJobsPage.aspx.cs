@@ -23,7 +23,7 @@ namespace BitServicesWebApp.Pages
                 }
                 else
                 {
-                    Response.Redirect("~/Pages/LoginPage.aspx");
+                    Response.Redirect(GetRouteUrl("LoginRoute", null));
                 }
             }
         }
@@ -79,7 +79,7 @@ namespace BitServicesWebApp.Pages
 
         protected void lbtnPendingJobs_OnClick(object sender, EventArgs e)
         {
-            Response.Redirect("~/Pages/Contractor/AssignedJobsPage.aspx");
+            Response.Redirect(GetRouteUrl("ContractorAssignedJobsRoute", null));
         }
     }
 }

@@ -24,7 +24,7 @@ namespace BitServicesWebApp.Pages.Staff
                 }
                 else
                 {
-                    Response.Redirect("~/Pages/LoginPage.aspx");
+                    Response.Redirect(GetRouteUrl("LoginRoute", null));
                 }
             }
             else
@@ -118,12 +118,12 @@ namespace BitServicesWebApp.Pages.Staff
 
         protected void lbtnAssignContractors_OnClick(object sender, EventArgs e)
         {
-            Response.Redirect("~/Pages/Staff/AssignContractorsPage.aspx");
+            Response.Redirect(GetRouteUrl("StaffAssignJobsRoute", null));
         }
 
         protected void lbtnVerifyJobs_OnClick(object sender, EventArgs e)
         {
-            Response.Redirect("~/Pages/Staff/CompletedJobsPage.aspx");
+            Response.Redirect(GetRouteUrl("StaffVerifyJobsRoute", null));
         }
 
         protected void lbtnFilter_OnClick(object sender, EventArgs e)

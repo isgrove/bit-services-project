@@ -33,19 +33,19 @@ namespace BitServicesWebApp.Pages
                     }
                     else
                     {
-                        Response.Redirect("~/Pages/Contractor/AssignedJobsPage.aspx");
+                        Response.Redirect(GetRouteUrl("ContractorAssignedJobsRoute", null));
                     }
                 }
                 else
                 {
-                    Response.Redirect("~/Pages/LoginPage.aspx");
+                    Response.Redirect(GetRouteUrl("LoginRoute", null));
                 }
             }
         }
 
         protected void btnCancel_OnClick(object sender, EventArgs e)
         {
-            Response.Redirect("~/Pages/Contractor/AssignedJobsPage.aspx");
+            Response.Redirect(GetRouteUrl("ContractorAssignedJobsRoute", null));
         }
 
         protected void btnConfirm_OnClick(object sender, EventArgs e)
@@ -66,7 +66,7 @@ namespace BitServicesWebApp.Pages
                 {
                     Session.Remove("JobId");
                     Response.Write("<script>alert('You have successfully reject the job')</script>");
-                    Response.Redirect("~/Pages/Contractor/AssignedJobsPage.aspx");
+                    Response.Redirect(GetRouteUrl("ContractorAssignedJobsRoute", null));
                 }
                 else
                 {

@@ -11,11 +11,66 @@ namespace BitServicesWebApp
 {
     public class Global : HttpApplication
     {
-        void Application_Start(object sender, EventArgs e)
+        protected void Application_Start(object sender, EventArgs e)
         {
-            // Code that runs on application startup
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
+            RegisterRoutes(RouteTable.Routes);
+        }
+        void RegisterRoutes(RouteCollection routes)
+        {
+            // Global pages
+            routes.MapPageRoute(
+                "HomeRoute",
+                "",
+                "~/Pages/HomePage.aspx"
+            );
+            routes.MapPageRoute(
+                "LoginRoute",
+                "login",
+                "~/Pages/LoginPage.aspx"
+            );
+            // Staff pages
+            routes.MapPageRoute(
+                "StaffJobsRoute",
+                "staff/jobs",
+                "~/Pages/Staff/AllJobsPage.aspx"
+            );
+            routes.MapPageRoute(
+                "StaffAssignJobsRoute",
+                "staff/jobs/assign",
+                "~/Pages/Staff/AssignContractorsPage.aspx"
+            );
+            routes.MapPageRoute(
+                "StaffVerifyJobsRoute",
+                "staff/jobs/verify",
+                "~/Pages/Staff/CompletedJobsPage.aspx"
+            );
+            // Client pages
+            routes.MapPageRoute(
+                "ClientJobsRoute",
+                "client/jobs",
+                "~/Pages/Client/JobsPage.aspx"
+            );
+            routes.MapPageRoute(
+                "ClientNewJobRoute",
+                "client/jobs/new",
+                "~/Pages/Client/NewJobPage.aspx"
+            );
+            // Contractor pages
+            routes.MapPageRoute(
+                "ContractorJobsRoute",
+                "contractor/jobs",
+                "~/Pages/Contractor/AcceptedJobsPage.aspx"
+            );
+            routes.MapPageRoute(
+                "ContractorAssignedJobsRoute",
+                "contractor/jobs/requests",
+                "~/Pages/Contractor/AssignedJobsPage.aspx"
+            );
+            routes.MapPageRoute(
+                "ContractorRejectJobRoute",
+                "contractor/jobs/requests/reject",
+                "~/Pages/Contractor/RejectJobPage.aspx"
+            );
         }
     }
 }

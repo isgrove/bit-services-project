@@ -40,7 +40,7 @@ namespace BitServicesWebApp.Pages.Client
                 }
                 else
                 {
-                    Response.Redirect("~/Pages/LoginPage.aspx");
+                    Response.Redirect(GetRouteUrl("LoginRoute", null));
                 }
             }
         }
@@ -68,7 +68,7 @@ namespace BitServicesWebApp.Pages.Client
                 if (returnValue > 0)
                 {
                     Response.Write("<script>alert('New job created')</script>");
-                    Response.Redirect("~/Pages/Client/JobsPage.aspx");
+                    Response.Redirect(GetRouteUrl("ClientJobsRoute", null));
                 }
                 else
                 {

@@ -23,7 +23,7 @@ namespace BitServicesWebApp.Pages
                 }
                 else
                 {
-                    Response.Redirect("~/Pages/LoginPage.aspx");
+                    Response.Redirect(GetRouteUrl("LoginRoute", null));
                 }
             }
         }
@@ -36,7 +36,8 @@ namespace BitServicesWebApp.Pages
 
             if (numberOfAssignedJobs == 0)
             {
-                Response.Redirect("~/Pages/Staff/AllJobsPage.aspx");
+
+                Response.Redirect(GetRouteUrl("StaffJobsRoute", null));
             }
 
             gvUnassignedJobs.DataSource = assignedJobs.DefaultView;
@@ -99,7 +100,7 @@ namespace BitServicesWebApp.Pages
 
         protected void lbtnBack_OnClick(object sender, EventArgs e)
         {
-            Response.Redirect("~/Pages/Staff/AllJobsPage.aspx");
+            Response.Redirect(GetRouteUrl("StaffJobsRoute", null));
         }
     }
 }
