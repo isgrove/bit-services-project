@@ -74,7 +74,6 @@
                     <div class="col">
                         <h3>All your jobs</h3>
                     </div>
-                    <%-- TODO: add filter to filter jobs via the status (pending, in progress, completed, verified) and rejected jobs. --%>
                     <div class="col text-right">
                         <asp:LinkButton CssClass="btn btn-primary" ID="lbtnNewJob"
                             runat="server" OnClick="lbtnNewJob_OnClick">
