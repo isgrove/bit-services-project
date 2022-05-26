@@ -3,8 +3,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <script src="/Scripts/FilterManager.js"></script>
     <div class="container">
-        <script src="/Scripts/FilterManager.js"></script>
         <!-- Modal -->
         <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
