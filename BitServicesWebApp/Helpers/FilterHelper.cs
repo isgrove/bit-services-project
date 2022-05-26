@@ -46,6 +46,25 @@ namespace BitServicesWebApp.Helpers
 
             return resultTables;
         }
+        public DataTable GetFilteredJobs(List<string> activeFilters, int clientId)
+        {
+            Client client = new Client()
+            {
+                ClientId = clientId
+            };
 
+            DataTable allJobs;
+            DataTable jobStatuses = new DataTable();
+
+            jobStatuses.Columns.Add("job_status", typeof(string));
+
+            foreach (string jobStatus in activeFilters)
+            {
+                jobStatuses.Rows.Add(jobStatus);
+            }
+            allJobs = client.AllJobs(jobStatuses);
+
+            return allJobs;
+        }
     }
 }

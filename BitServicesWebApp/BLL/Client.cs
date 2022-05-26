@@ -138,5 +138,20 @@ namespace BitServicesWebApp.BLL
             DataTable jobsTable = helper.ExecuteSQL(sql, objParams, true);
             return jobsTable;
         }
+        public DataTable AllJobs(DataTable jobStatuses)
+        {
+            string sql = "usp_GetAllJobsFromStatuses";
+            SqlParameter[] objParams = new SqlParameter[2];
+            objParams[0] = new SqlParameter("@JobStatuses", SqlDbType.Structured)
+            {
+                Value = jobStatuses
+            };
+            objParams[1] = new SqlParameter("@ClientId", DbType.Int32)
+            {
+                Value = this.ClientId
+            };
+            DataTable jobsTable = _db.ExecuteSQL(sql, objParams, true);
+            return jobsTable;
+        }
     }
 }

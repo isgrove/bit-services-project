@@ -27,24 +27,52 @@ namespace BitServicesWebApp.Pages
                     Response.Redirect("~/Pages/LoginPage.aspx");
                 }
             }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "setButtonStyle();", true);
+            }
         }
         private void RefreshGrid()
         {
             int clientId = Convert.ToInt32(Session["ClientId"]);
-            BLL.Client currentClient = new BLL.Client()
-            {
-                ClientId = clientId
-            };
+            FilterHelper filterHelper = new FilterHelper();
 
-            DataTable allJobs = currentClient.AllJobs();
+            List<String> filters = GetActiveFilters();
+            DataTable filteredJobs = filterHelper.GetFilteredJobs(filters, clientId);
 
-            gvCompletedBookings.DataSource = allJobs.DefaultView;
+            gvCompletedBookings.DataSource = filteredJobs.DefaultView;
             gvCompletedBookings.DataBind();
 
-            if (allJobs.Rows.Count == 0)
+            if (filteredJobs.Rows.Count == 0)
             {
                 pnlNoJobs.CssClass = pnlNoJobs.CssClass.Replace("d-none", "").Trim();
             }
+        }
+        
+        private List<string> GetActiveFilters()
+        {
+            CheckBox[] checkBoxes = { cbPending, cbIn_Progress, cbCompleted, cbVerified };
+            List<string> activeFilters = new List<string>();
+
+            foreach (CheckBox checkBox in checkBoxes)
+            {
+                if (checkBox.Checked)
+                {
+                    string filterName = checkBox.ID.Replace("cb", "").Replace("_", " ");
+                    activeFilters.Add(filterName);
+                }
+            }
+            // If not filters are "active" we want to activate all filters
+            if (activeFilters.Count == 0)
+            {
+                return new List<string>() {"Pending", "In Progress", "Completed", "Verified"};
+            }
+            return activeFilters;
+        }
+
+        protected void lbtnApplyFilters_OnClick(object sender, EventArgs e)
+        {
+            RefreshGrid();
         }
 
         protected void lbtnNewJob_OnClick(object sender, EventArgs e)
