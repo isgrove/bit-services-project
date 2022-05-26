@@ -214,6 +214,8 @@ namespace BitServicesWebApp.BLL
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
             return rowsAffected;
         }
+
+        // TODO: Update stored proc so it does not return contractors who have already rejected the job
         public DataTable GetContractorsForJob()
         {
             string sql = "usp_GetContractorsForJob";

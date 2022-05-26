@@ -29,7 +29,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
-        <TextBlock Text="New Client" FontSize="28px"
+        <TextBlock Text="New Contractor" FontSize="28px"
                        FontWeight="bold" Margin="0,0,0,0" Grid.ColumnSpan="3"/>
         <Label Content="First Name: " Grid.Row="1" Grid.Column="0"/>
         <TextBox x:Name="txtFirstName" Text="{Binding NewContractor.FirstName}" Grid.Row="1" Grid.Column="1" Margin="5" />
@@ -56,12 +56,8 @@
         <TextBox x:Name="txtPassword" Text="{Binding NewContractor.Password}" Grid.Row="3" Grid.Column="3" Margin="5" />
         <ListBox x:Name="lstBxSkillsList" HorizontalAlignment="Left" Height="110" Margin="10,10" VerticalAlignment="Top" Width="400" Grid.Row="4" Grid.ColumnSpan="2" Grid.RowSpan="3" Grid.Column="2"/>
         <Grid Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2">
-            <ComboBox x:Name="cboSkillsList" HorizontalAlignment="Left" Margin="10,0" Width="190" VerticalAlignment="Center" ItemsSource="{Binding }">
-                <ComboBox.ItemContainerStyle>
-                    <Style TargetType="ComboBoxItem">
-                        <Setter Property="IsEnabled" Value="{Binding IsSelectable}" />
-                    </Style>
-                </ComboBox.ItemContainerStyle>
+            <ComboBox x:Name="cboSkillsList" HorizontalAlignment="Left" Margin="10,0" Width="190" VerticalAlignment="Center"
+                      ItemsSource="{Binding AllSkills, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="SkillName" SelectedValue="{Binding NewSkill}">
             </ComboBox>
             <Button x:Name="btnAddSkill" Content="Add Skill" HorizontalAlignment="Left" Margin="210,10,0,10" VerticalAlignment="Center"  Width="80" Height="20"/>
             <Button x:Name="btnRemoveSkill" Content="Remove Skill" HorizontalAlignment="Left" Margin="300,10,0,10" VerticalAlignment="Center" Width="80" Height="20"/>

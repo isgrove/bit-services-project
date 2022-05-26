@@ -165,7 +165,73 @@ namespace BitServicesWebApp.BLL
             DataTable jobsTable = _db.ExecuteSQL(sql, objParams, true);
             return jobsTable;
         }
+        public DataTable FilteredJobs(DataTable jobStatuses)
+        {
+            string sql = "usp_GetAllJobsFromStatuses";
+            SqlParameter[] objParams = new SqlParameter[1];
+            objParams[0] = new SqlParameter("@JobStatuses", SqlDbType.Structured)
+            {
+                Value = jobStatuses
+            };
+            DataTable jobsTable = _db.ExecuteSQL(sql, objParams, true);
+            return jobsTable;
+        }
 
+        // Can be optimized by not using list.remove, however, due to how small list is this should have a minimal impact on performance
+        public DataTable[] AllJobs(List<string> activeFilters)
+        {
+            Jobs jobs = new Jobs();
+
+            bool getRejectedJobs = activeFilters.Contains("Rejected");
+            bool getInProgressJobs = activeFilters.Contains("In Progress");
+
+            DataTable[] resultTables = new DataTable[3];
+            DataTable allJobs = new DataTable();
+            DataTable rejectedJobs = new DataTable();
+            DataTable inProgressJobs = new DataTable();
+
+            if (getRejectedJobs)
+            {
+                rejectedJobs = this.RejectedJobs();
+                activeFilters.Remove("Rejected");
+            }
+
+            if (getInProgressJobs)
+            {
+                inProgressJobs = this.AcceptedJobs();
+                activeFilters.Remove("In Progress");
+            }
+
+            // Pass filters as DT for stored proc params
+            if (activeFilters.Count > 0)
+            {
+                DataTable jobStatuses = new DataTable();
+                jobStatuses.Columns.Add("job_status", typeof(string));
+
+                foreach (string jobStatus in activeFilters)
+                {
+                    jobStatuses.Rows.Add(jobStatus);
+                }
+                allJobs = this.FilteredJobs(jobStatuses);
+            }
+
+            resultTables[0] = allJobs;
+            resultTables[1] = rejectedJobs;
+            resultTables[2] = inProgressJobs;
+
+            return resultTables;
+        }
+        public DataTable RejectedJobs()
+        {
+            string sql = "usp_GetAllRejectedJobs";
+            SqlParameter[] objParams = new SqlParameter[1];
+            objParams[0] = new SqlParameter("@ContractorId", DbType.Int32)
+            {
+                Value = this.ContractorId
+            };
+            DataTable jobsTable = _db.ExecuteSQL(sql, objParams, true);
+            return jobsTable;
+        }
         public DataTable GetAvailabilityForJob(DateTime deadlineDate)
         {
             string sql = "usp_GetAvailabilityForJob";
