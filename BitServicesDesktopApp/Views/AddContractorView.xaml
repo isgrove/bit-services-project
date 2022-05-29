@@ -52,19 +52,17 @@
         <TextBox x:Name="txtLicenceNumber" Text="{Binding NewContractor.LicenceNumber}" Grid.Row="1" Grid.Column="3" Margin="5" />
         <Label Content="Vehicle Registration: " Grid.Row="2" Grid.Column="2"/>
         <TextBox x:Name="txtVehicleRegistration" Text="{Binding NewContractor.VehicleRegistration}" Grid.Row="2" Grid.Column="3" Margin="5" />
-        <Label Content="Password: " Grid.Row="3" Grid.Column="2"/>
-        <TextBox x:Name="txtPassword" Text="{Binding NewContractor.Password}" Grid.Row="3" Grid.Column="3" Margin="5" />
-        <ListBox x:Name="lstBxSkillsList" HorizontalAlignment="Left" Height="110" Margin="10,10" VerticalAlignment="Top" Width="400" Grid.Row="4" Grid.ColumnSpan="2" Grid.RowSpan="3" Grid.Column="2"/>
-        <Grid Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2">
+        <ListBox x:Name="lstBxSkillsList" ItemsSource="{Binding AddedSkills}" SelectedValue="{Binding SelectedSkill}" DisplayMemberPath="SkillName" HorizontalAlignment="Left" Height="200" Margin="10,10" VerticalAlignment="Top" Width="400" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="7" Grid.Column="2"/>
+        <Grid Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2">
             <ComboBox x:Name="cboSkillsList" HorizontalAlignment="Left" Margin="10,0" Width="190" VerticalAlignment="Center"
                       ItemsSource="{Binding AllSkills, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="SkillName" SelectedValue="{Binding NewSkill}">
             </ComboBox>
-            <Button x:Name="btnAddSkill" Content="Add Skill" HorizontalAlignment="Left" Margin="210,10,0,10" VerticalAlignment="Center"  Width="80" Height="20"/>
-            <Button x:Name="btnRemoveSkill" Content="Remove Skill" HorizontalAlignment="Left" Margin="300,10,0,10" VerticalAlignment="Center" Width="80" Height="20"/>
+            <Button x:Name="btnAddSkill" Command="{Binding AddSkillCommand}" Content="Add Skill" HorizontalAlignment="Left" Margin="210,10,0,10" VerticalAlignment="Center"  Width="80" Height="20"/>
+            <Button x:Name="btnRemoveSkill" Command="{Binding RemoveSkillCommand}" Content="Remove Skill" HorizontalAlignment="Left" Margin="300,10,0,10" VerticalAlignment="Center" Width="80" Height="20"/>
         </Grid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="9" Grid.ColumnSpan="4">
             <Button Command="{Binding AddCommand}" x:Name="btnSave" Content="SAVE" Width="150" Margin="10"/>
-            <Button x:Name="btnClear" Content="CLEAR" Width="150" Margin="10"/>
+            <Button Command="{Binding ClearCommand}" x:Name="btnClear" Content="CLEAR" Width="150" Margin="10"/>
             <Button x:Name="btnCancel" Content="CANCEL" Width="150" Margin="10" Click="btnCancel_Click"/>
         </StackPanel>
     </Grid>

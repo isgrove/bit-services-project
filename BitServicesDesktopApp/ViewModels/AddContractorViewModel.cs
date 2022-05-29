@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data;
 using System.Text;
 using System.Windows.Forms;
 using BitServicesDesktopApp.Commands;
@@ -12,9 +13,13 @@ namespace BitServicesDesktopApp.ViewModels
     public class AddContractorViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<Skill> _allSkills;
+        private ObservableCollection<Skill> _addedSkills;
         private Skill _newSkill;
+        private Skill _selectedSkill;
         private Contractor _newContractor;
         private RelayCommand _addCommand;
+        private RelayCommand _addSkillCommand;
+        private RelayCommand _removeSkillCommand;
         private RelayCommand _clearCommand;
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string prop)
@@ -37,6 +42,33 @@ namespace BitServicesDesktopApp.ViewModels
             set { _addCommand = value; }
         }
 
+        public RelayCommand AddSkillCommand
+        {
+            get
+            {
+                if (_addSkillCommand == null)
+                {
+                    _addSkillCommand = new RelayCommand(this.AddSkillMethod, true);
+                }
+                return _addSkillCommand;
+            }
+            set { _addSkillCommand = value; }
+        }
+
+        public RelayCommand RemoveSkillCommand
+        {
+            get
+            {
+                if (_removeSkillCommand == null)
+                {
+                    _removeSkillCommand = new RelayCommand(this.RemoveSkillMethod, true);
+                }
+
+                return _removeSkillCommand;
+            }
+            set { _removeSkillCommand = value; }
+        }
+
         public RelayCommand ClearCommand
         {
             get
@@ -53,7 +85,7 @@ namespace BitServicesDesktopApp.ViewModels
         public void AddMethod()
         {
             string message;
-            int rowsAffected = NewContractor.InsertContractor();
+            int rowsAffected = NewContractor.InsertContractor(AddedSkills);
             if (rowsAffected >= 1)
             {
                 message = $"You have successfully added {NewContractor.FirstName} {NewContractor.LastName}!";
@@ -67,12 +99,30 @@ namespace BitServicesDesktopApp.ViewModels
 
         public void AddSkillMethod()
         {
-
+            if (NewSkill != null)
+            {
+                if (AddedSkills.Contains(NewSkill))
+                {
+                    MessageBox.Show("You have already added this skill!");
+                }
+                else
+                {
+                    AddedSkills.Add(NewSkill);
+                }
+            }
+        }
+        private void RemoveSkillMethod()
+        {
+            if (SelectedSkill != null)
+            {
+                AddedSkills.Remove(SelectedSkill);
+            }
         }
 
         public void ClearMethod()
         {
             this.NewContractor = new Contractor();
+            this.AddedSkills = new ObservableCollection<Skill>();
             MessageBox.Show("Cleared");
         }
 
@@ -85,6 +135,15 @@ namespace BitServicesDesktopApp.ViewModels
                 OnPropertyChanged("AllSkills");
             }
 
+        }
+        public ObservableCollection<Skill> AddedSkills
+        {
+            get { return _addedSkills; }
+            set
+            {
+                _addedSkills = value;
+                OnPropertyChanged("AddedSkills");
+            }
         }
         public Contractor NewContractor
         {
@@ -102,7 +161,15 @@ namespace BitServicesDesktopApp.ViewModels
             {
                 _newSkill = value;
                 OnPropertyChanged("NewSkill");
-                MessageBox.Show(_newSkill.SkillName);
+            }
+        }
+        public Skill SelectedSkill
+        {
+            get { return _selectedSkill; }
+            set
+            {
+                _selectedSkill = value;
+                OnPropertyChanged("SelectedSkill");
             }
         }
         public AddContractorViewModel()
@@ -110,6 +177,7 @@ namespace BitServicesDesktopApp.ViewModels
             NewContractor = new Contractor();
             Skills allSkills = new Skills();
             this.AllSkills = new ObservableCollection<Skill>(allSkills);
+            this.AddedSkills = new ObservableCollection<Skill>();
         }
     }
 }

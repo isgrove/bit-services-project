@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
@@ -204,10 +205,81 @@ namespace BitServicesDesktopApp.Models
             this.VehicleRegistration = dr["vehicle_registration"].ToString();
             this.Active = Convert.ToBoolean(dr["active"]);
         }
-
-        public int InsertContractor()
+        // TODO: Generate a random password
+        private void GeneratePassword()
         {
-            throw new NotImplementedException();
+            this.Password = "Password";
+        }
+
+
+        public int InsertContractor(ObservableCollection<Skill> skills)
+        {
+            this.GeneratePassword();
+            DataTable skillsTable = new DataTable();
+            skillsTable.Columns.Add("skill_name");
+
+            foreach (Skill skill in skills)
+            {
+                skillsTable.Rows.Add(skill.SkillName);
+            }
+
+            _db = new SQLHelper();
+            string sql = "usp_AddContractor";
+            SqlParameter[] objParams = new SqlParameter[13];
+            objParams[0] = new SqlParameter("@FirstName", DbType.String)
+            {
+                Value = this.FirstName
+            };
+            objParams[1] = new SqlParameter("@LastName", DbType.String)
+            {
+                Value = this.LastName
+            };
+            objParams[2] = new SqlParameter("@Email", DbType.String)
+            {
+                Value = this.Email
+            };
+            objParams[3] = new SqlParameter("@Phone", DbType.String)
+            {
+                Value = this.Phone
+            };
+            objParams[4] = new SqlParameter("@Password", DbType.String)
+            {
+                Value = this.Password
+            };
+            objParams[5] = new SqlParameter("@Street", DbType.String)
+            {
+                Value = this.Street
+            };
+            objParams[6] = new SqlParameter("@Suburb", DbType.String)
+            {
+                Value = this.Suburb
+            };
+            objParams[7] = new SqlParameter("@Postcode", DbType.String)
+            {
+                Value = this.Postcode
+            };
+            objParams[8] = new SqlParameter("@State", DbType.String)
+            {
+                Value = this.State
+            };
+            objParams[9] = new SqlParameter("@LicenceNumber", DbType.String)
+            {
+                Value = this.LicenceNumber
+            };
+            objParams[10] = new SqlParameter("@VehicleRegistration", DbType.String)
+            {
+                Value = this.VehicleRegistration
+            };
+            objParams[11] = new SqlParameter("@PerformanceRating", DbType.String)
+            {
+                Value = this.PerformanceRating
+            };
+            objParams[12] = new SqlParameter("@Skills", SqlDbType.Structured)
+            {
+                Value = skillsTable
+            };
+            int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
+            return rowsAffected;
         }
     }
 }
