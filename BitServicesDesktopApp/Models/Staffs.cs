@@ -11,7 +11,7 @@ namespace BitServicesDesktopApp.Models
         public Staffs()
         {
             SQLHelper helper = new SQLHelper();
-            string sql = "SELECT staff_id, staff_type, first_name, last_name, email, phone, password, active" +
+            string sql = "SELECT staff_id, type, first_name, last_name, email, phone, password, active" +
                 " FROM staff" +
                 " WHERE active = 1";
             DataTable staffTable = helper.ExecuteSQL(sql);

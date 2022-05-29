@@ -99,7 +99,7 @@ namespace BitServicesDesktopApp.Models
         public Staff(DataRow dr)
         {
             this.StaffId = Convert.ToInt32(dr["staff_id"].ToString());
-            this.StaffType = dr["staff_type"].ToString();
+            this.StaffType = dr["type"].ToString();
             this.FirstName = dr["first_name"].ToString();
             this.LastName = dr["last_name"].ToString();
             this.Email = dr["email"].ToString();
