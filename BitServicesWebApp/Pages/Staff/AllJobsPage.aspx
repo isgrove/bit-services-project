@@ -89,7 +89,7 @@
     </div>
     <div class="row">
         <div class="col-9 mx-auto">
-            <div class="row mb-2">
+            <div class="row mb-3">
                 <div class="col align-middle">
                     <h3>Job Management</h3>
                 </div>
@@ -110,7 +110,7 @@
                     </asp:LinkButton>
                 </div>
             </div>
-            <div class="row mb-4">
+            <div class="row mb-3">
                 <div class="col-12 mx-auto">
                     <h5>Jobs</h5> <!-- TODO: Change this text based on filters --> 
                     <asp:Panel runat="server" CssClass="text-center mt-5 d-none" ID="pnlNoJobs">
