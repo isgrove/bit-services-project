@@ -121,7 +121,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <None Include="Scripts\jQuery\jquery-3.4.1.intellisense.js" />
     <Content Include="Images\FiveStars.png" />
     <Content Include="Images\BitServicesLogo.png" />
     <Content Include="Images\BitServicesLogoWhite.png" />
@@ -138,14 +138,14 @@
     <Content Include="Pages\HomePage.aspx" />
     <Content Include="Pages\LoginPage.aspx" />
     <Content Include="Pages\Staff\AssignContractorsPage.aspx" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\BootStrap\bootstrap.js" />
+    <Content Include="Scripts\BootStrap\bootstrap.min.js" />
     <Content Include="Scripts\FilterManager.js" />
-    <Content Include="Scripts\jquery-3.4.1.js" />
-    <Content Include="Scripts\jquery-3.4.1.min.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\jQuery\jquery-3.4.1.js" />
+    <Content Include="Scripts\jQuery\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jQuery\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jQuery\jquery-3.4.1.slim.min.js" />
+    <Content Include="Scripts\Modernizr\modernizr-2.8.3.js" />
     <Content Include="Scripts\WebForms\DetailsView.js" />
     <Content Include="Scripts\WebForms\Focus.js" />
     <Content Include="Scripts\WebForms\GridView.js" />
@@ -280,8 +280,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.4.1.min.map" />
+    <Content Include="Scripts\jQuery\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jQuery\jquery-3.4.1.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

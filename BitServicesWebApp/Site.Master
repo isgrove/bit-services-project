@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fast Drivers Web Application</title>
-    <link href="BootStrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/BootStrap/css/bootstrap.min.css" rel="stylesheet" />
     <%--<link href="/Datatables/css/jquery.dataTables.min.css" rel="stylesheet" />--%>
     <link href="FontAwesome/css/all.css" rel="stylesheet" />
     <link href="Content/Site.css" rel="stylesheet" />
