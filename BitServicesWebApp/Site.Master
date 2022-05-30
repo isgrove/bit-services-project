@@ -22,7 +22,7 @@
 <body>
     <form runat="server">
         <div class="mb-4">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-light">
                 <a class="navbar-brand" href="#">
                     <asp:Image runat="server" imageurl="~/Images/BitServicesLogo.png" height="50" AlternateText="BitServices Logo"/>
                 </a>
