@@ -139,11 +139,10 @@
                       Text="{Binding SelectedJob.Client.Name, UpdateSourceTrigger=PropertyChanged}"
                       Grid.Row="0" Grid.Column="1" Margin="5" />
             <Label Content="Client Location: " Grid.Row="1" Grid.Column="0"/>
-            <!-- TOOD: Fix text not showing the selected suburb -->
             <ComboBox x:Name="cmbClientLocation" ItemsSource="{Binding SelectedClientLocations, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       DisplayMemberPath="Suburb"
-                      Text ="{Binding SelectedJob.Location.Suburb, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedValue="{Binding SelectedJob.Location, UpdateSourceTrigger=PropertyChanged}"
+                      Text ="{Binding SelectedJobLocation.Suburb, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedValue="{Binding SelectedJobLocation, UpdateSourceTrigger=PropertyChanged}"
                       Grid.Row="1" Grid.Column="1" Margin="5" />
             <Label Content="Client Street: " Grid.Row="2" Grid.Column="0"/>
             <TextBox IsReadOnly="True" x:Name="txtClientStreet" Text="{Binding SelectedJob.Location.Street}" Grid.Row="2" Grid.Column="1" Margin="5"/>

@@ -24,6 +24,9 @@ namespace BitServicesDesktopApp.ViewModels
         private ObservableCollection<JobStatus> _jobStatuses;
         private ObservableCollection<Skill> _skills;
         private Job _selectedJob;
+        // We need to create a separate object for ClientLocation (instead of using SelectedJob.Location)
+        // as WPF cannot find Location when it is an aggregation relationship 
+        private ClientLocation _selectedJobLocation;
         private RelayCommand _deleteCommand;
         private RelayCommand _saveCommand;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -206,12 +209,21 @@ namespace BitServicesDesktopApp.ViewModels
             {
                 _selectedJob = value;
                 OnPropertyChanged("SelectedJob");
-                if (this.SelectedJob != null)
+                if (this.SelectedJob.JobId != 0)
                 {
-                    ClientLocations alllClientLocations = new ClientLocations(SelectedJob.Client.ClientId);
-                    // By updating the SelectedClientLocations variable, the binding on cmbClientLocation text breaks
-                    this.SelectedClientLocations = new ObservableCollection<ClientLocation>(alllClientLocations);
+                    ClientLocations allClientLocations = new ClientLocations(SelectedJob.Client.ClientId);
+                    this.SelectedClientLocations = new ObservableCollection<ClientLocation>(allClientLocations);
+                    this.SelectedJobLocation = SelectedJob.Location;
                 }
+            }
+        }
+        public ClientLocation SelectedJobLocation
+        {
+            get { return _selectedJobLocation; }
+            set
+            {
+                _selectedJobLocation = value;
+                OnPropertyChanged("SelectedJobLocation");
             }
         }
         public void UpdateJobs()
@@ -245,6 +257,7 @@ namespace BitServicesDesktopApp.ViewModels
             this.JobStatuses = new ObservableCollection<JobStatus>(allJobStatues);
             Skills allSkills = new Skills();
             this.Skills = new ObservableCollection<Skill>(allSkills);
+            this.SelectedJob = new Job();
         }
     }
 }
