@@ -30,7 +30,7 @@
                         <DataGridTextColumn Header="Required Skill" Binding="{Binding RequiredSkill}"/>
                         <DataGridTextColumn Header="Kilometers" Binding="{Binding Kilometers}"/>
                         <DataGridTextColumn Header="Deadline Date" Binding="{Binding DeadlineDate, StringFormat='dddd, dd MMMM yyyy'}"/>
-                        <DataGridTextColumn Header="Completion Date" Binding="{Binding CompletionDate, StringFormat='dddd, dd MMMM yyyy'}"/>
+                        <DataGridTextColumn Header="Completion Date" Binding="{Binding FormattedCompletionDate}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
@@ -38,7 +38,7 @@
                 <DataGrid x:Name="dgPendingJobs" Margin="5"
                           ItemsSource="{Binding PendingJobs}"
                           SelectedItem="{Binding SelectedJob}"
-                          AutoGenerateColumns="False">
+                          AutoGenerateColumns="True">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
                         <DataGridTextColumn Header="Client" Binding="{Binding Client.Name}"/>

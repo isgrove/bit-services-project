@@ -130,6 +130,21 @@ namespace BitServicesDesktopApp.Models
                 OnPropertyChanged("AssignedContractor");
             }
         }
+
+        public string FormattedCompletionDate
+        {
+            get
+            {
+                if (this.CompletionDate != new DateTime())
+                {
+                    return this.CompletionDate.ToString("dddd, dd MMMM yyyy");
+                }
+                else
+                {
+                    return "";
+                }
+            }
+        }
         public Job()
         {
             _db = new SQLHelper();
@@ -144,6 +159,7 @@ namespace BitServicesDesktopApp.Models
             this.Description = dr["Description"].ToString();
             this.Kilometers = Convert.ToInt32(dr["kilometers"].ToString());
             this.DeadlineDate = Convert.ToDateTime(dr["Deadline Date"].ToString());
+            
             this.Location = new ClientLocation(Convert.ToInt32(dr["location_id"]));
             this.Client = new Client(Convert.ToInt32(dr["location_id"]));
 
@@ -157,7 +173,13 @@ namespace BitServicesDesktopApp.Models
 
             if (completionDate != DBNull.Value)
             {
+                //MessageBox.Show("Setting completion date: " + completionDate);
                 this.CompletionDate = Convert.ToDateTime(completionDate);
+            }
+            else
+            {
+                DateTime dt = new DateTime();
+                this.CompletionDate = dt;
             }
         }
         public int InsertJob()
