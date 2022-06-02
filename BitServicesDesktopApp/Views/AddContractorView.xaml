@@ -31,34 +31,36 @@
         </Grid.ColumnDefinitions>
         <TextBlock Text="New Contractor" FontSize="28px"
                        FontWeight="bold" Margin="0,0,0,0" Grid.ColumnSpan="3"/>
-        <Label Content="First Name: " Grid.Row="1" Grid.Column="0"/>
-        <TextBox x:Name="txtFirstName" Text="{Binding NewContractor.FirstName}" Grid.Row="1" Grid.Column="1" Margin="5" />
-        <Label Content="Last Name: " Grid.Row="2" Grid.Column="0"/>
-        <TextBox x:Name="txtLastName" Text="{Binding NewContractor.LastName}" Grid.Row="2" Grid.Column="1" Margin="5" />
-        <Label Content="Email: " Grid.Row="3" Grid.Column="0"/>
-        <TextBox x:Name="txtEmail" Text="{Binding NewContractor.Email}" Grid.Row="3" Grid.Column="1" Margin="5" />
-        <Label Content="Phone: " Grid.Row="4" Grid.Column="0"/>
-        <TextBox x:Name="txtPhone" Text="{Binding NewContractor.Phone}" Grid.Row="4" Grid.Column="1" Margin="5" />
-        <Label Content="Street: " Grid.Row="5" Grid.Column="0"/>
-        <TextBox x:Name="txtStreet" Text="{Binding NewContractor.Street}" Grid.Row="5" Grid.Column="1" Margin="5" />
-        <Label Content="Suburb: " Grid.Row="6" Grid.Column="0"/>
-        <TextBox x:Name="txtSuburb" Text="{Binding NewContractor.Suburb}" Grid.Row="6" Grid.Column="1" Margin="5" />
-        <Label Content="Postcode: " Grid.Row="7" Grid.Column="0"/>
-        <TextBox x:Name="txtPostcode" Text="{Binding NewContractor.Postcode}" Grid.Row="7" Grid.Column="1" Margin="5" />
-        <Label Content="State: " Grid.Row="8" Grid.Column="0"/>
-        <TextBox x:Name="txtState" Text="{Binding NewContractor.State}" Grid.Row="8" Grid.Column="1" Margin="5" />
+        <Label Content="First Name: " Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+        <TextBox x:Name="txtFirstName" Text="{Binding NewContractor.FirstName, ValidatesOnDataErrors=True}" ToolTip="{Binding NewContractor.ErrorCollection[FirstName]}" Grid.Row="1" Grid.Column="1" Margin="5,0" VerticalAlignment="Center"/>
+        <Label Content="Last Name: " Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
+        <TextBox x:Name="txtLastName" Text="{Binding NewContractor.LastName, ValidatesOnDataErrors=True}" ToolTip="{Binding NewContractor.ErrorCollection[LastName]}" Grid.Row="2" Grid.Column="1" Margin="5,0" VerticalAlignment="Center"/>
+        <Label Content="Email: " Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
+        <TextBox x:Name="txtEmail" Text="{Binding NewContractor.Email, ValidatesOnDataErrors=True}" ToolTip="{Binding NewContractor.ErrorCollection[Email]}" Grid.Row="3" Grid.Column="1" Margin="5,0" VerticalAlignment="Center"/>
+        <Label Content="Phone: " Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
+        <TextBox x:Name="txtPhone" Text="{Binding NewContractor.Phone, ValidatesOnDataErrors=True}" ToolTip="{Binding NewContractor.ErrorCollection[Phone]}" Grid.Row="4" Grid.Column="1" Margin="5,0" VerticalAlignment="Center"/>
+        <Label Content="Street: " Grid.Row="5" Grid.Column="0" VerticalAlignment="Center"/>
+        <TextBox x:Name="txtStreet" Text="{Binding NewContractor.Street, ValidatesOnDataErrors=True}" ToolTip="{Binding NewContractor.ErrorCollection[Street]}" Grid.Row="5" Grid.Column="1" Margin="5,0" VerticalAlignment="Center"/>
+        <Label Content="Suburb: " Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"/>
+        <TextBox x:Name="txtSuburb" Text="{Binding NewContractor.Suburb, ValidatesOnDataErrors=True}" ToolTip="{Binding NewContractor.ErrorCollection[Suburb]}" Grid.Row="6" Grid.Column="1" Margin="5,0" VerticalAlignment="Center"/>
+        <Label Content="Postcode: " Grid.Row="7" Grid.Column="0" VerticalAlignment="Center"/>
+        <TextBox x:Name="txtPostcode" Text="{Binding NewContractor.Postcode, ValidatesOnDataErrors=True}" ToolTip="{Binding NewContractor.ErrorCollection[Postcode]}" Grid.Row="7" Grid.Column="1" Margin="5,0" VerticalAlignment="Center"/>
+        <Label Content="State: " Grid.Row="8" Grid.Column="0" VerticalAlignment="Center"/>
+        <TextBox x:Name="txtState" Text="{Binding NewContractor.State, ValidatesOnDataErrors=True}" ToolTip="{Binding NewContractor.ErrorCollection[State]}" Grid.Row="8" Grid.Column="1" Margin="5,0" VerticalAlignment="Center"/>
 
-        <Label Content="Licence Number: " Grid.Row="1" Grid.Column="2"/>
-        <TextBox x:Name="txtLicenceNumber" Text="{Binding NewContractor.LicenceNumber}" Grid.Row="1" Grid.Column="3" Margin="5" />
-        <Label Content="Vehicle Registration: " Grid.Row="2" Grid.Column="2"/>
-        <TextBox x:Name="txtVehicleRegistration" Text="{Binding NewContractor.VehicleRegistration}" Grid.Row="2" Grid.Column="3" Margin="5" />
-        <ListBox x:Name="lstBxSkillsList" ItemsSource="{Binding AddedSkills}" SelectedValue="{Binding SelectedSkill}" DisplayMemberPath="SkillName" HorizontalAlignment="Left" Height="200" Margin="10,10" VerticalAlignment="Top" Width="400" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="7" Grid.Column="2"/>
+        <Label Content="Licence Number: " Grid.Row="1" Grid.Column="2" VerticalAlignment="Center"/>
+        <TextBox x:Name="txtLicenceNumber" Text="{Binding NewContractor.LicenceNumber, ValidatesOnDataErrors=True}" ToolTip="{Binding NewContractor.ErrorCollection[LicenceNumber]}" Grid.Row="1" Grid.Column="3" Margin="5,0" VerticalAlignment="Center"/>
+        <Label Content="Vehicle Registration: " Grid.Row="2" Grid.Column="2" VerticalAlignment="Center"/>
+        <TextBox x:Name="txtVehicleRegistration" Text="{Binding NewContractor.VehicleRegistration, ValidatesOnDataErrors=True}" ToolTip="{Binding NewContractor.ErrorCollection[VehicleRegistration]}" Grid.Row="2" Grid.Column="3" Margin="5,0" VerticalAlignment="Center"/>
+        <Label Content="Performance Rating:" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center"/>
+        <TextBox x:Name="txtPerformanceRating" Text="{Binding NewContractor.PerformanceRating, ValidatesOnDataErrors=True}" ToolTip="{Binding NewContractor.ErrorCollection[PerformanceRating]}" Grid.Row="3" Grid.Column="3" Margin="5,0" VerticalAlignment="Center"/>
+        <ListBox x:Name="lstBxSkillsList" ItemsSource="{Binding AddedSkills}" SelectedValue="{Binding SelectedSkill}" DisplayMemberPath="SkillName" HorizontalAlignment="Left" Height="150" Margin="10,10, 0, 10" VerticalAlignment="Top" Width="406" Grid.Row="4" Grid.ColumnSpan="2" Grid.RowSpan="4" Grid.Column="2"/>
         <Grid Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2">
             <ComboBox x:Name="cboSkillsList" HorizontalAlignment="Left" Margin="10,0" Width="190" VerticalAlignment="Center"
                       ItemsSource="{Binding AllSkills, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="SkillName" SelectedValue="{Binding NewSkill}">
             </ComboBox>
             <Button x:Name="btnAddSkill" Command="{Binding AddSkillCommand}" Content="Add Skill" HorizontalAlignment="Left" Margin="210,10,0,10" VerticalAlignment="Center"  Width="80" Height="20"/>
-            <Button x:Name="btnRemoveSkill" Command="{Binding RemoveSkillCommand}" Content="Remove Skill" HorizontalAlignment="Left" Margin="300,10,0,10" VerticalAlignment="Center" Width="80" Height="20"/>
+            <Button x:Name="btnRemoveSkill" Command="{Binding RemoveSkillCommand}" Content="Remove Skill" HorizontalAlignment="Left" Margin="300,10,0,10" VerticalAlignment="Center" Width="70" Height="20"/>
         </Grid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="9" Grid.ColumnSpan="4">
             <Button Command="{Binding AddCommand}" x:Name="btnSave" Content="SAVE" Width="150" Margin="10"/>

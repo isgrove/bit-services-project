@@ -9,7 +9,7 @@ using BitServicesDesktopApp.DAL;
 
 namespace BitServicesDesktopApp.Models
 {
-    public class Contractor : INotifyPropertyChanged
+    public class Contractor : INotifyPropertyChanged, IDataErrorInfo
     {
         private int _contractorId;
         private string _firstName;
@@ -26,7 +26,144 @@ namespace BitServicesDesktopApp.Models
         private int _performanceRating;
         private bool _active;
         private SQLHelper _db;
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged; public Dictionary<string, string> ErrorCollection { get; private set; } = new Dictionary<string, string>();
+        public string Error { get { return null; } }
+        public string this[string propertyName]
+        {
+            get
+            {
+                string result = null;
+                switch (propertyName)
+                {
+                    case "FirstName":
+                        if (string.IsNullOrEmpty(this.FirstName))
+                        {
+                            result = "First name cannot be left empty";
+                        }
+                        else if (this.FirstName.Length > 32)
+                        {
+                            result = "First name cannot be more than 32 characters";
+                        }
+                        break;
+                    case "LastName":
+                        if (string.IsNullOrEmpty(LastName))
+                        {
+                            result = "Last name cannot be left empty";
+                        }
+                        else if (this.LastName.Length > 32)
+                        {
+                            result = "Last name cannot be more than 32 characters";
+                        }
+                        break;
+                    case "Phone":
+                        if (string.IsNullOrEmpty(Phone))
+                        {
+                            result = "Phone number cannot be empty";
+                        }
+                        else if (Phone.Length != 10)
+                        {
+                            result = "Phone numbers must be 10 digits";
+                        }
+                        break;
+
+                    case "Email":
+                        if (string.IsNullOrEmpty(Email))
+                        {
+                            result = "Email cannot be empty";
+                        }
+                        else if (this.FirstName.Length > 254)
+                        {
+                            result = "First name cannot be more than 254 characters";
+                        }
+                        break;
+                    case "Street":
+                        if (string.IsNullOrEmpty(Street))
+                        {
+                            result = "Field cannot be left empty";
+                        }
+                        else if (this.Street.Length > 32)
+                        {
+                            result = "Street cannot be more than 32 characters!";
+                        }
+                        break;
+                    case "Suburb":
+                        if (string.IsNullOrEmpty(Suburb))
+                        {
+                            result = "Suburb cannot be empty";
+                        }
+                        else if (this.Suburb.Length > 32)
+                        {
+                            result = "Suburb cannot be more than 32 characters!";
+                        }
+                        break;
+                    case "State":
+                        if (string.IsNullOrEmpty(State))
+                        {
+                            result = "Field cannot be empty";
+                        }
+                        else if (this.State.Length > 3)
+                        {
+                            result = "State cannot be more than 3 characters!";
+                        }
+                        break;
+                    case "Postcode":
+                        if (string.IsNullOrEmpty(Postcode))
+                        {
+                            result = "Postcode cannot be empty";
+                        }
+                        else if (this.Postcode.Length > 4)
+                        {
+                            result = "Postcode cannot be more than 4 characters!";
+                        }
+                        break;
+                    case "LicenceNumber":
+                        if (string.IsNullOrEmpty(LicenceNumber))
+                        {
+                            result = "Licence Number cannot be empty";
+                        }
+                        else if (LicenceNumber.Length > 20)
+                        {
+                            result = "Licence Number cannot be more than 20 characters!";
+
+                        }
+                        break;
+                    case "VehicleRegistration":
+                        if (string.IsNullOrEmpty(LicenceNumber))
+                        {
+                            result = "Vehicle Registration cannot be empty";
+                        }
+                        else if (LicenceNumber.Length > 32)
+                        {
+                            result = "VehicleRegistration cannot be more than 20 characters!";
+
+                        }
+                        break;
+                    case "PerformanceRating":
+                        if (string.IsNullOrEmpty(this.PerformanceRating.ToString()))
+                        {
+                            result = "Performance Rating cannot be empty";
+                        }
+                        else if (PerformanceRating > 10)
+                        {
+                            result = "Licence Number cannot be more than 10!";
+
+                        }
+                        else if (PerformanceRating < 0)
+                        {
+                            result = "Licence Number cannot be less than 0!";
+
+                        }
+                        break;
+                }
+                if (result != null && !ErrorCollection.ContainsKey(propertyName))
+                {
+                    ErrorCollection.Add(propertyName, result);
+                }
+                OnPropertyChanged("ErrorCollection");
+                return result;
+            }
+        }
+
         private void OnPropertyChanged(string prop)
         {
             if (PropertyChanged != null)
@@ -222,6 +359,10 @@ namespace BitServicesDesktopApp.Models
 
         public int InsertContractor(ObservableCollection<Skill> skills)
         {
+            if (this.ErrorCollection.Count > 0)
+            {
+                return -1;
+            } 
             this.GeneratePassword();
             DataTable skillsTable = new DataTable();
             skillsTable.Columns.Add("skill_name");
