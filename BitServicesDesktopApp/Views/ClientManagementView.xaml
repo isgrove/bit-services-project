@@ -34,9 +34,9 @@
                       ItemsSource="{Binding Clients}"
                       SelectedItem="{Binding SelectedClient}" AutoGenerateColumns="false">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                            <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
-                            <DataGridTextColumn Header="Phone" Binding="{Binding Phone}"/>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                            <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*"/>
+                            <DataGridTextColumn Header="Phone" Binding="{Binding Phone}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <Label Content="Client Name: " Grid.Row="3" Grid.Column="0"/>
@@ -74,16 +74,15 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="2*" />
                     </Grid.ColumnDefinitions>
-                    <!-- TODO: Fix bug where all object variables are being showed as DataGrid coulmns -->
                     <DataGrid x:Name="dgClientLocations"
                       Margin="5" ItemsSource="{Binding ClientLocations}" SelectedItem="{Binding SelectedLocation}" Grid.RowSpan="3" Grid.ColumnSpan="4" AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
-                            <DataGridTextColumn Header="Phone" Binding="{Binding Phone}"/>
-                            <DataGridTextColumn Header="Street" Binding="{Binding Street}"/>
-                            <DataGridTextColumn Header="Suburb" Binding="{Binding Suburb}"/>
-                            <DataGridTextColumn Header="Postcode" Binding="{Binding Postcode}"/>
-                            <DataGridTextColumn Header="State" Binding="{Binding State}"/>
+                            <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="2*"/>
+                            <DataGridTextColumn Header="Phone" Binding="{Binding Phone}" Width="*"/>
+                            <DataGridTextColumn Header="Street" Binding="{Binding Street}" Width="2*"/>
+                            <DataGridTextColumn Header="Suburb" Binding="{Binding Suburb}" Width="*"/>
+                            <DataGridTextColumn Header="Postcode" Binding="{Binding Postcode}" Width="*"/>
+                            <DataGridTextColumn Header="State" Binding="{Binding State}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
 
