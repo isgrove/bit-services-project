@@ -20,11 +20,11 @@
                       ItemsSource="{Binding Staffs}"
                       SelectedItem="{Binding SelectedStaff}" AutoGenerateColumns="false">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Staff Id" Binding="{Binding StaffId}"/>
-                    <DataGridTextColumn Header="Staff Type" Binding="{Binding StaffType}"/>
-                    <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"/>
-                    <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"/>
-                    <DataGridTextColumn Header="Phone" Binding="{Binding Phone}"/>
+                    <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"  Width="*"/>
+                    <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"  Width="*"/>
+                    <DataGridTextColumn Header="Type" Binding="{Binding StaffType}"  Width="*"/>
+                    <DataGridTextColumn Header="Phone" Binding="{Binding Phone}"  Width="*"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}"  Width="2*"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
