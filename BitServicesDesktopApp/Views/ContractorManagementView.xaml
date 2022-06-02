@@ -22,7 +22,7 @@
                 <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"/>
                 <DataGridTextColumn Header="Phone" Binding="{Binding Phone}"/>
                 <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
-                <DataGridTextColumn Header="Performance Rating" Binding="{Binding PerformanceRating}"/>
+                <DataGridTextColumn Header="Rating" Binding="{Binding PerformanceRating}"/>
                 <DataGridTextColumn Header="Street" Binding="{Binding Street}"/>
                 <DataGridTextColumn Header="Suburb" Binding="{Binding Suburb}"/>
                 <DataGridTextColumn Header="Postcode" Binding="{Binding Postcode}"/>
