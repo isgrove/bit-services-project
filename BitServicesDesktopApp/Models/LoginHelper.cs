@@ -24,7 +24,7 @@ namespace BitServicesDesktopApp.Models
 
         public static bool UserCheck(string username, string password, string staffType)
         {
-            string sql = $"SELECT * FROM staff WHERE email = @Username AND password = @Password AND staff_type = @StaffType";
+            string sql = $"SELECT * FROM staff WHERE email = @Username AND password = @Password AND type = @StaffType";
 
             SQLHelper db = new SQLHelper();
             SqlParameter[] objParams = new SqlParameter[3];
