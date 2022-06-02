@@ -12,10 +12,8 @@ namespace BitServicesDesktopApp.Models
         public ClientLocations()
         {
             SQLHelper helper = new SQLHelper();
-            string sql = "SELECT location_id, client_id, email, phone, street, suburb, postcode, state, active" +
-                " FROM client_location" +
-                " WHERE active = 1";
-            DataTable locationTable = helper.ExecuteSQL(sql);
+            string sql = "usp_GetClientLocations";
+            DataTable locationTable = helper.ExecuteSQL(sql, null, true);
             foreach (DataRow dr in locationTable.Rows)
             {
                 ClientLocation newLocation = new ClientLocation(dr);
@@ -25,14 +23,11 @@ namespace BitServicesDesktopApp.Models
         public ClientLocations(int clientId)
         {
             SQLHelper db = new SQLHelper();
-            string sql = "SELECT location_id, client_id, email, phone, street, suburb, postcode, state, active" +
-                 " FROM client_location" +
-                 " WHERE client_id = @ClientId" +
-                 " AND active = 1";
+            string sql = "usp_GetClientLocations";
             SqlParameter[] objParams = new SqlParameter[1];
             objParams[0] = new SqlParameter("@ClientId", DbType.Int32);
             objParams[0].Value = clientId;
-            DataTable locationTable = db.ExecuteSQL(sql, objParams);
+            DataTable locationTable = db.ExecuteSQL(sql, objParams, true);
             foreach (DataRow dr in locationTable.Rows)
             {
                 ClientLocation newLocation = new ClientLocation(dr);

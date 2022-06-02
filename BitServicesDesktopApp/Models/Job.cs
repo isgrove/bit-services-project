@@ -130,7 +130,6 @@ namespace BitServicesDesktopApp.Models
                 OnPropertyChanged("AssignedContractor");
             }
         }
-
         public string FormattedCompletionDate
         {
             get
@@ -145,6 +144,7 @@ namespace BitServicesDesktopApp.Models
                 }
             }
         }
+
         public Job()
         {
             _db = new SQLHelper();

@@ -13,6 +13,7 @@ namespace BitServicesDesktopApp.Models
     {
         private int _locationId;
         private int _clientId;
+        private string _clientName;
         private string _email;
         private string _phone;
         private string _street;
@@ -39,6 +40,16 @@ namespace BitServicesDesktopApp.Models
         {
             get { return _clientId; }
             set { _clientId = value; }
+        }
+
+        public string ClientName
+        {
+            get { return _clientName; }
+            set
+            {
+                _clientName = value;
+                OnPropertyChanged("ClientName");
+            }
         }
         public string Email
         {
@@ -103,6 +114,10 @@ namespace BitServicesDesktopApp.Models
                 OnPropertyChanged("Active");
             }
         }
+        public string ClientLocationName
+        {
+            get { return $"{ClientName} {Suburb}"; }
+        }
         public ClientLocation()
         {
             _db = new SQLHelper();
@@ -112,6 +127,7 @@ namespace BitServicesDesktopApp.Models
             _db = new SQLHelper();
             this.LocationId = Convert.ToInt32(dr["location_id"].ToString());
             this.ClientId = Convert.ToInt32(dr["client_id"].ToString());
+            this.ClientName = dr["client_name"].ToString();
             this.Email = dr["email"].ToString();
             this.Phone = dr["phone"].ToString();
             this.Street = dr["street"].ToString();
@@ -124,23 +140,26 @@ namespace BitServicesDesktopApp.Models
         public ClientLocation(int locationId)
         {
             _db = new SQLHelper();
-            string sql = "SELECT location_id, client_id, email, phone, street, suburb, postcode, state, active" +
-                         " FROM client_location" +
-                         " WHERE location_id = @LocationId";
+            string sql = "usp_GetClientLocations";
             SqlParameter[] objParams = new SqlParameter[1];
             objParams[0] = new SqlParameter("@LocationId", DbType.Int32);
             objParams[0].Value = locationId;
-            DataRow dr = _db.ExecuteSQL(sql, objParams).Rows[0];
+            DataTable dt = _db.ExecuteSQL(sql, objParams);
 
-            this.LocationId = Convert.ToInt32(dr["location_id"].ToString());
-            this.ClientId = Convert.ToInt32(dr["client_id"].ToString());
-            this.Email = dr["email"].ToString();
-            this.Phone = dr["phone"].ToString();
-            this.Street = dr["street"].ToString();
-            this.Suburb = dr["suburb"].ToString();
-            this.Postcode = dr["postcode"].ToString();
-            this.State = dr["state"].ToString();
-            this.Active = Convert.ToBoolean(dr["active"]);
+            if (dt.Rows.Count >= 1)
+            {
+                DataRow dr = dt.Rows[0];
+                this.LocationId = Convert.ToInt32(dr["location_id"].ToString());
+                this.ClientId = Convert.ToInt32(dr["client_id"].ToString());
+                this.ClientName = dr["client_name"].ToString();
+                this.Email = dr["email"].ToString();
+                this.Phone = dr["phone"].ToString();
+                this.Street = dr["street"].ToString();
+                this.Suburb = dr["suburb"].ToString();
+                this.Postcode = dr["postcode"].ToString();
+                this.State = dr["state"].ToString();
+                this.Active = Convert.ToBoolean(dr["active"]);
+            }
         }
         public int InsertClientLocation()
         {

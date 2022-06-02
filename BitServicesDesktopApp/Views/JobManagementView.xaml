@@ -22,15 +22,14 @@
                           SelectedItem="{Binding SelectedJob}"
                           AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Job Status" Binding="{Binding JobStatus}"/>
-                        <DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
-                        <DataGridTextColumn Header="Client" Binding="{Binding Client.Name}"/>
-                        <DataGridTextColumn Header="Location" Binding="{Binding Location.Suburb}"/>
-                        <DataGridTextColumn Header="Contractor" Binding="{Binding AssignedContractor.FirstName}"/>
-                        <DataGridTextColumn Header="Required Skill" Binding="{Binding RequiredSkill}"/>
-                        <DataGridTextColumn Header="Kilometers" Binding="{Binding Kilometers}"/>
-                        <DataGridTextColumn Header="Deadline Date" Binding="{Binding DeadlineDate, StringFormat='dddd, dd MMMM yyyy'}"/>
-                        <DataGridTextColumn Header="Completion Date" Binding="{Binding FormattedCompletionDate}"/>
+                        <DataGridTextColumn Header="Job Status" Binding="{Binding JobStatus}" Width="1.25*"/>
+                        <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="1.5*"/>
+                        <DataGridTextColumn Header="Client Location" Binding="{Binding Location.ClientLocationName}" Width="2*"/>
+                        <DataGridTextColumn Header="Contractor" Binding="{Binding AssignedContractor.FullName}" Width="2*"/>
+                        <DataGridTextColumn Header="Required Skill" Binding="{Binding RequiredSkill}" Width="2.25*"/>
+                        <DataGridTextColumn Header="Kms" Binding="{Binding Kilometers}" Width="*"/>
+                        <DataGridTextColumn Header="Deadline Date" Binding="{Binding DeadlineDate, StringFormat='dddd, dd MMMM yyyy'}" Width="2.75*"/>
+                        <DataGridTextColumn Header="Completion Date" Binding="{Binding FormattedCompletionDate}" Width="2.75*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
@@ -38,15 +37,13 @@
                 <DataGrid x:Name="dgPendingJobs" Margin="5"
                           ItemsSource="{Binding PendingJobs}"
                           SelectedItem="{Binding SelectedJob}"
-                          AutoGenerateColumns="True">
+                          AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
-                        <DataGridTextColumn Header="Client" Binding="{Binding Client.Name}"/>
-                        <DataGridTextColumn Header="Location" Binding="{Binding Location.Suburb}"/>
-                        <DataGridTextColumn Header="Contractor" Binding="{Binding AssignedContractor.FirstName}"/>
-                        <DataGridTextColumn Header="Required Skill" Binding="{Binding RequiredSkill}"/>
-                        <DataGridTextColumn Header="Kilometers" Binding="{Binding Kilometers}"/>
-                        <DataGridTextColumn Header="Deadline Date" Binding="{Binding DeadlineDate, StringFormat='dddd, dd MMMM yyyy'}"/>
+                        <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="*"/>
+                        <DataGridTextColumn Header="Client Location" Binding="{Binding Location.ClientLocationName}" Width="*"/>
+                        <DataGridTextColumn Header="Required Skill" Binding="{Binding RequiredSkill}" Width="*"/>
+                        <DataGridTextColumn Header="Kilometers" Binding="{Binding Kilometers}" Width="*"/>
+                        <DataGridTextColumn Header="Deadline Date" Binding="{Binding DeadlineDate, StringFormat='dddd, dd MMMM yyyy'}" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
@@ -56,13 +53,12 @@
                           SelectedItem="{Binding SelectedJob}"
                           AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
-                        <DataGridTextColumn Header="Client" Binding="{Binding Client.Name}"/>
-                        <DataGridTextColumn Header="Location" Binding="{Binding Location.Suburb}"/>
-                        <DataGridTextColumn Header="Contractor" Binding="{Binding AssignedContractor.FirstName}"/>
-                        <DataGridTextColumn Header="Required Skill" Binding="{Binding RequiredSkill}"/>
-                        <DataGridTextColumn Header="Kilometers" Binding="{Binding Kilometers}"/>
-                        <DataGridTextColumn Header="Deadline Date" Binding="{Binding DeadlineDate, StringFormat='dddd, dd MMMM yyyy'}"/>
+                        <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="*"/>
+                        <DataGridTextColumn Header="Client Location" Binding="{Binding Location.ClientLocationName}" Width="*"/>
+                        <DataGridTextColumn Header="Contractor" Binding="{Binding AssignedContractor.FullName}" Width="2*"/>
+                        <DataGridTextColumn Header="Required Skill" Binding="{Binding RequiredSkill}" Width="*"/>
+                        <DataGridTextColumn Header="Kilometers" Binding="{Binding Kilometers}" Width="*"/>
+                        <DataGridTextColumn Header="Deadline Date" Binding="{Binding DeadlineDate, StringFormat='dddd, dd MMMM yyyy'}" Width="2*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
@@ -72,14 +68,13 @@
                           SelectedItem="{Binding SelectedJob}"
                           AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
-                        <DataGridTextColumn Header="Client" Binding="{Binding Client.Name}"/>
-                        <DataGridTextColumn Header="Location" Binding="{Binding Location.Suburb}"/>
-                        <DataGridTextColumn Header="Contractor" Binding="{Binding AssignedContractor.FirstName}"/>
-                        <DataGridTextColumn Header="Required Skill" Binding="{Binding RequiredSkill}"/>
-                        <DataGridTextColumn Header="Kilometers" Binding="{Binding Kilometers}"/>
-                        <DataGridTextColumn Header="Deadline Date" Binding="{Binding DeadlineDate, StringFormat='dddd, dd MMMM yyyy'}"/>
-                        <DataGridTextColumn Header="Completion Date" Binding="{Binding CompletionDate, StringFormat='dddd, dd MMMM yyyy'}"/>
+                        <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="2*"/>
+                        <DataGridTextColumn Header="Client Location" Binding="{Binding Location.ClientLocationName}" Width="2*"/>
+                        <DataGridTextColumn Header="Contractor" Binding="{Binding AssignedContractor.FullName}" Width="2*"/>
+                        <DataGridTextColumn Header="Required Skill" Binding="{Binding RequiredSkill}" Width="2*"/>
+                        <DataGridTextColumn Header="Kilometers" Binding="{Binding Kilometers}" Width="*"/>
+                        <DataGridTextColumn Header="Deadline Date" Binding="{Binding DeadlineDate, StringFormat='dddd, dd MMMM yyyy'}" Width="2*"/>
+                        <DataGridTextColumn Header="Completion Date" Binding="{Binding CompletionDate, StringFormat='dddd, dd MMMM yyyy'}" Width="2*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
@@ -89,14 +84,13 @@
                           SelectedItem="{Binding SelectedJob}"
                           AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
-                        <DataGridTextColumn Header="Client" Binding="{Binding Client.Name}"/>
-                        <DataGridTextColumn Header="Location" Binding="{Binding Location.Suburb}"/>
-                        <DataGridTextColumn Header="Contractor" Binding="{Binding AssignedContractor.FirstName}"/>
-                        <DataGridTextColumn Header="Required Skill" Binding="{Binding RequiredSkill}"/>
-                        <DataGridTextColumn Header="Kilometers" Binding="{Binding Kilometers}"/>
-                        <DataGridTextColumn Header="Deadline Date" Binding="{Binding DeadlineDate, StringFormat='dddd, dd MMMM yyyy'}"/>
-                        <DataGridTextColumn Header="Completion Date" Binding="{Binding CompletionDate, StringFormat='dddd, dd MMMM yyyy'}"/>
+                        <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="*"/>
+                        <DataGridTextColumn Header="Client Location" Binding="{Binding Location.ClientLocationName}" Width="*"/>
+                        <DataGridTextColumn Header="Contractor" Binding="{Binding AssignedContractor.FullName}" Width="*"/>
+                        <DataGridTextColumn Header="Required Skill" Binding="{Binding RequiredSkill}" Width="*"/>
+                        <DataGridTextColumn Header="Kilometers" Binding="{Binding Kilometers}" Width="*"/>
+                        <DataGridTextColumn Header="Deadline Date" Binding="{Binding DeadlineDate, StringFormat='dddd, dd MMMM yyyy'}" Width="*"/>
+                        <DataGridTextColumn Header="Completion Date" Binding="{Binding CompletionDate, StringFormat='dddd, dd MMMM yyyy'}" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
@@ -106,13 +100,12 @@
                           SelectedItem="{Binding SelectedJob}"
                           AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
-                        <DataGridTextColumn Header="Client" Binding="{Binding Client.Name}"/>
-                        <DataGridTextColumn Header="Location" Binding="{Binding Location.Suburb}"/>
-                        <DataGridTextColumn Header="Contractor" Binding="{Binding AssignedContractor.FirstName}"/>
-                        <DataGridTextColumn Header="Required Skill" Binding="{Binding RequiredSkill}"/>
-                        <DataGridTextColumn Header="Kilometers" Binding="{Binding Kilometers}"/>
-                        <DataGridTextColumn Header="Deadline Date" Binding="{Binding DeadlineDate, StringFormat='dddd, dd MMMM yyyy'}"/>
+                        <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="*"/>
+                        <DataGridTextColumn Header="Client Location" Binding="{Binding Location.ClientLocationName}" Width="*"/>
+                        <DataGridTextColumn Header="Contractor" Binding="{Binding AssignedContractor.FirstName}" Width="*"/>
+                        <DataGridTextColumn Header="Required Skill" Binding="{Binding RequiredSkill}" Width="*"/>
+                        <DataGridTextColumn Header="Kilometers" Binding="{Binding Kilometers}" Width="*"/>
+                        <DataGridTextColumn Header="Deadline Date" Binding="{Binding DeadlineDate, StringFormat='dddd, dd MMMM yyyy'}" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>

@@ -156,6 +156,14 @@ namespace BitServicesDesktopApp.Models
                 OnPropertyChanged("Active");
             }
         }
+
+        public string FullName
+        {
+            get
+            {
+                return $"{FirstName} {LastName}";
+            }
+        }
         public Contractor()
         {
             _db = new SQLHelper();
