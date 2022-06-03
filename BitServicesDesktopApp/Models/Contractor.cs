@@ -26,7 +26,8 @@ namespace BitServicesDesktopApp.Models
         private int _performanceRating;
         private bool _active;
         private SQLHelper _db;
-        public event PropertyChangedEventHandler PropertyChanged; public Dictionary<string, string> ErrorCollection { get; private set; } = new Dictionary<string, string>();
+        public event PropertyChangedEventHandler PropertyChanged;
+        public Dictionary<string, string> ErrorCollection { get; private set; } = new Dictionary<string, string>();
         public string Error { get { return null; } }
         public string this[string propertyName]
         {
@@ -157,9 +158,9 @@ namespace BitServicesDesktopApp.Models
                 }
                 if (result != null && !ErrorCollection.ContainsKey(propertyName))
                 {
-                    ErrorCollection.Add(propertyName, result);
+                    ErrorCollection[propertyName] = result;
+                    OnPropertyChanged("ErrorCollection");
                 }
-                OnPropertyChanged("ErrorCollection");
                 return result;
             }
         }

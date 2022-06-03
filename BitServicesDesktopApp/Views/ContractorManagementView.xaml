@@ -49,28 +49,28 @@
                         <ColumnDefinition Width="2*" />
                     </Grid.ColumnDefinitions>
                     <Label Content="First Name: " Grid.Row="0" Grid.Column="0"/>
-                    <TextBox Text="{Binding SelectedContractor.FirstName}" x:Name="txtFirstName" Grid.Row="0" Grid.Column="1" Margin="5" />
+                    <TextBox Text="{Binding SelectedContractor.FirstName, ValidatesOnDataErrors=True, Mode=TwoWay}" ToolTip="{Binding SelectedContractor.ErrorCollection[FirstName]}" x:Name="txtFirstName" Grid.Row="0" Grid.Column="1" Margin="5" />
                     <Label Content="Last Name: " Grid.Row="1" Grid.Column="0"/>
-                    <TextBox Text="{Binding SelectedContractor.LastName}" x:Name="txtLastName" Grid.Row="1" Grid.Column="1" Margin="5" />
+                    <TextBox Text="{Binding SelectedContractor.LastName, ValidatesOnDataErrors=True, Mode=TwoWay}" ToolTip="{Binding SelectedContractor.ErrorCollection[LastName]}" x:Name="txtLastName" Grid.Row="1" Grid.Column="1" Margin="5" />
                     <Label Content="Phone: " Grid.Row="2" Grid.Column="0"/>
-                    <TextBox Text="{Binding SelectedContractor.Phone}" x:Name="txtPhone" Grid.Row="2" Grid.Column="1" Margin="5" />
+                    <TextBox Text="{Binding SelectedContractor.Phone, ValidatesOnDataErrors=True, Mode=TwoWay}" ToolTip="{Binding SelectedContractor.ErrorCollection[Phone]}" x:Name="txtPhone" Grid.Row="2" Grid.Column="1" Margin="5" />
                     <Label Content="Email: " Grid.Row="3" Grid.Column="0"/>
-                    <TextBox Text="{Binding SelectedContractor.Email}" x:Name="txtEmail" Grid.Row="3" Grid.Column="1" Margin="5" />
+                    <TextBox Text="{Binding SelectedContractor.Email, ValidatesOnDataErrors=True, Mode=TwoWay}" ToolTip="{Binding SelectedContractor.ErrorCollection[Email]}" x:Name="txtEmail" Grid.Row="3" Grid.Column="1" Margin="5" />
                     <Label Content="Licence Number: " Grid.Row="4" Grid.Column="0"/>
-                    <TextBox Text="{Binding SelectedContractor.LicenceNumber}" x:Name="txtLicenceNumber" Grid.Row="4" Grid.Column="1" Margin="5" />
+                    <TextBox Text="{Binding SelectedContractor.LicenceNumber, ValidatesOnDataErrors=True, Mode=TwoWay}" ToolTip="{Binding SelectedContractor.ErrorCollection[LicenceNumber]}" x:Name="txtLicenceNumber" Grid.Row="4" Grid.Column="1" Margin="5" />
                     <Label Content="Performance Rating: " Grid.Row="5" Grid.Column="0"/>
-                    <TextBox Text="{Binding SelectedContractor.PerformanceRating}" x:Name="txtPerformanceRating" Grid.Row="5" Grid.Column="1" Margin="5" />
+                    <TextBox Text="{Binding SelectedContractor.PerformanceRating, ValidatesOnDataErrors=True, Mode=TwoWay}" ToolTip="{Binding SelectedContractor.ErrorCollection[PerformanceRating]}" x:Name="txtPerformanceRating" Grid.Row="5" Grid.Column="1" Margin="5" />
 
                     <Label Content="Street: " Grid.Row="0" Grid.Column="2"/>
-                    <TextBox Text="{Binding SelectedContractor.Street}" x:Name="txtStreet" Grid.Row="0" Grid.Column="3" Margin="5" />
+                    <TextBox Text="{Binding SelectedContractor.Street, ValidatesOnDataErrors=True, Mode=TwoWay}" ToolTip="{Binding SelectedContractor.ErrorCollection[Street]}" x:Name="txtStreet" Grid.Row="0" Grid.Column="3" Margin="5" />
                     <Label Content="Suburb: " Grid.Row="1" Grid.Column="2"/>
-                    <TextBox Text="{Binding SelectedContractor.Suburb}" x:Name="txtSuburb" Grid.Row="1" Grid.Column="3" Margin="5" />
+                    <TextBox Text="{Binding SelectedContractor.Suburb, ValidatesOnDataErrors=True, Mode=TwoWay}" ToolTip="{Binding SelectedContractor.ErrorCollection[Suburb]}" x:Name="txtSuburb" Grid.Row="1" Grid.Column="3" Margin="5" />
                     <Label Content="Postcode: " Grid.Row="2" Grid.Column="2"/>
-                    <TextBox Text="{Binding SelectedContractor.Postcode}" x:Name="txtPostcode" Grid.Row="2" Grid.Column="3" Margin="5" />
-                    <Label Content="State : " Grid.Row="3" Grid.Column="2"/>
-                    <TextBox Text="{Binding SelectedContractor.State}" x:Name="txtState" Grid.Row="3" Grid.Column="3" Margin="5" />
+                    <TextBox Text="{Binding SelectedContractor.Postcode, ValidatesOnDataErrors=True, Mode=TwoWay}" ToolTip="{Binding SelectedContractor.ErrorCollection[Postcode]}" x:Name="txtPostcode" Grid.Row="2" Grid.Column="3" Margin="5" />
+                    <Label Content="State: " Grid.Row="3" Grid.Column="2"/>
+                    <TextBox Text="{Binding SelectedContractor.State, ValidatesOnDataErrors=True, Mode=TwoWay}" ToolTip="{Binding SelectedContractor.ErrorCollection[State]}" x:Name="txtState" Grid.Row="3" Grid.Column="3" Margin="5" />
                     <Label Content="Vehicle Registration: " Grid.Row="4" Grid.Column="2"/>
-                    <TextBox Text="{Binding SelectedContractor.VehicleRegistration}" x:Name="txtVehicleRegistration" Grid.Row="4" Grid.Column="3" Margin="5" />
+                    <TextBox Text="{Binding SelectedContractor.VehicleRegistration, ValidatesOnDataErrors=True, Mode=TwoWay}" ToolTip="{Binding SelectedContractor.ErrorCollection[VehicleRegistration]}" x:Name="txtVehicleRegistration" Grid.Row="4" Grid.Column="3" Margin="5" />
                 </Grid>
             </TabItem>
             <TabItem Header="Skill Management">
