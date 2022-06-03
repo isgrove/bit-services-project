@@ -29,5 +29,10 @@ namespace BitServicesDesktopApp.Views
         {
             NavigationService.Navigate(new Uri("Views/ContractorManagementView.xaml", UriKind.Relative));
         }
+
+        private void BtnSave_OnClick(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("Views/ContractorManagementView.xaml", UriKind.Relative));
+        }
     }
 }
