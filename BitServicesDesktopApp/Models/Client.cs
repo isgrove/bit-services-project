@@ -138,7 +138,7 @@ namespace BitServicesDesktopApp.Models
                          " SET active = 0" +
                          " WHERE client_id = @ClientId";
             SqlParameter[] objParams = new SqlParameter[1];
-            objParams[0] = new SqlParameter("@ClientId", DbType.String)
+            objParams[0] = new SqlParameter("@ClientId", DbType.Int32)
             {
                 Value = this.ClientId
             };
