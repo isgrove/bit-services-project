@@ -14,10 +14,14 @@ namespace BitServicesDesktopApp.ViewModels
         private ObservableCollection<Contractor> _contractors;
         private ObservableCollection<Skill> _contractorSkills;
         private ObservableCollection<Availability> _contractorAvailability;
+        private ObservableCollection<Skill> _allSkills;
         private Contractor _selectedContractor;
         private RelayCommand _deleteCommand;
         private RelayCommand _saveCommand;
+        private RelayCommand _addNewSkillCommand;
+        private RelayCommand _addSkillCommand;
         private Skill _selectedSkill;
+        private Skill _newSkill;
         private Availability _selectedAvailability;
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -52,49 +56,128 @@ namespace BitServicesDesktopApp.ViewModels
             }
             set { _saveCommand = value; }
         }
+        public RelayCommand AddSkillCommand
+        {
+            get
+            {
+                if (_addSkillCommand == null)
+                {
+                    _addSkillCommand = new RelayCommand(this.AddSkillMethod, true);
+                }
+                return _addSkillCommand;
+            }
+            set { _addSkillCommand = value; }
+        }
+        public RelayCommand AddNewSkillCommand
+        {
+            get
+            {
+                if (_addNewSkillCommand == null)
+                {
+                    _addNewSkillCommand = new RelayCommand(this.AddNewSkill, true);
+                }
+                return _addNewSkillCommand;
+            }
+            set { _addNewSkillCommand = value; }
+        }
 
         public void DeleteMethod()
         {
-            string ContractorName = SelectedContractor.FullName;
-            MessageBoxResult messageBoxResult = MessageBox.Show($"Are you sure that you want to delete {ContractorName}?",
-                $"Delete {ContractorName}", MessageBoxButton.YesNo);
+            string contractorName = SelectedContractor.FullName;
+            MessageBoxResult messageBoxResult = MessageBox.Show($"Are you sure that you want to delete {contractorName}?",
+                $"Delete {contractorName}", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 string message;
                 int rowsAffected = SelectedContractor.DeleteContractor();
                 if (rowsAffected >= 1)
                 {
-                    message = $"You have successfully deleted {ContractorName}!";
+                    message = $"You have successfully deleted {contractorName}!";
                 }
 
                 else
                 {
-                    message = $"There was an issue when deleting {ContractorName}, please try again!";
+                    message = $"There was an issue when deleting {contractorName}, please try again!";
                 }
-                MessageBox.Show(message, $"Delete {ContractorName}");
+                MessageBox.Show(message, $"Delete {contractorName}");
                 UpdateContractors();
             }
         }
         public void SaveMethod()
         {
-            string ContractorName = SelectedContractor.FullName;
-            MessageBoxResult messageBoxResult = MessageBox.Show($"Are you sure that you would like to update {ContractorName}?", $"Update {ContractorName}", MessageBoxButton.YesNo);
+            string contractorName = SelectedContractor.FullName;
+            MessageBoxResult messageBoxResult = MessageBox.Show($"Are you sure that you would like to update {contractorName}?", $"Update {contractorName}", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 string message;
                 int rowsAffected = SelectedContractor.UpdateContractor();
                 if (rowsAffected >= 1)
                 {
-                    message = $"You have successfully saved {ContractorName}!";
+                    message = $"You have successfully saved {contractorName}!";
                 }
                 else
                 {
-                    message = $"There was an issue when saving {ContractorName}, please try again!";
+                    message = $"There was an issue when saving {contractorName}, please try again!";
                 }
-                MessageBox.Show(message, $"Update {ContractorName}");
+                MessageBox.Show(message, $"Update {contractorName}");
                 UpdateContractors();
             }
 
+        }
+        public void AddSkillMethod()
+        {
+            string contractorName = SelectedContractor.FullName;
+            string skillName = SelectedSkill.SkillName;
+            foreach (Skill skill in ContractorSkills)
+            {
+                if (skill.SkillName == SelectedSkill.SkillName)
+                {
+                    MessageBox.Show($"{contractorName} already already has the {skillName} skill!", $"Add {SelectedSkill.SkillName}");
+                }
+
+                return;
+            }
+            // I was originally going to use the below method to check if a contractor had a skill but it did not work.
+            // My guess is this is due to the ErrorCollection being the same
+            //if (ContractorSkills.Contains(SelectedSkill))
+            //{
+            //    MessageBox.Show($"{contractorName} already has {skillName}!", $"Add {SelectedSkill.SkillName}");
+            //    return;
+            //}
+            string message;
+            int rowsAffected = SelectedContractor.AddSkill(skillName);
+            if (rowsAffected >= 1)
+            {
+                message = $"You have successfully added {skillName} to {contractorName}!";
+            }
+            else
+            {
+                message = $"There was an issue when added {skillName} to {contractorName}, please try again!";
+            }
+            MessageBox.Show(message, $"Add {SelectedSkill.SkillName}");
+            UpdateSkills();
+        }
+        public void AddNewSkill()
+        {
+            string skillName = NewSkill.SkillName;
+            if (AllSkills.Contains(NewSkill))
+            {
+                MessageBox.Show($"{skillName} already has exists!", $"Add {SelectedSkill.SkillName}");
+                return;
+            }
+
+            string message;
+            int rowsAffected = NewSkill.InsertSkill();
+            if (rowsAffected >= 1)
+            {
+                message = $"You have successfully added {skillName}!";
+            }
+            else
+            {
+                message = $"There was an issue when added {skillName}, please try again!";
+            }
+            MessageBox.Show(message, $"Add {skillName}");
+            UpdateSkills();
         }
 
         public ObservableCollection<Contractor> Contractors
@@ -113,6 +196,15 @@ namespace BitServicesDesktopApp.ViewModels
             {
                 _contractorSkills = value;
                 OnPropertyChanged("ContractorSkills");
+            }
+        }
+        public ObservableCollection<Skill> AllSkills
+        {
+            get { return _allSkills; }
+            set
+            {
+                _allSkills = value;
+                OnPropertyChanged("AllSkills");
             }
         }
         public ObservableCollection<Availability> ContractorAvailability
@@ -149,7 +241,16 @@ namespace BitServicesDesktopApp.ViewModels
                 OnPropertyChanged("SelectedSkill");
             }
         }
-
+        // TODO: Fix validation not working
+        public Skill NewSkill
+        {
+            get { return _newSkill; }
+            set
+            {
+                _newSkill = value;
+                OnPropertyChanged("NewSkill");
+            }
+        }
         public Availability SelectedAvailability
         {
             get { return _selectedAvailability; }
@@ -161,14 +262,25 @@ namespace BitServicesDesktopApp.ViewModels
         }
         public void UpdateContractors()
         {
-
             Contractors allContractors = new Contractors();
             this.Contractors = new ObservableCollection<Contractor>(allContractors);
         }
 
+        public void UpdateSkills()
+        {
+            if (SelectedContractor != null)
+            {
+                Skills allContractorSkills = new Skills(SelectedContractor.ContractorId);
+                this.ContractorSkills = new ObservableCollection<Skill>(allContractorSkills);
+            }
+            Skills allSkills = new Skills();
+            this.AllSkills = new ObservableCollection<Skill>(allSkills);
+        }
         public ContractorManagementViewModel()
         {
             UpdateContractors();
+            UpdateSkills();
+            this.NewSkill = new Skill();
         }
     }
 }
