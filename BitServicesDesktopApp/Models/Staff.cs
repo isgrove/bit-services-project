@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Text;
+using BitServicesDesktopApp.DAL;
 
 namespace BitServicesDesktopApp.Models
 {
@@ -16,6 +18,7 @@ namespace BitServicesDesktopApp.Models
         private string _phone;
         private string _password;
         private bool _active;
+        private SQLHelper _db;
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string prop)
         {
@@ -92,12 +95,18 @@ namespace BitServicesDesktopApp.Models
                 OnPropertyChanged("Active");
             }
         }
+
+        public string FullName
+        {
+            get { return this.FirstName + " " + this.LastName; }
+        }
         public Staff()
         {
-
+            _db = new SQLHelper();
         }
         public Staff(DataRow dr)
         {
+            _db = new SQLHelper();
             this.StaffId = Convert.ToInt32(dr["staff_id"].ToString());
             this.StaffType = dr["type"].ToString();
             this.FirstName = dr["first_name"].ToString();
@@ -106,6 +115,92 @@ namespace BitServicesDesktopApp.Models
             this.Phone = dr["phone"].ToString();
             this.Password = dr["password"].ToString();
             this.Active = Convert.ToBoolean(dr["active"]);
+        }
+
+        public int InsertStaff()
+        {
+            GeneratePassword();
+            string sql = "usp_InsertStaff";
+            SqlParameter[] objParams = new SqlParameter[6];
+            objParams[0] = new SqlParameter("@FirstName", DbType.String)
+            {
+                Value = this.FirstName
+            };
+            objParams[1] = new SqlParameter("@LastName", DbType.String)
+            {
+                Value = this.LastName
+            };
+            objParams[2] = new SqlParameter("@Email", DbType.String)
+            {
+                Value = this.Email
+            };
+            objParams[3] = new SqlParameter("@Phone", DbType.String)
+            {
+                Value = this.Phone
+            };
+            objParams[4] = new SqlParameter("@Password", DbType.String)
+            {
+                Value = this.Password
+            };
+            objParams[5] = new SqlParameter("@StaffType", DbType.String)
+            {
+                Value = this.StaffType
+            };
+            int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
+            return rowsAffected;
+        }
+        public int DeleteStaff()
+        {
+            string sql = "usp_DeleteStaff";
+            SqlParameter[] objParams = new SqlParameter[1];
+            objParams[0] = new SqlParameter("@StaffId", DbType.Int32)
+            {
+                Value = this.StaffId
+            };
+            int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
+            return rowsAffected;
+        }
+
+        // TODO: Generate a random password
+        private void GeneratePassword()
+        {
+            this.Password = "Password";
+        }
+
+        public int UpdateStaff()
+        {
+            string sql = "usp_UpdateStaff";
+            SqlParameter[] objParams = new SqlParameter[7];
+            objParams[0] = new SqlParameter("@StaffId", DbType.Int32)
+            {
+                Value = this.StaffId
+            };
+            objParams[1] = new SqlParameter("@FirstName", DbType.String)
+            {
+                Value = this.FirstName
+            };
+            objParams[2] = new SqlParameter("@LastName", DbType.String)
+            {
+                Value = this.LastName
+            };
+            objParams[3] = new SqlParameter("@Email", DbType.String)
+            {
+                Value = this.Email
+            };
+            objParams[4] = new SqlParameter("@Phone", DbType.String)
+            {
+                Value = this.Phone
+            };
+            objParams[5] = new SqlParameter("@Password", DbType.String)
+            {
+                Value = this.Password
+            };
+            objParams[6] = new SqlParameter("@StaffType", DbType.String)
+            {
+                Value = this.StaffType
+            };
+            int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
+            return rowsAffected;
         }
     }
 }

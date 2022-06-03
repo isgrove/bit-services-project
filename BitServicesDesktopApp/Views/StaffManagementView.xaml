@@ -46,20 +46,23 @@
             <TextBox  Text="{Binding SelectedStaff.FirstName}" x:Name="txtFirstName" Grid.Row="0" Grid.Column="1" Margin="5" />
             <Label Content="Last Name: " Grid.Row="1" Grid.Column="0"/>
             <TextBox Text ="{Binding SelectedStaff.LastName}" x:Name="txtLasttName" Grid.Row="1" Grid.Column="1" Margin="5" />
-            <Label Content="Staff Type : " Grid.Row="2" Grid.Column="0"/>
-            <ComboBox x:Name="cmbStaffType" ItemsSource="{Binding StaffTypes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                DisplayMemberPath="Type"
-                Text="{Binding SelectedStaff.StaffType, UpdateSourceTrigger=PropertyChanged}"
-                Grid.Row="2" Grid.Column="1" Margin="5" />
+            <Label Content="Phone: " Grid.Row="2" Grid.Column="0"/>
+            <TextBox Text ="{Binding SelectedStaff.Phone}" x:Name="txtPhone" Grid.Row="2" Grid.Column="1" Margin="5" />
             <Label Content="Email: " Grid.Row="0" Grid.Column="2"/>
-            <TextBox Text="{Binding SelectedStaff.Email}" x:Name="txtEmail" Grid.Row="0" Grid.Column="3" Margin="5" />
-            <Label Content="Phone: " Grid.Row="1" Grid.Column="2"/>
-            <TextBox Text="{Binding SelectedStaff.Phone}" x:Name="txtPhone" Grid.Row="1" Grid.Column="3" Margin="5" />
+            <TextBox Text ="{Binding SelectedStaff.Email}" x:Name="txtEmail" Grid.Row="0" Grid.Column="3" Margin="5" />
+
+            <Label Content="Staff Type: " Grid.Row="1" Grid.Column="2"/>
+            <TextBox Text ="{Binding SelectedStaff.StaffType}" x:Name="txtType" Grid.Row="1" Grid.Column="3" Margin="5" IsReadOnly="True"/>
         </Grid>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2">
-            <Button x:Name="btnUpdate" Content="SAVE" Width="150" Margin="10"/>
-            <Button x:Name="btnDelete" Content="DELETE" Width="150" Margin="10"/>
-            <Button x:Name="btnAdd" Content="ADD" Width="150" Margin="10" Click="btnAdd_Click"/>
-        </StackPanel>
+        <Grid Grid.Row="2" Grid.ColumnSpan="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnUpdate" Command="{Binding SaveCommand}" Content="SAVE COORDINATOR" Margin="10" Grid.Column="0"/>
+            <Button x:Name="btnAdd" Content="ADD COORDINATOR" Margin="10" Click="btnAdd_Click" Grid.Column="1"/>
+            <Button x:Name="btnDelete" Command="{Binding DeleteCommand}" Content="DELETE COORDINATOR" Margin="10" Grid.Column="2"/>
+        </Grid>
     </Grid>
 </Page>
