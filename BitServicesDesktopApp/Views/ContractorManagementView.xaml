@@ -146,10 +146,15 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2">
-            <Button x:Name="btnUpdate" Content="SAVE" Width="150" Margin="10"/>
-            <Button x:Name="btnDelete" Content="DELETE" Width="150" Margin="10"/>
-            <Button x:Name="btnAdd" Content="ADD" Width="150" Margin="10" Click="btnAdd_Click"/>
-        </StackPanel>
+        <Grid Grid.Row="2" Grid.ColumnSpan="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnUpdate" Command="{Binding SaveCommand}" Content="SAVE CONTRACTOR" Margin="10" Grid.Column="0"/>
+            <Button x:Name="btnAdd" Content="ADD CONTRACTOR" Margin="10" Click="btnAdd_Click" Grid.Column="1"/>
+            <Button x:Name="btnDelete" Command="{Binding DeleteCommand}" Content="DELETE CONTRACTOR" Margin="10" Grid.Column="2"/>
+        </Grid>
     </Grid>
 </Page>

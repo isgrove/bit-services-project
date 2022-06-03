@@ -12,7 +12,7 @@ namespace BitServicesDesktopApp.Models
         public Contractors()
         {
             SQLHelper helper = new SQLHelper();
-            string sql = "SELECT contractor_id, first_name, last_name, email, phone, street, suburb, postcode, state" +
+            string sql = "SELECT contractor_id, first_name, last_name, email, phone, street, suburb, postcode, state, password," +
                 " suburb, postcode, state, licence_number, vehicle_registration, performance_rating, active" +
                 " FROM contractor" +
                 " WHERE active = 1";

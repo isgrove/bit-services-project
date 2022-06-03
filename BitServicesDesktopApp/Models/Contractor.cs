@@ -322,12 +322,17 @@ namespace BitServicesDesktopApp.Models
             this.PerformanceRating = Convert.ToInt32(dr["performance_rating"]);
             this.VehicleRegistration = dr["vehicle_registration"].ToString();
             this.Active = Convert.ToBoolean(dr["active"]);
+
+            if (dr.Table.Columns.Contains("password"))
+            {
+                this.Password = dr["password"].ToString();
+            }
         }
 
         public Contractor(int contractorId)
         {
             _db = new SQLHelper();
-            string sql = "SELECT contractor_id, first_name, last_name, email, phone, street, suburb, postcode, state" +
+            string sql = "SELECT contractor_id, first_name, last_name, email, phone, password, street, suburb, postcode, state," +
                          " suburb, postcode, state, licence_number, performance_rating, vehicle_registration, active" +
                          " FROM contractor" +
                          " WHERE contractor_id = @ContractorId";
@@ -342,6 +347,7 @@ namespace BitServicesDesktopApp.Models
             this.LastName = dr["last_name"].ToString();
             this.Email = dr["email"].ToString();
             this.Phone = dr["phone"].ToString();
+            this.Password = dr["password"].ToString();
             this.Street = dr["street"].ToString();
             this.Suburb = dr["suburb"].ToString();
             this.Postcode = dr["postcode"].ToString();
@@ -427,6 +433,88 @@ namespace BitServicesDesktopApp.Models
             objParams[12] = new SqlParameter("@Skills", SqlDbType.Structured)
             {
                 Value = skillsTable
+            };
+            int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
+            return rowsAffected;
+        }
+
+        public int DeleteContractor()
+        {
+            if (this.ErrorCollection.Count > 0)
+            {
+                return -1;
+            }
+            _db = new SQLHelper();
+            string sql = "usp_DeleteContractor";
+            SqlParameter[] objParams = new SqlParameter[1];
+            objParams[0] = new SqlParameter("@ContractorId", DbType.Int32)
+            {
+                Value = this.ContractorId
+            };
+            int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
+            return rowsAffected;
+        }
+
+        public int UpdateContractor()
+        {
+            if (this.ErrorCollection.Count > 0)
+            {
+                return -1;
+            }
+            _db = new SQLHelper();
+            string sql = "usp_UpdateContractor";
+            SqlParameter[] objParams = new SqlParameter[13];
+            objParams[0] = new SqlParameter("@ContractorId", DbType.Int32)
+            {
+                Value = this.ContractorId
+            };
+            objParams[1] = new SqlParameter("@FirstName", DbType.String)
+            {
+                Value = this.FirstName
+            };
+            objParams[2] = new SqlParameter("@LastName", DbType.String)
+            {
+                Value = this.LastName
+            };
+            objParams[3] = new SqlParameter("@Email", DbType.String)
+            {
+                Value = this.Email
+            };
+            objParams[4] = new SqlParameter("@Phone", DbType.String)
+            {
+                Value = this.Phone
+            };
+            objParams[5] = new SqlParameter("@Password", DbType.String)
+            {
+                Value = this.Password
+            };
+            objParams[6] = new SqlParameter("@Street", DbType.String)
+            {
+                Value = this.Street
+            };
+            objParams[7] = new SqlParameter("@Suburb", DbType.String)
+            {
+                Value = this.Suburb
+            };
+            objParams[8] = new SqlParameter("@Postcode", DbType.String)
+            {
+                Value = this.Postcode
+            };
+            objParams[9] = new SqlParameter("@State", DbType.String)
+            {
+                Value = this.State
+            };
+            objParams[10] = new SqlParameter("@LicenceNumber", DbType.String)
+            {
+                Value = this.LicenceNumber
+            };
+            objParams[11] = new SqlParameter("@VehicleRegistration", DbType.String)
+            {
+                Value = this.VehicleRegistration
+            };
+            objParams[12] = new SqlParameter("@PerformanceRating", DbType.String)
+            {
+                Value = this.PerformanceRating
             };
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
             return rowsAffected;
