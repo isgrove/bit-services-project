@@ -214,19 +214,14 @@ namespace BitServicesWebApp.BLL
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
             return rowsAffected;
         }
-
-        // TODO: Update stored proc so it does not return contractors who have already rejected the job
+        
         public DataTable GetContractorsForJob()
         {
             string sql = "usp_GetContractorsForJob";
-            SqlParameter[] objParams = new SqlParameter[2];
-            objParams[0] = new SqlParameter("@JobSkillName", DbType.String)
+            SqlParameter[] objParams = new SqlParameter[1];
+            objParams[0] = new SqlParameter("@JobId", DbType.Int32)
             {
-                Value = this.RequiredSkill
-            };
-            objParams[1] = new SqlParameter("@DeadlineDate", DbType.Date)
-            {
-                Value = this.DeadlineDate
+                Value = this.JobId
             };
             DataTable contractorsTable = _db.ExecuteSQL(sql, objParams, true);
             return contractorsTable;
