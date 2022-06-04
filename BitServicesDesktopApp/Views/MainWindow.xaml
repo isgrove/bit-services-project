@@ -44,30 +44,30 @@
                     BorderThickness="0,0,0,0" Click="btnStaffManagement_Click" IsEnabled="False"/>
         </StackPanel>
         <Border BorderBrush="#646464" BorderThickness="0,0,0,1" Grid.Row="0" Grid.Column="1">
-            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" Background="#FFFFFF" VerticalAlignment="Center">
-                <TextBox x:Name="txtSearch" Width="500" Margin="10" VerticalContentAlignment="Center" BorderBrush="#707070" BorderThickness="1">
+            <Grid Grid.Row="0" Grid.Column="1" Background="#FFFFFF" Margin="0, 5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3.5*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBox x:Name="txtSearch" Grid.Column="0" Margin="10" VerticalContentAlignment="Center" BorderBrush="#707070" BorderThickness="1">
                     <TextBox.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="5"/>
                         </Style>
                     </TextBox.Resources>
                 </TextBox>
-
-                <Button x:Name="btnSearch" Content="Search" Foreground="White" Background="#EA5D32" BorderBrush="#EA5D32"
-                    Width="100" Margin="10" FontSize="16">
+                <Button x:Name="btnSearch" Grid.Column="1" Content="Search" Foreground="White" Background="#EA5D32" BorderBrush="#EA5D32"
+                        Margin="10" FontSize="16">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="5"/>
                         </Style>
                     </Button.Resources>
                 </Button>
-                <ComboBox x:Name="cmbSearch" Width="200" Margin="10">
-                    <ComboBoxItem Content="ID"/>
-                    <ComboBoxItem Content="FirstName"/>
-                    <ComboBoxItem Content="LastName"/>
-                    <ComboBoxItem Content="Skill"/>
-                </ComboBox>
-            </StackPanel>
+            </Grid>
         </Border>
             <Frame NavigationUIVisibility="Hidden" x:Name="contentFrame" Grid.Column="1" Grid.Row="1" Margin="20,20"/>
     </Grid>
