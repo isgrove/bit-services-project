@@ -141,11 +141,11 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Date : " Margin="5" Grid.Row="0" Grid.Column="0"
                                   ></TextBlock>
-                        <DatePicker x:Name="dtpNewAvailability" Margin="5" 
-                                 Grid.Row="0" Grid.Column="1" />
-                        <Button Content="ADD" x:Name="btnAddAvailability" Grid.Column="1" 
+                        <DatePicker x:Name="dtpNewAvailability" Margin="5" SelectedDate="{Binding NewAvailability.AvailabilityDate, Mode=TwoWay, ValidatesOnDataErrors=True}" ToolTip="{Binding NewAvailability.ErrorCollection[AvailabilityDate]}"
+                                  Grid.Row="0" Grid.Column="1" />
+                        <Button Content="ADD" Command="{Binding AddAvailabilityCommand}" x:Name="btnAddAvailability" Grid.Column="1" 
                                 Grid.Row="1" Margin="5" />
-                        <Button Content="DELETE" x:Name="btnDeleteAvailability" Grid.Column="0" 
+                        <Button Content="DELETE" Command="{Binding DeleteAvailabilityCommand}"  x:Name="btnDeleteAvailability" Grid.Column="0" 
                                 Grid.Row="1" Margin="5" />
                     </Grid>
                 </Grid>

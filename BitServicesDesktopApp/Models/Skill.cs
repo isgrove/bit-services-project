@@ -9,7 +9,7 @@ using BitServicesDesktopApp.DAL;
 
 namespace BitServicesDesktopApp.Models
 {
-    public class Skill : INotifyPropertyChanged
+    public class Skill : INotifyPropertyChanged, IDataErrorInfo
     {
         private string _skillName;
         private SQLHelper _db;
@@ -26,24 +26,15 @@ namespace BitServicesDesktopApp.Models
                     case "SkillName":
                         if (string.IsNullOrEmpty(this.SkillName))
                         {
-                            result = "Skill cannot be left empty";
-                        }
-                        else if (this.SkillName.Length > 32)
-                        {
-                            result = "Skill name cannot be more than 32 characters";
+                            result = "Skill name cannot be left empty";
                         }
                         break;
                 }
-                if (result != null && !ErrorCollection.ContainsKey(propertyName))
+                if (result == null && !ErrorCollection.ContainsKey(propertyName))
                 {
-                    ErrorCollection[propertyName] = result;
-                    OnPropertyChanged("ErrorCollection");
+                    ErrorCollection.Add(propertyName, result);
                 }
-
-                foreach (string key in ErrorCollection.Keys)
-                {
-                    MessageBox.Show($"{key}: {ErrorCollection[key]}");
-                }
+                OnPropertyChanged("ErrorCollection");
                 return result;
             }
         }

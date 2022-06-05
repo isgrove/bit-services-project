@@ -20,9 +20,12 @@ namespace BitServicesDesktopApp.ViewModels
         private RelayCommand _saveCommand;
         private RelayCommand _addNewSkillCommand;
         private RelayCommand _addSkillCommand;
+        private RelayCommand _deleteAvailabilityCommand;
+        private RelayCommand _addAvailabilityCommand;
         private Skill _selectedSkill;
         private Skill _newSkill;
         private Availability _selectedAvailability;
+        private Availability _newAvailability;
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string prop)
@@ -79,6 +82,34 @@ namespace BitServicesDesktopApp.ViewModels
                 return _addNewSkillCommand;
             }
             set { _addNewSkillCommand = value; }
+        }
+
+        public RelayCommand AddAvailabilityCommand
+        {
+            get
+            {
+                if (_addAvailabilityCommand == null)
+                {
+                    _addAvailabilityCommand = new RelayCommand(this.AddAvailabilityMethod, true);
+                }
+
+                return _addAvailabilityCommand;
+            }
+            set { _addAvailabilityCommand = value; }
+        }
+        
+        public RelayCommand DeleteAvailabilityCommand
+        {
+            get
+            {
+                if (_deleteAvailabilityCommand == null)
+                {
+                    _deleteAvailabilityCommand = new RelayCommand(this.DeleteAvailabilityMethod, true);
+                }
+
+                return _deleteAvailabilityCommand;
+            }
+            set { _deleteAvailabilityCommand = value; }
         }
 
         public void DeleteMethod()
@@ -179,7 +210,57 @@ namespace BitServicesDesktopApp.ViewModels
             MessageBox.Show(message, $"Add {skillName}");
             UpdateSkills();
         }
+        public void AddAvailabilityMethod()
+        {
+            if (SelectedContractor == null)
+            {
+                MessageBox.Show($"You must select a contractor to add availability for!", "Add Availability");
+                return;
+            }
+            string availabilityDate = NewAvailability.AvailabilityDate.ToString("MM/dd/yyyy");
+            foreach (Availability availability in ContractorAvailability)
+            {
+                if (availability.AvailabilityDate.Date == NewAvailability.AvailabilityDate.Date)
+                {
+                    MessageBox.Show($"{SelectedContractor.FullName} already has the availability for {availabilityDate}!", "Add Availability");
+                    return;
+                }
+            }
+            string message;
+            int rowsAffected = NewAvailability.InsertAvailability();
+            if (rowsAffected >= 1)
+            {
+                message = $"You have successfully added availability for {availabilityDate}!";
+            }
+            else
+            {
+                message = $"There was an issue when adding availability for {availabilityDate}, please try again!";
+            }
+            MessageBox.Show(message, $"Add Availability");
+            UpdateAvailabilities();
+        }
+        public void DeleteAvailabilityMethod()
+        {
+            if (SelectedAvailability == null)
+            {
+                MessageBox.Show("You must select an availability to delete!", "Delete Availability");
+                return;
+            }
+            string availabilityDate = SelectedAvailability.AvailabilityDate.ToString("MM/dd/yyyy");
+            string message;
+            int rowsAffected = NewAvailability.DeleteAvailability();
+            if (rowsAffected >= 1)
+            {
+                message = $"You have successfully deleted availability for {availabilityDate}!";
+            }
+            else
+            {
+                message = $"There was an issue when deleting availability for {availabilityDate}, please try again!";
+            }
+            MessageBox.Show(message, $"Delete Availability");
+            UpdateAvailabilities();
 
+        }
         public ObservableCollection<Contractor> Contractors
         {
             get { return _contractors; }
@@ -225,10 +306,13 @@ namespace BitServicesDesktopApp.ViewModels
                 OnPropertyChanged("SelectedContractor");
                 if (SelectedContractor != null)
                 {
-                    Skills allSkills = new Skills(SelectedContractor.ContractorId);
-                    this.ContractorSkills = new ObservableCollection<Skill>(allSkills);
-                    Availabilities allAvailability = new Availabilities(SelectedContractor.ContractorId);
-                    this.ContractorAvailability = new ObservableCollection<Availability>(allAvailability);
+                    UpdateSkills();
+                    UpdateAvailabilities();
+                    this.NewAvailability = new Availability()
+                    {
+                        ContractorId = SelectedContractor.ContractorId,
+                        AvailabilityDate = DateTime.Now
+                    };
                 }
             }
         }
@@ -260,6 +344,16 @@ namespace BitServicesDesktopApp.ViewModels
                 OnPropertyChanged("SelectedAvailability");
             }
         }
+        // TODO: Fix validation not working
+        public Availability NewAvailability
+        {
+            get { return _newAvailability; }
+            set
+            {
+                _newAvailability = value;
+                OnPropertyChanged("NewAvailability");
+            }
+        }
         public void UpdateContractors()
         {
             Contractors allContractors = new Contractors();
@@ -275,6 +369,12 @@ namespace BitServicesDesktopApp.ViewModels
             }
             Skills allSkills = new Skills();
             this.AllSkills = new ObservableCollection<Skill>(allSkills);
+        }
+
+        public void UpdateAvailabilities()
+        {        
+            Availabilities allAvailability = new Availabilities(SelectedContractor.ContractorId);
+            this.ContractorAvailability = new ObservableCollection<Availability>(allAvailability);
         }
         public ContractorManagementViewModel()
         {
