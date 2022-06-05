@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>BitServicesDatabase</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{2cc3809d-d49b-4ba9-a784-0c1355daf14b}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>BitServicesDatabase</RootNamespace>
+    <AssemblyName>BitServicesDatabase</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="dbo\User Defined Types\" />
+    <Folder Include="dbo\Inserts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\assignment_reason.sql" />
+    <Build Include="dbo\Tables\staff_type.sql" />
+    <Build Include="dbo\Tables\client.sql" />
+    <Build Include="dbo\Tables\client_location.sql" />
+    <Build Include="dbo\Tables\job_status.sql" />
+    <Build Include="dbo\Tables\skill.sql" />
+    <Build Include="dbo\Tables\job.sql" />
+    <Build Include="dbo\Tables\contractor.sql" />
+    <Build Include="dbo\Tables\contractor_skill.sql" />
+    <Build Include="dbo\Tables\contractor_availability.sql" />
+    <Build Include="dbo\Tables\staff.sql" />
+    <Build Include="dbo\Tables\job_assignment.sql" />
+    <Build Include="dbo\Stored Procedures\usp_AddContractor.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetClientLocations.sql" />
+    <Build Include="dbo\Stored Procedures\usp_DeleteStaff.sql" />
+    <Build Include="dbo\Stored Procedures\usp_InsertStaff.sql" />
+    <Build Include="dbo\Stored Procedures\usp_UpdateStaff.sql" />
+    <Build Include="dbo\Stored Procedures\usp_DeleteContractor.sql" />
+    <Build Include="dbo\Stored Procedures\usp_InsertContractor.sql" />
+    <Build Include="dbo\Stored Procedures\usp_UpdateContractor.sql" />
+    <Build Include="dbo\Stored Procedures\usp_AddSkill.sql" />
+    <Build Include="dbo\Stored Procedures\usp_AddContractorAvailability.sql" />
+    <Build Include="dbo\Stored Procedures\usp_DeleteContractorAvailability.sql" />
+    <Build Include="dbo\Stored Procedures\usp_AcceptJob.sql" />
+    <Build Include="dbo\Stored Procedures\usp_AssignContractor.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetAllJobs.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetAllRejectionReasons.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetAvailabilityForJob.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetCompletedJobs.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetContractorsForJob.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetContractorSkills.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetInProgressJobs.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetJobsToAssign.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetPendingJobs.sql" />
+    <Build Include="dbo\Stored Procedures\usp_InsertJob.sql" />
+    <Build Include="dbo\Stored Procedures\usp_RejectJob.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetAllJobsFromStatuses.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetAllRejectedJobs.sql" />
+    <Build Include="dbo\User Defined Types\tbl_skill_name.sql" />
+    <Build Include="dbo\User Defined Types\tbl_job_status.sql" />
+    <Build Include="dbo\User Defined Types\tbl_skill.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="dbo\Inserts\DefaultData.sql" />
+  </ItemGroup>
+</Project>

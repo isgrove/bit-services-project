@@ -9,49 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitServicesDesktopApp", "Bi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitServicesTests", "BitServicesTests\BitServicesTests.csproj", "{70BE10EA-F2CF-4DD6-B7D3-DB11AFFBB389}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BitServicesDatabase", "BitServicesDatabase", "{8A23E197-876E-405F-93C1-174BEE83E014}"
-	ProjectSection(SolutionItems) = preProject
-		BitServicesDatabase\CreateAndInsertScript.sql = BitServicesDatabase\CreateAndInsertScript.sql
-		BitServicesDatabase\StoredProcedures.sql = BitServicesDatabase\StoredProcedures.sql
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StoredProcedures", "StoredProcedures", "{3FDF2FB0-0509-4BB4-A257-58C634B49288}"
-	ProjectSection(SolutionItems) = preProject
-		BitServicesDatabase\StoredProcedures\dbo.tbl_job_status.UserDefinedTableType.sql = BitServicesDatabase\StoredProcedures\dbo.tbl_job_status.UserDefinedTableType.sql
-		BitServicesDatabase\StoredProcedures\dbo.tbl_skill.UserDefinedTableType.sql = BitServicesDatabase\StoredProcedures\dbo.tbl_skill.UserDefinedTableType.sql
-		BitServicesDatabase\StoredProcedures\dbo.tbl_skill_name.UserDefinedTableType.sql = BitServicesDatabase\StoredProcedures\dbo.tbl_skill_name.UserDefinedTableType.sql
-		BitServicesDatabase\StoredProcedures\dbo.usp_AcceptJob.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_AcceptJob.StoredProcedure.sql
-		BitServicesDatabase\StoredProcedures\dbo.usp_AddContractor.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_AddContractor.StoredProcedure.sql
-		BitServicesDatabase\StoredProcedures\dbo.usp_AddSkill.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_AddSkill.StoredProcedure.sql
-		BitServicesDatabase\StoredProcedures\dbo.usp_AssignContractor.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_AssignContractor.StoredProcedure.sql
-		BitServicesDatabase\StoredProcedures\dbo.usp_DeleteContractor.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_DeleteContractor.StoredProcedure.sql
-		BitServicesDatabase\StoredProcedures\dbo.usp_DeleteStaff.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_DeleteStaff.StoredProcedure.sql
-		BitServicesDatabase\StoredProcedures\dbo.usp_GetAllJobs.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_GetAllJobs.StoredProcedure.sql
-		BitServicesDatabase\StoredProcedures\dbo.usp_GetAllJobsFromStatuses.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_GetAllJobsFromStatuses.StoredProcedure.sql
-		BitServicesDatabase\StoredProcedures\dbo.usp_GetAllRejectedJobs.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_GetAllRejectedJobs.StoredProcedure.sql
-		BitServicesDatabase\StoredProcedures\dbo.usp_GetAllRejectionReasons.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_GetAllRejectionReasons.StoredProcedure.sql
-		BitServicesDatabase\StoredProcedures\dbo.usp_GetAvailabilityForJob.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_GetAvailabilityForJob.StoredProcedure.sql
-		BitServicesDatabase\StoredProcedures\dbo.usp_GetClientLocations.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_GetClientLocations.StoredProcedure.sql
-		BitServicesDatabase\StoredProcedures\dbo.usp_GetCompletedJobs.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_GetCompletedJobs.StoredProcedure.sql
-		BitServicesDatabase\StoredProcedures\dbo.usp_GetContractorsForJob.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_GetContractorsForJob.StoredProcedure.sql
-		BitServicesDatabase\StoredProcedures\dbo.usp_GetContractorSkills.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_GetContractorSkills.StoredProcedure.sql
-		BitServicesDatabase\StoredProcedures\dbo.usp_GetInProgressJobs.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_GetInProgressJobs.StoredProcedure.sql
-		BitServicesDatabase\StoredProcedures\dbo.usp_GetJobsToAssign.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_GetJobsToAssign.StoredProcedure.sql
-		BitServicesDatabase\StoredProcedures\dbo.usp_GetPendingJobs.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_GetPendingJobs.StoredProcedure.sql
-		BitServicesDatabase\StoredProcedures\dbo.usp_InsertContractor.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_InsertContractor.StoredProcedure.sql
-		BitServicesDatabase\StoredProcedures\dbo.usp_InsertJob.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_InsertJob.StoredProcedure.sql
-		BitServicesDatabase\StoredProcedures\dbo.usp_InsertStaff.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_InsertStaff.StoredProcedure.sql
-		BitServicesDatabase\StoredProcedures\dbo.usp_RejectJob.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_RejectJob.StoredProcedure.sql
-		BitServicesDatabase\StoredProcedures\dbo.usp_UpdateContractor.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_UpdateContractor.StoredProcedure.sql
-		BitServicesDatabase\StoredProcedures\dbo.usp_UpdateStaff.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_UpdateStaff.StoredProcedure.sql
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UserDefinedTableTypes", "UserDefinedTableTypes", "{C5E5CC90-F1B6-4019-8CC0-F98D96D8F533}"
-	ProjectSection(SolutionItems) = preProject
-		BitServicesDatabase\StoredProcedures\dbo.tbl_job_status.UserDefinedTableType.sql = BitServicesDatabase\StoredProcedures\dbo.tbl_job_status.UserDefinedTableType.sql
-		BitServicesDatabase\StoredProcedures\dbo.tbl_skill.UserDefinedTableType.sql = BitServicesDatabase\StoredProcedures\dbo.tbl_skill.UserDefinedTableType.sql
-		BitServicesDatabase\StoredProcedures\dbo.tbl_skill_name.UserDefinedTableType.sql = BitServicesDatabase\StoredProcedures\dbo.tbl_skill_name.UserDefinedTableType.sql
-	EndProjectSection
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "BitServicesDatabase", "BitServicesDatabase\BitServicesDatabase.sqlproj", "{2CC3809D-D49B-4BA9-A784-0C1355DAF14B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,13 +29,15 @@ Global
 		{70BE10EA-F2CF-4DD6-B7D3-DB11AFFBB389}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70BE10EA-F2CF-4DD6-B7D3-DB11AFFBB389}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70BE10EA-F2CF-4DD6-B7D3-DB11AFFBB389}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CC3809D-D49B-4BA9-A784-0C1355DAF14B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CC3809D-D49B-4BA9-A784-0C1355DAF14B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CC3809D-D49B-4BA9-A784-0C1355DAF14B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{2CC3809D-D49B-4BA9-A784-0C1355DAF14B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CC3809D-D49B-4BA9-A784-0C1355DAF14B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CC3809D-D49B-4BA9-A784-0C1355DAF14B}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{3FDF2FB0-0509-4BB4-A257-58C634B49288} = {8A23E197-876E-405F-93C1-174BEE83E014}
-		{C5E5CC90-F1B6-4019-8CC0-F98D96D8F533} = {8A23E197-876E-405F-93C1-174BEE83E014}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2A3D56D9-A479-4EBE-9801-DB03E8CE0FE5}
