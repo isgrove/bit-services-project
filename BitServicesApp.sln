@@ -9,41 +9,48 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitServicesDesktopApp", "Bi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitServicesTests", "BitServicesTests\BitServicesTests.csproj", "{70BE10EA-F2CF-4DD6-B7D3-DB11AFFBB389}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{8A23E197-876E-405F-93C1-174BEE83E014}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BitServicesDatabase", "BitServicesDatabase", "{8A23E197-876E-405F-93C1-174BEE83E014}"
 	ProjectSection(SolutionItems) = preProject
-		Database\CreateAndInsertScript.sql = Database\CreateAndInsertScript.sql
-		Database\StoredProcedures.sql = Database\StoredProcedures.sql
+		BitServicesDatabase\CreateAndInsertScript.sql = BitServicesDatabase\CreateAndInsertScript.sql
+		BitServicesDatabase\StoredProcedures.sql = BitServicesDatabase\StoredProcedures.sql
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StoredProcedures", "StoredProcedures", "{3FDF2FB0-0509-4BB4-A257-58C634B49288}"
 	ProjectSection(SolutionItems) = preProject
-		Database\StoredProcedures\dbo.tbl_job_status.UserDefinedTableType.sql = Database\StoredProcedures\dbo.tbl_job_status.UserDefinedTableType.sql
-		Database\StoredProcedures\dbo.tbl_skill.UserDefinedTableType.sql = Database\StoredProcedures\dbo.tbl_skill.UserDefinedTableType.sql
-		Database\StoredProcedures\dbo.tbl_skill_name.UserDefinedTableType.sql = Database\StoredProcedures\dbo.tbl_skill_name.UserDefinedTableType.sql
-		Database\StoredProcedures\dbo.usp_AcceptJob.StoredProcedure.sql = Database\StoredProcedures\dbo.usp_AcceptJob.StoredProcedure.sql
-		Database\StoredProcedures\dbo.usp_AddContractor.StoredProcedure.sql = Database\StoredProcedures\dbo.usp_AddContractor.StoredProcedure.sql
-		Database\StoredProcedures\dbo.usp_AddSkill.StoredProcedure.sql = Database\StoredProcedures\dbo.usp_AddSkill.StoredProcedure.sql
-		Database\StoredProcedures\dbo.usp_AssignContractor.StoredProcedure.sql = Database\StoredProcedures\dbo.usp_AssignContractor.StoredProcedure.sql
-		Database\StoredProcedures\dbo.usp_DeleteContractor.StoredProcedure.sql = Database\StoredProcedures\dbo.usp_DeleteContractor.StoredProcedure.sql
-		Database\StoredProcedures\dbo.usp_DeleteStaff.StoredProcedure.sql = Database\StoredProcedures\dbo.usp_DeleteStaff.StoredProcedure.sql
-		Database\StoredProcedures\dbo.usp_GetAllJobs.StoredProcedure.sql = Database\StoredProcedures\dbo.usp_GetAllJobs.StoredProcedure.sql
-		Database\StoredProcedures\dbo.usp_GetAllJobsFromStatuses.StoredProcedure.sql = Database\StoredProcedures\dbo.usp_GetAllJobsFromStatuses.StoredProcedure.sql
-		Database\StoredProcedures\dbo.usp_GetAllRejectedJobs.StoredProcedure.sql = Database\StoredProcedures\dbo.usp_GetAllRejectedJobs.StoredProcedure.sql
-		Database\StoredProcedures\dbo.usp_GetAllRejectionReasons.StoredProcedure.sql = Database\StoredProcedures\dbo.usp_GetAllRejectionReasons.StoredProcedure.sql
-		Database\StoredProcedures\dbo.usp_GetAvailabilityForJob.StoredProcedure.sql = Database\StoredProcedures\dbo.usp_GetAvailabilityForJob.StoredProcedure.sql
-		Database\StoredProcedures\dbo.usp_GetClientLocations.StoredProcedure.sql = Database\StoredProcedures\dbo.usp_GetClientLocations.StoredProcedure.sql
-		Database\StoredProcedures\dbo.usp_GetCompletedJobs.StoredProcedure.sql = Database\StoredProcedures\dbo.usp_GetCompletedJobs.StoredProcedure.sql
-		Database\StoredProcedures\dbo.usp_GetContractorsForJob.StoredProcedure.sql = Database\StoredProcedures\dbo.usp_GetContractorsForJob.StoredProcedure.sql
-		Database\StoredProcedures\dbo.usp_GetContractorSkills.StoredProcedure.sql = Database\StoredProcedures\dbo.usp_GetContractorSkills.StoredProcedure.sql
-		Database\StoredProcedures\dbo.usp_GetInProgressJobs.StoredProcedure.sql = Database\StoredProcedures\dbo.usp_GetInProgressJobs.StoredProcedure.sql
-		Database\StoredProcedures\dbo.usp_GetJobsToAssign.StoredProcedure.sql = Database\StoredProcedures\dbo.usp_GetJobsToAssign.StoredProcedure.sql
-		Database\StoredProcedures\dbo.usp_GetPendingJobs.StoredProcedure.sql = Database\StoredProcedures\dbo.usp_GetPendingJobs.StoredProcedure.sql
-		Database\StoredProcedures\dbo.usp_InsertContractor.StoredProcedure.sql = Database\StoredProcedures\dbo.usp_InsertContractor.StoredProcedure.sql
-		Database\StoredProcedures\dbo.usp_InsertJob.StoredProcedure.sql = Database\StoredProcedures\dbo.usp_InsertJob.StoredProcedure.sql
-		Database\StoredProcedures\dbo.usp_InsertStaff.StoredProcedure.sql = Database\StoredProcedures\dbo.usp_InsertStaff.StoredProcedure.sql
-		Database\StoredProcedures\dbo.usp_RejectJob.StoredProcedure.sql = Database\StoredProcedures\dbo.usp_RejectJob.StoredProcedure.sql
-		Database\StoredProcedures\dbo.usp_UpdateContractor.StoredProcedure.sql = Database\StoredProcedures\dbo.usp_UpdateContractor.StoredProcedure.sql
-		Database\StoredProcedures\dbo.usp_UpdateStaff.StoredProcedure.sql = Database\StoredProcedures\dbo.usp_UpdateStaff.StoredProcedure.sql
+		BitServicesDatabase\StoredProcedures\dbo.tbl_job_status.UserDefinedTableType.sql = BitServicesDatabase\StoredProcedures\dbo.tbl_job_status.UserDefinedTableType.sql
+		BitServicesDatabase\StoredProcedures\dbo.tbl_skill.UserDefinedTableType.sql = BitServicesDatabase\StoredProcedures\dbo.tbl_skill.UserDefinedTableType.sql
+		BitServicesDatabase\StoredProcedures\dbo.tbl_skill_name.UserDefinedTableType.sql = BitServicesDatabase\StoredProcedures\dbo.tbl_skill_name.UserDefinedTableType.sql
+		BitServicesDatabase\StoredProcedures\dbo.usp_AcceptJob.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_AcceptJob.StoredProcedure.sql
+		BitServicesDatabase\StoredProcedures\dbo.usp_AddContractor.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_AddContractor.StoredProcedure.sql
+		BitServicesDatabase\StoredProcedures\dbo.usp_AddSkill.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_AddSkill.StoredProcedure.sql
+		BitServicesDatabase\StoredProcedures\dbo.usp_AssignContractor.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_AssignContractor.StoredProcedure.sql
+		BitServicesDatabase\StoredProcedures\dbo.usp_DeleteContractor.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_DeleteContractor.StoredProcedure.sql
+		BitServicesDatabase\StoredProcedures\dbo.usp_DeleteStaff.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_DeleteStaff.StoredProcedure.sql
+		BitServicesDatabase\StoredProcedures\dbo.usp_GetAllJobs.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_GetAllJobs.StoredProcedure.sql
+		BitServicesDatabase\StoredProcedures\dbo.usp_GetAllJobsFromStatuses.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_GetAllJobsFromStatuses.StoredProcedure.sql
+		BitServicesDatabase\StoredProcedures\dbo.usp_GetAllRejectedJobs.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_GetAllRejectedJobs.StoredProcedure.sql
+		BitServicesDatabase\StoredProcedures\dbo.usp_GetAllRejectionReasons.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_GetAllRejectionReasons.StoredProcedure.sql
+		BitServicesDatabase\StoredProcedures\dbo.usp_GetAvailabilityForJob.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_GetAvailabilityForJob.StoredProcedure.sql
+		BitServicesDatabase\StoredProcedures\dbo.usp_GetClientLocations.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_GetClientLocations.StoredProcedure.sql
+		BitServicesDatabase\StoredProcedures\dbo.usp_GetCompletedJobs.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_GetCompletedJobs.StoredProcedure.sql
+		BitServicesDatabase\StoredProcedures\dbo.usp_GetContractorsForJob.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_GetContractorsForJob.StoredProcedure.sql
+		BitServicesDatabase\StoredProcedures\dbo.usp_GetContractorSkills.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_GetContractorSkills.StoredProcedure.sql
+		BitServicesDatabase\StoredProcedures\dbo.usp_GetInProgressJobs.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_GetInProgressJobs.StoredProcedure.sql
+		BitServicesDatabase\StoredProcedures\dbo.usp_GetJobsToAssign.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_GetJobsToAssign.StoredProcedure.sql
+		BitServicesDatabase\StoredProcedures\dbo.usp_GetPendingJobs.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_GetPendingJobs.StoredProcedure.sql
+		BitServicesDatabase\StoredProcedures\dbo.usp_InsertContractor.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_InsertContractor.StoredProcedure.sql
+		BitServicesDatabase\StoredProcedures\dbo.usp_InsertJob.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_InsertJob.StoredProcedure.sql
+		BitServicesDatabase\StoredProcedures\dbo.usp_InsertStaff.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_InsertStaff.StoredProcedure.sql
+		BitServicesDatabase\StoredProcedures\dbo.usp_RejectJob.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_RejectJob.StoredProcedure.sql
+		BitServicesDatabase\StoredProcedures\dbo.usp_UpdateContractor.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_UpdateContractor.StoredProcedure.sql
+		BitServicesDatabase\StoredProcedures\dbo.usp_UpdateStaff.StoredProcedure.sql = BitServicesDatabase\StoredProcedures\dbo.usp_UpdateStaff.StoredProcedure.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UserDefinedTableTypes", "UserDefinedTableTypes", "{C5E5CC90-F1B6-4019-8CC0-F98D96D8F533}"
+	ProjectSection(SolutionItems) = preProject
+		BitServicesDatabase\StoredProcedures\dbo.tbl_job_status.UserDefinedTableType.sql = BitServicesDatabase\StoredProcedures\dbo.tbl_job_status.UserDefinedTableType.sql
+		BitServicesDatabase\StoredProcedures\dbo.tbl_skill.UserDefinedTableType.sql = BitServicesDatabase\StoredProcedures\dbo.tbl_skill.UserDefinedTableType.sql
+		BitServicesDatabase\StoredProcedures\dbo.tbl_skill_name.UserDefinedTableType.sql = BitServicesDatabase\StoredProcedures\dbo.tbl_skill_name.UserDefinedTableType.sql
 	EndProjectSection
 EndProject
 Global
@@ -70,6 +77,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3FDF2FB0-0509-4BB4-A257-58C634B49288} = {8A23E197-876E-405F-93C1-174BEE83E014}
+		{C5E5CC90-F1B6-4019-8CC0-F98D96D8F533} = {8A23E197-876E-405F-93C1-174BEE83E014}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2A3D56D9-A479-4EBE-9801-DB03E8CE0FE5}
