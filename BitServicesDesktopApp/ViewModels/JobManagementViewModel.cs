@@ -30,7 +30,8 @@ namespace BitServicesDesktopApp.ViewModels
         private RelayCommand _deleteCommand;
         private RelayCommand _saveCommand;
         public event PropertyChangedEventHandler PropertyChanged;
-
+        
+        //TODO: Add rejected tab where staff can reassign a contractor
         private void OnPropertyChanged(string prop)
         {
             if (PropertyChanged != null)
