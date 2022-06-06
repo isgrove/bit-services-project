@@ -26,6 +26,9 @@ namespace BitServicesDesktopApp.ViewModels
         private Skill _newSkill;
         private Availability _selectedAvailability;
         private Availability _newAvailability;
+        private bool _isDetailsTabSelected;
+        private bool _isSkillsTabSelected;
+        private bool _isAvailabilityTabSelected;
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string prop)
@@ -35,6 +38,8 @@ namespace BitServicesDesktopApp.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
             }
         }
+
+        #region Commands
         public RelayCommand DeleteCommand
         {
             get
@@ -97,7 +102,7 @@ namespace BitServicesDesktopApp.ViewModels
             }
             set { _addAvailabilityCommand = value; }
         }
-        
+
         public RelayCommand DeleteAvailabilityCommand
         {
             get
@@ -111,7 +116,9 @@ namespace BitServicesDesktopApp.ViewModels
             }
             set { _deleteAvailabilityCommand = value; }
         }
+        #endregion
 
+        #region Command Methods
         public void DeleteMethod()
         {
             string contractorName = SelectedContractor.FullName;
@@ -164,9 +171,8 @@ namespace BitServicesDesktopApp.ViewModels
                 if (skill.SkillName == SelectedSkill.SkillName)
                 {
                     MessageBox.Show($"{contractorName} already already has the {skillName} skill!", $"Add {SelectedSkill.SkillName}");
+                    return;
                 }
-
-                return;
             }
             // I was originally going to use the below method to check if a contractor had a skill but it did not work.
             // My guess is this is due to the ErrorCollection being the same
@@ -183,7 +189,7 @@ namespace BitServicesDesktopApp.ViewModels
             }
             else
             {
-                message = $"There was an issue when added {skillName} to {contractorName}, please try again!";
+                message = $"There was an issue when adding {skillName} to {contractorName}, please try again!";
             }
             MessageBox.Show(message, $"Add {SelectedSkill.SkillName}");
             UpdateSkills();
@@ -191,12 +197,14 @@ namespace BitServicesDesktopApp.ViewModels
         public void AddNewSkill()
         {
             string skillName = NewSkill.SkillName;
-            if (AllSkills.Contains(NewSkill))
+            foreach (Skill skill in AllSkills)
             {
-                MessageBox.Show($"{skillName} already has exists!", $"Add {SelectedSkill.SkillName}");
-                return;
+                if (skill.SkillName == skillName)
+                {
+                    MessageBox.Show($"{skillName} already has exists!", $"Add {SelectedSkill.SkillName}");
+                    return;
+                }
             }
-
             string message;
             int rowsAffected = NewSkill.InsertSkill();
             if (rowsAffected >= 1)
@@ -205,7 +213,7 @@ namespace BitServicesDesktopApp.ViewModels
             }
             else
             {
-                message = $"There was an issue when added {skillName}, please try again!";
+                message = $"There was an issue when adding {skillName}, please try again!";
             }
             MessageBox.Show(message, $"Add {skillName}");
             UpdateSkills();
@@ -261,6 +269,9 @@ namespace BitServicesDesktopApp.ViewModels
             UpdateAvailabilities();
 
         }
+        #endregion
+
+        #region Public Properties
         public ObservableCollection<Contractor> Contractors
         {
             get { return _contractors; }
@@ -308,11 +319,6 @@ namespace BitServicesDesktopApp.ViewModels
                 {
                     UpdateSkills();
                     UpdateAvailabilities();
-                    this.NewAvailability = new Availability()
-                    {
-                        ContractorId = SelectedContractor.ContractorId,
-                        AvailabilityDate = DateTime.Now
-                    };
                 }
             }
         }
@@ -325,7 +331,6 @@ namespace BitServicesDesktopApp.ViewModels
                 OnPropertyChanged("SelectedSkill");
             }
         }
-        // TODO: Fix validation not working
         public Skill NewSkill
         {
             get { return _newSkill; }
@@ -344,7 +349,6 @@ namespace BitServicesDesktopApp.ViewModels
                 OnPropertyChanged("SelectedAvailability");
             }
         }
-        // TODO: Fix validation not working
         public Availability NewAvailability
         {
             get { return _newAvailability; }
@@ -352,6 +356,50 @@ namespace BitServicesDesktopApp.ViewModels
             {
                 _newAvailability = value;
                 OnPropertyChanged("NewAvailability");
+            }
+        }
+
+        #endregion
+        public bool IsSkillsTabSelected
+        {
+            get { return _isSkillsTabSelected; }
+            set
+            {
+                if (value && this.NewSkill == null)
+                {
+                    this.NewSkill = new Skill()
+                    {
+                        SkillName = ""
+                    };
+                }
+                _isSkillsTabSelected = value;
+                OnPropertyChanged("IsSkillsTabSelected");
+            }
+        }
+        public bool IsAvailabilityTabSelected
+        {
+            get { return _isSkillsTabSelected; }
+            set
+            {
+
+                if (value && SelectedContractor == null)
+                {
+                    _isSkillsTabSelected = false;
+                    MessageBox.Show("You must select a contractor before looking at their availability");
+                }
+                else
+                {
+                    if (value && this.NewAvailability == null)
+                    {
+                        this.NewAvailability = new Availability()
+                        {
+                            ContractorId = SelectedContractor.ContractorId,
+                            AvailabilityDate = DateTime.Now
+                        };
+                    }
+                    _isSkillsTabSelected = value;
+                }
+                OnPropertyChanged("IsAvailabilityTabSelected");
             }
         }
         public void UpdateContractors()
@@ -372,7 +420,7 @@ namespace BitServicesDesktopApp.ViewModels
         }
 
         public void UpdateAvailabilities()
-        {        
+        {
             Availabilities allAvailability = new Availabilities(SelectedContractor.ContractorId);
             this.ContractorAvailability = new ObservableCollection<Availability>(allAvailability);
         }
@@ -380,7 +428,6 @@ namespace BitServicesDesktopApp.ViewModels
         {
             UpdateContractors();
             UpdateSkills();
-            this.NewSkill = new Skill();
         }
     }
 }

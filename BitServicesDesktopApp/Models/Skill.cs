@@ -28,13 +28,17 @@ namespace BitServicesDesktopApp.Models
                         {
                             result = "Skill name cannot be left empty";
                         }
+                        else if (this.SkillName.Length > 32)
+                        {
+                            result = "Skill name cannot be more than 32 characters";
+                        }
                         break;
                 }
-                if (result == null && !ErrorCollection.ContainsKey(propertyName))
+                if (result != null && !ErrorCollection.ContainsKey(propertyName))
                 {
                     ErrorCollection.Add(propertyName, result);
+                    OnPropertyChanged("ErrorCollection");
                 }
-                OnPropertyChanged("ErrorCollection");
                 return result;
             }
         }

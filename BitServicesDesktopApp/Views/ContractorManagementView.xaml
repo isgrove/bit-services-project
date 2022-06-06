@@ -73,7 +73,7 @@
                     <TextBox Text="{Binding SelectedContractor.VehicleRegistration, ValidatesOnDataErrors=True, Mode=TwoWay}" ToolTip="{Binding SelectedContractor.ErrorCollection[VehicleRegistration]}" x:Name="txtVehicleRegistration" Grid.Row="4" Grid.Column="3" Margin="5" />
                 </Grid>
             </TabItem>
-            <TabItem Header="Skill Management">
+            <TabItem Header="Skill Management" IsSelected="{Binding IsSkillsTabSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <Grid Margin="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -109,12 +109,12 @@
                         <Button Command="{Binding RemoveSkillCommand}" Content="DELETE SKILL" x:Name="btnDeleteSkill" Grid.Column="1" 
                                 Grid.Row="1" Margin="5" />
                         <TextBlock Text="Skill Name: " Margin="5" Grid.Row="3" Grid.Column="0"/>
-                        <TextBox x:Name="txtAddNewSkill" Text="{Binding NewSkill.SkillName, ValidatesOnDataErrors=True, Mode=TwoWay}" ToolTip="{Binding NewSkill.ErrorCollection[SkillName]}"  Margin="5" Grid.Row="3" Grid.Column="1" />
+                        <TextBox x:Name="txtAddNewSkill" Text="{Binding NewSkill.SkillName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" ToolTip="{Binding NewSkill.ErrorCollection[SkillName]}"  Margin="5" Grid.Row="3" Grid.Column="1" />
                         <Button Command="{Binding AddNewSkillCommand}" Content="ADD NEW SKILL" x:Name="btnAddNewSkill" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="5"/>
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Availability">
+            <TabItem Header="Availability" IsSelected="{Binding IsAvailabilityTabSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <Grid Margin="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -141,7 +141,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Date : " Margin="5" Grid.Row="0" Grid.Column="0"
                                   ></TextBlock>
-                        <DatePicker x:Name="dtpNewAvailability" Margin="5" SelectedDate="{Binding NewAvailability.AvailabilityDate, Mode=TwoWay, ValidatesOnDataErrors=True}" ToolTip="{Binding NewAvailability.ErrorCollection[AvailabilityDate]}"
+                        <DatePicker x:Name="dtpNewAvailability" Margin="5" SelectedDate="{Binding NewAvailability.AvailabilityDate,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" ToolTip="{Binding NewAvailability.ErrorCollection[AvailabilityDate]}"
                                   Grid.Row="0" Grid.Column="1" />
                         <Button Content="ADD" Command="{Binding AddAvailabilityCommand}" x:Name="btnAddAvailability" Grid.Column="1" 
                                 Grid.Row="1" Margin="5" />

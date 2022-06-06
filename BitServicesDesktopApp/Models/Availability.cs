@@ -26,7 +26,7 @@ namespace BitServicesDesktopApp.Models
                 string result = null;
                 switch (propertyName)
                 {
-                    case "SkillName":
+                    case "AvailabilityDate":
                         if (AvailabilityDate.Date < DateTime.Now.Date)
                         {
                             result = "Date cannot be in the past";
