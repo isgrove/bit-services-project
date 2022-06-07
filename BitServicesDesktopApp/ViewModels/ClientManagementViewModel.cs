@@ -221,5 +221,11 @@ namespace BitServicesDesktopApp.ViewModels
         {
             UpdateClients();
         }
+
+        public virtual ObservableCollection<Client> GetClients()
+        {
+            Clients allClients = new Clients();
+            return new ObservableCollection<Client>(allClients);
+        }
     }
 }
