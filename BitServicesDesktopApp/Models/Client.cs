@@ -17,6 +17,7 @@ namespace BitServicesDesktopApp.Models
         private string _password;
         private bool _active;
         private SQLHelper _db;
+        private LogHelper _log;
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string prop)
         {
@@ -78,10 +79,12 @@ namespace BitServicesDesktopApp.Models
         public Client()
         {
             this._db = new SQLHelper();
+            this._log = new LogHelper();
         }
         public Client(DataRow dr)
         {
             this._db = new SQLHelper();
+            this._log = new LogHelper();
             this.ClientId = Convert.ToInt32(dr["client_id"].ToString());
             this.Name = dr["name"].ToString();
             this.Email = dr["email"].ToString();
@@ -92,6 +95,7 @@ namespace BitServicesDesktopApp.Models
         public Client(int clientId)
         {
             this._db = new SQLHelper();
+            this._log = new LogHelper();
             _db = new SQLHelper();
             string sql = "SELECT client_id, client_name, email, phone, active" +
                          " FROM client" +
@@ -130,6 +134,16 @@ namespace BitServicesDesktopApp.Models
                 Value = this.Password
             };
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
+            
+            // TODO: Add an identified to log message of who created the client
+            if (rowsAffected > 0)
+            {
+                this._log.Log("Client " + this.Name + " was successfully added.", LogType.Info);
+            }
+            else
+            {
+                this._log.Log("Error when adding Client " + this.Name + ".", LogType.Error);
+            }
             return rowsAffected;
         }
         public int DeleteClient()
@@ -143,6 +157,16 @@ namespace BitServicesDesktopApp.Models
                 Value = this.ClientId
             };
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
+
+            // TODO: Add an identified to log message of who deleted the client
+            if (rowsAffected > 0)
+            {
+                this._log.Log("Client " + this.Name + " was deleted added.", LogType.Info);
+            }
+            else
+            {
+                this._log.Log("Error when deleting Client " + this.Name + ".", LogType.Error);
+            }
             return rowsAffected;
         }
 
@@ -175,6 +199,16 @@ namespace BitServicesDesktopApp.Models
                 Value = this.ClientId
             };
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
+
+            // TODO: Add an identified to log message of who update the client
+            if (rowsAffected > 0)
+            {
+                this._log.Log("Client " + this.Name + " was successfully updated.", LogType.Info);
+            }
+            else
+            {
+                this._log.Log("Error when updating Client " + this.Name + ".", LogType.Error);
+            }
             return rowsAffected;
         }
     }

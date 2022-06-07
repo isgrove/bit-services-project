@@ -21,7 +21,8 @@ namespace BitServicesDesktopApp.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        public static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+        
         public MainWindow()
         {
             bool loginEnabled = Convert.ToBoolean(ConfigurationManager.AppSettings["LoginEnabled"]);
