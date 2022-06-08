@@ -224,7 +224,12 @@ namespace BitServicesDesktopApp.ViewModels
 
         public virtual ObservableCollection<Client> GetClients()
         {
-            Clients allClients = new Clients();
+            List<Client> allClients = new List<Client>()
+            {
+                new Client(1),
+                new Client(2),
+                new Client(3),
+            };
             return new ObservableCollection<Client>(allClients);
         }
     }

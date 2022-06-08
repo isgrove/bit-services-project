@@ -43,8 +43,9 @@ namespace BitServicesTests
             Assert.AreEqual(3, count);
         }
 
+        // Better method would be to create a new client, insert it into the database and assert that it was correctly inserted.
         [TestMethod]
-        public void ClientManagementObservableCollectionTest()
+        public void ClientManagementMoqTest()
         {
             ObservableCollection<Client> mockClients = new ObservableCollection<Client>
             {

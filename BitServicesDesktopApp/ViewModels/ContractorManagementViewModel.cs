@@ -429,5 +429,15 @@ namespace BitServicesDesktopApp.ViewModels
             UpdateContractors();
             UpdateSkills();
         }
+        public virtual ObservableCollection<Contractor> GetContractors()
+        {
+            List<Contractor> allContractors = new List<Contractor>()
+                {
+                    new Contractor(1),
+                    new Contractor(2),
+                    new Contractor(3),
+                };
+            return new ObservableCollection<Contractor>(allContractors);
+        }
     }
 }
