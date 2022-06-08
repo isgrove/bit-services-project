@@ -86,7 +86,7 @@
     <Compile Include="Models\Jobs.cs" />
     <Compile Include="Models\JobStatus.cs" />
     <Compile Include="Models\JobStatuses.cs" />
-    <Compile Include="Models\LoginHelper.cs" />
+    <Compile Include="DAL\LoginHelper.cs" />
     <Compile Include="Models\StaffType.cs" />
     <Compile Include="Models\StaffTypes.cs" />
     <Compile Include="ViewModels\AddClientLocationViewModel.cs" />

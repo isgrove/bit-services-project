@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Text;
 using BitServicesDesktopApp.DAL;
+using BitServicesDesktopApp.Views;
 
 namespace BitServicesDesktopApp.Models
 {
@@ -138,11 +139,11 @@ namespace BitServicesDesktopApp.Models
             // TODO: Add an identified to log message of who created the client
             if (rowsAffected > 0)
             {
-                this._log.Log("Client " + this.Name + " was successfully added.", LogType.Info);
+                this._log.Log($"Client {this.Name} was successfully added by {MainWindow.LoggedInStaff.FullName} ({MainWindow.LoggedInStaff.StaffId}).", LogType.Info);
             }
             else
             {
-                this._log.Log("Error when adding Client " + this.Name + ".", LogType.Error);
+                this._log.Log($"Error when adding Client {this.Name}.", LogType.Error);
             }
             return rowsAffected;
         }
@@ -157,15 +158,14 @@ namespace BitServicesDesktopApp.Models
                 Value = this.ClientId
             };
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
-
-            // TODO: Add an identified to log message of who deleted the client
+            
             if (rowsAffected > 0)
             {
-                this._log.Log("Client " + this.Name + " was deleted added.", LogType.Info);
+                this._log.Log($"Client {this.Name} ({this.ClientId}) was deleted by {MainWindow.LoggedInStaff.FullName} ({MainWindow.LoggedInStaff.StaffId}).", LogType.Info);
             }
             else
             {
-                this._log.Log("Error when deleting Client " + this.Name + ".", LogType.Error);
+                this._log.Log($"Error when deleting Client {this.Name} ({this.ClientId}).", LogType.Error);
             }
             return rowsAffected;
         }
@@ -199,15 +199,14 @@ namespace BitServicesDesktopApp.Models
                 Value = this.ClientId
             };
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
-
-            // TODO: Add an identified to log message of who update the client
+            
             if (rowsAffected > 0)
             {
-                this._log.Log("Client " + this.Name + " was successfully updated.", LogType.Info);
+                this._log.Log($"Client {this.Name} ({this.ClientId}) was successfully updated by {MainWindow.LoggedInStaff.FullName} ({MainWindow.LoggedInStaff.StaffId}).", LogType.Info);
             }
             else
             {
-                this._log.Log("Error when updating Client " + this.Name + ".", LogType.Error);
+                this._log.Log($"Error when updating Client {this.Name} ({this.ClientId}).", LogType.Error);
             }
             return rowsAffected;
         }

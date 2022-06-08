@@ -26,7 +26,7 @@ namespace BitServicesDesktopApp.DAL
             
             using (StreamWriter writer = File.AppendText(@"logs/" + date + "-log.txt"))
             {
-                writer.WriteLine($"[{DateTime.Now}] [{type}] ${message}");
+                writer.WriteLine($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.ffff}] [{type}] {message}");
                 writer.Close();
             }
 
