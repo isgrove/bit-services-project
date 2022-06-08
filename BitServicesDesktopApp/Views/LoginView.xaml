@@ -36,7 +36,7 @@
                     <ColumnDefinition Width="2*" />
                 </Grid.ColumnDefinitions>
                 <Label VerticalAlignment="center" Grid.Column="0" Content="Password: " FontSize="18px" FontWeight="Bold" Margin="10"/>
-                <TextBox Grid.Column="1" x:Name="txtPassword" Margin="10"  VerticalAlignment="Center"/>
+                <PasswordBox Grid.Column="1" x:Name="txtPassword" Margin="10"  VerticalAlignment="Center"/>
             </Grid>
             <Grid Grid.Row="4" Grid.Column="1" Grid.RowSpan="2">
                 <Grid.ColumnDefinitions>

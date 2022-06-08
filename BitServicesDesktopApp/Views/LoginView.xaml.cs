@@ -33,7 +33,7 @@ namespace BitServicesDesktopApp.Views
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             string userName = txtUserName.Text;
-            string password = txtPassword.Text;
+            string password = txtPassword.Password;
 
             Staff coordinator = LoginHelper.IsCoordinator(userName, password);
             Staff admin = LoginHelper.IsAdmin(userName, password);
