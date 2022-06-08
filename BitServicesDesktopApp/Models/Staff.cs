@@ -160,8 +160,6 @@ namespace BitServicesDesktopApp.Models
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
             return rowsAffected;
         }
-
-        // TODO: Generate a random password
         private void GeneratePassword()
         {
             this.Password = "Password";

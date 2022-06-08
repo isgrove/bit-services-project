@@ -357,7 +357,6 @@ namespace BitServicesDesktopApp.Models
             this.VehicleRegistration = dr["vehicle_registration"].ToString();
             this.Active = Convert.ToBoolean(dr["active"]);
         }
-        // TODO: Generate a random password
         private void GeneratePassword()
         {
             this.Password = "Password";

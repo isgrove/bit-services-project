@@ -136,7 +136,6 @@ namespace BitServicesDesktopApp.Models
             };
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
             
-            // TODO: Add an identified to log message of who created the client
             if (rowsAffected > 0)
             {
                 this._log.Log($"Client {this.Name} was successfully added by {MainWindow.LoggedInStaff.FullName} ({MainWindow.LoggedInStaff.StaffId}).", LogType.Info);
@@ -169,8 +168,6 @@ namespace BitServicesDesktopApp.Models
             }
             return rowsAffected;
         }
-
-        // TODO: Generate a random password
         private void GeneratePassword()
         {
             this.Password = "Password";
