@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BitServicesDesktopApp.Models;
 
 namespace BitServicesDesktopApp.Views
 {
@@ -22,6 +23,7 @@ namespace BitServicesDesktopApp.Views
     public partial class MainWindow : Window
     {
         public static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+        public static Staff LoggedInStaff;
         
         public MainWindow()
         {

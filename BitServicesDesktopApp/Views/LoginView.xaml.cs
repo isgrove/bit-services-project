@@ -35,15 +35,18 @@ namespace BitServicesDesktopApp.Views
             string userName = txtUserName.Text;
             string password = txtPassword.Text;
 
+            Staff coordinator = LoginHelper.IsCoordinator(userName, password);
+            Staff admin = LoginHelper.IsAdmin(userName, password);
+
             var mainWindow = (MainWindow)Window.GetWindow(this);
-            if (LoginHelper.IsCoordinator(userName, password))
+            if (coordinator != null)
             {
-                this._log.Log($"Coordinator ({userName}) has logged in.", LogType.Info);
+                MainWindow.LoggedInStaff = coordinator;
                 mainWindow.UpdateButtons("coordinator");
             }
-            else if (LoginHelper.IsAdmin(userName, password))
+            else if (admin != null)
             {
-                this._log.Log($"Admin ({userName}) has logged in.", LogType.Info);
+                MainWindow.LoggedInStaff = admin;
                 mainWindow.UpdateButtons("admin");
             }
             else
@@ -52,6 +55,7 @@ namespace BitServicesDesktopApp.Views
                 MessageBox.Show("Invalid login");
                 return;
             }
+            this._log.Log($"{MainWindow.LoggedInStaff.StaffType} {MainWindow.LoggedInStaff.FullName} ({MainWindow.LoggedInStaff.Email}) has logged in.", LogType.Info);
             NavigationService.Navigate(new JobManagementView());
             mainWindow.btnContractorManagement.Foreground = (Brush)new BrushConverter().ConvertFrom("#EA5D32");
         }
