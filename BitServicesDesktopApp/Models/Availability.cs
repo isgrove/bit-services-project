@@ -31,10 +31,6 @@ namespace BitServicesDesktopApp.Models
                         {
                             result = "Date cannot be in the past";
                         }
-                        else if (AvailabilityDate.Date == DateTime.Now.Date)
-                        {
-                            result = "Date cannot be today";
-                        }
                         break;
                 }
                 if (result != null && !ErrorCollection.ContainsKey(propertyName))
