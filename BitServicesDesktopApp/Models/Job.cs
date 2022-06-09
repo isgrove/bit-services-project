@@ -170,7 +170,6 @@ namespace BitServicesDesktopApp.Models
 
             if (dr.Table.Columns.Contains("Completion Date") && dr["Completion Date"] != DBNull.Value)
             {
-                //MessageBox.Show("Setting completion date: " + completionDate);
                 this.CompletionDate = Convert.ToDateTime(dr["Completion Date"]);
             }
             else
@@ -277,45 +276,60 @@ namespace BitServicesDesktopApp.Models
                          " SET location_id = @LocationId, required_skill = @RequiredSkill," +
                          " job_status = @JobStatus, kilometers = @Kilometers, title = @Title, description = @Description, deadline_date = @DeadlineDate" +
                          " WHERE job_id = @JobId";
-            SqlParameter[] objParams = new SqlParameter[9];
+            SqlParameter[] objParams = new SqlParameter[8];
             objParams[0] = new SqlParameter("@LocationId", DbType.Int32)
             {
                 Value = this.Location.LocationId
             };
-            objParams[1] = new SqlParameter("@AssignedContractorId", DbType.Int32)
-            {
-                Value = this.AssignedContractor.ContractorId
-            };
-            objParams[2] = new SqlParameter("@RequiredSkill", DbType.String)
+            objParams[1] = new SqlParameter("@RequiredSkill", DbType.String)
             {
                 Value = this.RequiredSkill
             };
-            objParams[3] = new SqlParameter("@JobStatus", DbType.String)
+            objParams[2] = new SqlParameter("@JobStatus", DbType.String)
             {
                 Value = this.JobStatus
             };
-            objParams[4] = new SqlParameter("@Kilometers", DbType.Int32)
+            objParams[3] = new SqlParameter("@Kilometers", DbType.Int32)
             {
                 Value = this.Kilometers
             };
-            objParams[5] = new SqlParameter("@Title", DbType.String)
+            objParams[4] = new SqlParameter("@Title", DbType.String)
             {
                 Value = this.Title
             };
-            objParams[6] = new SqlParameter("@Description", DbType.String)
+            objParams[5] = new SqlParameter("@Description", DbType.String)
             {
                 Value = this.Description
             };
-            objParams[7] = new SqlParameter("@DeadlineDate", DbType.Date)
+            objParams[6] = new SqlParameter("@DeadlineDate", DbType.Date)
             {
                 Value = this.DeadlineDate
             };
-            objParams[8] = new SqlParameter("@JobId", DbType.Int32)
+            objParams[7] = new SqlParameter("@JobId", DbType.Int32)
             {
                 Value = this.JobId
             };
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
             return rowsAffected;
         }
+        public int AssignContractor(int contractorId, int staffId)
+        {
+            string sql = "usp_AssignContractor";
+            SqlParameter[] objParams = new SqlParameter[3];
+            objParams[0] = new SqlParameter("@JobId", DbType.Int32)
+            {
+                Value = this.JobId
+            };
+            objParams[1] = new SqlParameter("@StaffId", DbType.Int32)
+            {
+                Value = staffId
+            };
+            objParams[2] = new SqlParameter("@ContractorId", DbType.Int32)
+            {
+                Value = contractorId
+            };
+            int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
+            return rowsAffected;
+        }        
     }
 }

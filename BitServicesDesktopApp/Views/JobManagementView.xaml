@@ -157,8 +157,9 @@
 
             <Label Content="Contractors: " Grid.Row="1" Grid.Column="2"/>
             <ComboBox x:Name="cmbContractors" ItemsSource="{Binding Contractors, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      DisplayMemberPath="FirstName"
-                      Text="{Binding SelectedJob.AssignedContractor.FirstName, UpdateSourceTrigger=PropertyChanged}"
+                      DisplayMemberPath="FullName"
+                      Text="{Binding SelectedJob.AssignedContractor.FullName, Mode=OneWay}"
+                      SelectedValue="{Binding SelectedJob.AssignedContractor}"
                       Grid.Row="1" Grid.Column="3" Margin="5" IsEnabled="{Binding IsRejectedTabSelected}"/>
             <Label Content="Job Status: " Grid.Row="2" Grid.Column="2"/>
             <ComboBox x:Name="cmbJobStatus" ItemsSource="{Binding JobStatuses, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

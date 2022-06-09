@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using BitServicesDesktopApp.Commands;
 using BitServicesDesktopApp.Models;
+using BitServicesDesktopApp.Views;
 
 namespace BitServicesDesktopApp.ViewModels
 {
@@ -60,6 +61,8 @@ namespace BitServicesDesktopApp.ViewModels
             }
             set { _saveCommand = value; }
         }
+        #endregion Commands
+        #region Command Methods
         public void DeleteMethod()
         {
             MessageBoxResult messageBoxResult = MessageBox.Show($"Are you sure that you want to delete this job for {SelectedJob.Client.Name} {SelectedJob.Location.Suburb}?", $"Delete Job", MessageBoxButton.YesNo);
@@ -86,7 +89,17 @@ namespace BitServicesDesktopApp.ViewModels
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 string message;
-                int rowsAffected = SelectedJob.UpdateJob();
+                int rowsAffected;
+                if (IsRejectedTabSelected)
+                {
+                    int contractorId = SelectedJob.AssignedContractor.ContractorId;
+                    int staffId = MainWindow.LoggedInStaff.StaffId;
+                    rowsAffected = SelectedJob.AssignContractor(contractorId, staffId);
+                }
+                else
+                {
+                    rowsAffected = SelectedJob.UpdateJob();
+                }
                 if (rowsAffected >= 1)
                 {
                     message = $"You have successfully saved this job for {SelectedJob.Client.Name} {SelectedJob.Location.Suburb}!";
@@ -99,7 +112,8 @@ namespace BitServicesDesktopApp.ViewModels
             }
 
         }
-        #endregion Commands
+        #endregion Command Methods
+        #region Public Properties
         public ObservableCollection<Job> Jobs
         {
             get { return _jobs; }
@@ -208,6 +222,7 @@ namespace BitServicesDesktopApp.ViewModels
                 OnPropertyChanged("IsRejectedTabSelected");
             }
         }
+        #endregion Public Properties
         public void UpdateJobs()
         {
             Jobs allJobs = new Jobs();
