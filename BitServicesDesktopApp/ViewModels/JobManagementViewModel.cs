@@ -22,8 +22,6 @@ namespace BitServicesDesktopApp.ViewModels
         private ObservableCollection<Contractor> _contractors;
         private ObservableCollection<JobStatus> _jobStatuses;
         private Job _selectedJob;
-        // We need to create a separate object for ClientLocation (instead of using SelectedJob.Location)
-        // as WPF cannot find Location when it is an aggregation relationship 
         private RelayCommand _deleteCommand;
         private RelayCommand _saveCommand;
         private bool _isRejectedTabSelected;
