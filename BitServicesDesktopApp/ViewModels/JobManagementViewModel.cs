@@ -18,20 +18,17 @@ namespace BitServicesDesktopApp.ViewModels
         private ObservableCollection<Job> _completedJobs;
         private ObservableCollection<Job> _pendingJobs;
         private ObservableCollection<Job> _canceledJobs;
-        private ObservableCollection<ClientLocation> _selectedClientLocations;
-        private ObservableCollection<Client> _clients;
+        private ObservableCollection<Job> _rejectedJobs;
         private ObservableCollection<Contractor> _contractors;
         private ObservableCollection<JobStatus> _jobStatuses;
-        private ObservableCollection<Skill> _skills;
         private Job _selectedJob;
         // We need to create a separate object for ClientLocation (instead of using SelectedJob.Location)
         // as WPF cannot find Location when it is an aggregation relationship 
-        private ClientLocation _selectedJobLocation;
         private RelayCommand _deleteCommand;
         private RelayCommand _saveCommand;
+        private bool _isRejectedTabSelected;
         public event PropertyChangedEventHandler PropertyChanged;
         
-        //TODO: Add rejected tab where staff can reassign a contractor
         private void OnPropertyChanged(string prop)
         {
             if (PropertyChanged != null)
@@ -39,6 +36,8 @@ namespace BitServicesDesktopApp.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
             }
         }
+
+        #region Commands
         public RelayCommand DeleteCommand
         {
             get
@@ -102,6 +101,7 @@ namespace BitServicesDesktopApp.ViewModels
             }
 
         }
+        #endregion Commands
         public ObservableCollection<Job> Jobs
         {
             get { return _jobs; }
@@ -157,22 +157,13 @@ namespace BitServicesDesktopApp.ViewModels
                 OnPropertyChanged("VerifiedJobs");
             }
         }
-        public ObservableCollection<ClientLocation> SelectedClientLocations
+        public ObservableCollection<Job> RejectedJobs
         {
-            get { return _selectedClientLocations; }
+            get { return _rejectedJobs; }
             set
             {
-                _selectedClientLocations = value;
-                OnPropertyChanged("SelectedClientLocations");
-            }
-        }
-        public ObservableCollection<Client> Clients
-        {
-            get { return _clients; }
-            set
-            {
-                _clients = value;
-                OnPropertyChanged("Clients");
+                _rejectedJobs = value;
+                OnPropertyChanged("RejectedJobs");
             }
         }
         public ObservableCollection<Contractor> Contractors
@@ -184,7 +175,6 @@ namespace BitServicesDesktopApp.ViewModels
                 OnPropertyChanged("Contractors");
             }
         }
-
         public ObservableCollection<JobStatus> JobStatuses
         {
             get { return _jobStatuses; }
@@ -194,15 +184,6 @@ namespace BitServicesDesktopApp.ViewModels
                 OnPropertyChanged("JobStatuses");
             }
         }
-        public ObservableCollection<Skill> Skills
-        {
-            get { return _skills; }
-            set
-            {
-                _skills = value;
-                OnPropertyChanged("Skills");
-            }
-        }
         public Job SelectedJob
         {
             get { return _selectedJob; }
@@ -210,21 +191,23 @@ namespace BitServicesDesktopApp.ViewModels
             {
                 _selectedJob = value;
                 OnPropertyChanged("SelectedJob");
-                if (this.SelectedJob.JobId != 0)
+                if (IsRejectedTabSelected)
                 {
-                    ClientLocations allClientLocations = new ClientLocations(SelectedJob.Client.ClientId);
-                    this.SelectedClientLocations = new ObservableCollection<ClientLocation>(allClientLocations);
-                    this.SelectedJobLocation = SelectedJob.Location;
+                    Contractors allContractors = new Contractors(SelectedJob.JobId);
+                    Contractors = new ObservableCollection<Contractor>(allContractors);
                 }
             }
         }
-        public ClientLocation SelectedJobLocation
+        public bool IsRejectedTabSelected
         {
-            get { return _selectedJobLocation; }
+            get
+            {
+                return _isRejectedTabSelected;
+            }
             set
             {
-                _selectedJobLocation = value;
-                OnPropertyChanged("SelectedJobLocation");
+                _isRejectedTabSelected = value;
+                OnPropertyChanged("IsRejectedTabSelected");
             }
         }
         public void UpdateJobs()
@@ -246,19 +229,17 @@ namespace BitServicesDesktopApp.ViewModels
 
             Jobs allCanceledJobs = new Jobs("Canceled");
             this.CanceledJobs = new ObservableCollection<Job>(allCanceledJobs);
+
+            Jobs allRejectedJobs = new Jobs("Rejected");
+            this.RejectedJobs = new ObservableCollection<Job>(allRejectedJobs);
         }
         public JobManagementViewModel()
         {
             UpdateJobs();
-            Clients allClients = new Clients();
-            this.Clients = new ObservableCollection<Client>(allClients);
             Contractors allContractors = new Contractors();
             this.Contractors = new ObservableCollection<Contractor>(allContractors);
             JobStatuses allJobStatues = new JobStatuses();
             this.JobStatuses = new ObservableCollection<JobStatus>(allJobStatues);
-            Skills allSkills = new Skills();
-            this.Skills = new ObservableCollection<Skill>(allSkills);
-            this.SelectedJob = new Job();
         }
     }
 }

@@ -163,18 +163,15 @@ namespace BitServicesDesktopApp.Models
             this.Location = new ClientLocation(Convert.ToInt32(dr["location_id"]));
             this.Client = new Client(Convert.ToInt32(dr["location_id"]));
 
-            var contractorId = dr["contractor_id"];
-            var completionDate = dr["Completion Date"];
-
-            if (contractorId != DBNull.Value)
+            if (dr.Table.Columns.Contains("contractor_id") && dr["contractor_id"] != DBNull.Value)
             {
-                this.AssignedContractor = new Contractor(Convert.ToInt32(contractorId));
+                this.AssignedContractor = new Contractor(Convert.ToInt32(dr["contractor_id"]));
             }
 
-            if (completionDate != DBNull.Value)
+            if (dr.Table.Columns.Contains("Completion Date") && dr["Completion Date"] != DBNull.Value)
             {
                 //MessageBox.Show("Setting completion date: " + completionDate);
-                this.CompletionDate = Convert.ToDateTime(completionDate);
+                this.CompletionDate = Convert.ToDateTime(dr["Completion Date"]);
             }
             else
             {

@@ -25,14 +25,25 @@ namespace BitServicesDesktopApp.Models
         }
         public Jobs(string jobStatus)
         {
-            SQLHelper helper = new SQLHelper();
-            string sql = "usp_GetAllJobs";
-            SqlParameter[] objParams = new SqlParameter[1];
-            objParams[0] = new SqlParameter("@JobStatus", DbType.String)
+            DataTable jobTable;
+            if (jobStatus == "Rejected")
             {
-                Value = jobStatus
-            };
-            DataTable jobTable = helper.ExecuteSQL(sql, objParams, true);
+                SQLHelper helper = new SQLHelper();
+                string sql = "usp_GetAllRejectedJobs";
+                jobTable = helper.ExecuteSQL(sql, null, true);
+            }
+            else
+            {
+                SQLHelper helper = new SQLHelper();
+                string sql = "usp_GetAllJobs";
+                SqlParameter[] objParams = new SqlParameter[1];
+                objParams[0] = new SqlParameter("@JobStatus", DbType.String)
+                {
+                    Value = jobStatus
+                };
+                jobTable = helper.ExecuteSQL(sql, objParams, true);
+            }
+
             foreach (DataRow dr in jobTable.Rows)
             {
                 Job newJob = new Job(dr);

@@ -94,6 +94,20 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
+            <TabItem Header="Rejected" IsSelected="{Binding IsRejectedTabSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <DataGrid x:Name="dgRejectedJobs" Margin="5"
+                          ItemsSource="{Binding RejectedJobs}"
+                          SelectedItem="{Binding SelectedJob}"
+                          AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="*"/>
+                        <DataGridTextColumn Header="Client Location" Binding="{Binding Location.ClientLocationName}" Width="*"/>
+                        <DataGridTextColumn Header="Required Skill" Binding="{Binding RequiredSkill}" Width="*"/>
+                        <DataGridTextColumn Header="Kilometers" Binding="{Binding Kilometers}" Width="*"/>
+                        <DataGridTextColumn Header="Deadline Date" Binding="{Binding DeadlineDate, StringFormat='dddd, dd MMMM yyyy'}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
             <TabItem Header="Canceled">
                 <DataGrid x:Name="dgCanceledJobs" Margin="5"
                           ItemsSource="{Binding CanceledJobs}"
@@ -127,45 +141,34 @@
             </Grid.ColumnDefinitions>
 
             <Label Content="Client: " Grid.Row="0" Grid.Column="0"/>
-            <ComboBox x:Name="cmbClients" ItemsSource="{Binding Clients, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      DisplayMemberPath="Name"
-                      Text="{Binding SelectedJob.Client.Name, UpdateSourceTrigger=PropertyChanged}"
-                      Grid.Row="0" Grid.Column="1" Margin="5" />
-            <Label Content="Client Location: " Grid.Row="1" Grid.Column="0"/>
-            <ComboBox x:Name="cmbClientLocation" ItemsSource="{Binding SelectedClientLocations, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      DisplayMemberPath="Suburb"
-                      Text ="{Binding SelectedJobLocation.Suburb, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedValue="{Binding SelectedJobLocation, UpdateSourceTrigger=PropertyChanged}"
-                      Grid.Row="1" Grid.Column="1" Margin="5" />
-            <Label Content="Client Street: " Grid.Row="2" Grid.Column="0"/>
-            <TextBox IsReadOnly="True" x:Name="txtClientStreet" Text="{Binding SelectedJob.Location.Street}" Grid.Row="2" Grid.Column="1" Margin="5"/>
-            <Label Content="Client Suburb : " Grid.Row="3" Grid.Column="0"/>
-            <TextBox IsReadOnly="True" x:Name="txtClientSuburb" Text="{Binding SelectedJob.Location.Suburb}" Grid.Row="3" Grid.Column="1" Margin="5" />
-            <Label Content="Client Postcode: " Grid.Row="4" Grid.Column="0"/>
-            <TextBox IsReadOnly="True" x:Name="txtClientPostcode" Text="{Binding SelectedJob.Location.Postcode}" Grid.Row="4" Grid.Column="1" Margin="5" />
-            <Label Content="Deadline Date: " Grid.Row="5" Grid.Column="0"/>
-            <DatePicker x:Name="dtpDeadlineDate" SelectedDate="{Binding SelectedJob.DeadlineDate}" Grid.Row="5" Grid.Column="1" Margin="5" />
-
+            <TextBox IsEnabled="False" x:Name="txtClient" Text="{Binding SelectedJob.Client.Name}" Grid.Row="0" Grid.Column="1" Margin="5"/>
+            <Label Content="Client Street" Grid.Row="1" Grid.Column="0"/>
+            <TextBox IsEnabled="False" x:Name="txtClientStreet" Text="{Binding SelectedJob.Location.Suburb}" Grid.Row="1" Grid.Column="1" Margin="5"/>
+            <Label Content="Client Suburb : " Grid.Row="2" Grid.Column="0"/>
+            <TextBox IsEnabled="False" x:Name="txtClientSuburb" Text="{Binding SelectedJob.Location.Suburb}" Grid.Row="2" Grid.Column="1" Margin="5" />
+            <Label Content="Client Postcode: " Grid.Row="3" Grid.Column="0"/>
+            <TextBox IsEnabled="False" x:Name="txtClientPostcode" Text="{Binding SelectedJob.Location.Postcode}" Grid.Row="3" Grid.Column="1" Margin="5" />
+            <Label Content="Deadline Date: " Grid.Row="4" Grid.Column="0"/>
+            <TextBox x:Name="txtDeadlineDate" Text="{Binding SelectedJob.DeadlineDate, StringFormat='dddd, dd MMMM yyyy'}" Grid.Row="4" Grid.Column="1" Margin="5" IsEnabled="False"/>
+            <Label Content="Completion Date: " Grid.Row="5" Grid.Column="0"/>
+            <TextBox x:Name="txtCompletionDate" Text="{Binding SelectedJob.FormattedCompletionDate, Mode=OneWay}" Grid.Row="5" Grid.Column="1" Margin="5" IsEnabled="False"/>
             <Label Content="Required Skill: " Grid.Row="0" Grid.Column="2"/>
-            <ComboBox x:Name="cmbRequiredSkill" ItemsSource="{Binding Skills, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                DisplayMemberPath="SkillName"
-                Text="{Binding SelectedJob.RequiredSkill, UpdateSourceTrigger=PropertyChanged}"
-                Grid.Row="0" Grid.Column="3" Margin="5" />
+            <TextBox x:Name="txtRequiredSkill" Text="{Binding SelectedJob.RequiredSkill}" Grid.Row="0" Grid.Column="3" Margin="5" IsEnabled="False"/>
 
             <Label Content="Contractors: " Grid.Row="1" Grid.Column="2"/>
             <ComboBox x:Name="cmbContractors" ItemsSource="{Binding Contractors, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       DisplayMemberPath="FirstName"
                       Text="{Binding SelectedJob.AssignedContractor.FirstName, UpdateSourceTrigger=PropertyChanged}"
-                      Grid.Row="1" Grid.Column="3" Margin="5" />
+                      Grid.Row="1" Grid.Column="3" Margin="5" IsEnabled="{Binding IsRejectedTabSelected}"/>
             <Label Content="Job Status: " Grid.Row="2" Grid.Column="2"/>
-            <ComboBox x:Name="cmbBookingStatus" ItemsSource="{Binding JobStatuses, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            <ComboBox x:Name="cmbJobStatus" ItemsSource="{Binding JobStatuses, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 DisplayMemberPath="Status"
                 Text="{Binding SelectedJob.JobStatus, UpdateSourceTrigger=PropertyChanged}"
                 Grid.Row="2" Grid.Column="3" Margin="5" />
             <Label Content="Title: " Grid.Row="3" Grid.Column="2"/>
-            <TextBox IsReadOnly="False" x:Name="txtTitle" Text="{Binding SelectedJob.Title}" Grid.Row="3" Grid.Column="3" Margin="5"/>
+            <TextBox IsEnabled="False" x:Name="txtTitle" Text="{Binding SelectedJob.Title}" Grid.Row="3" Grid.Column="3" Margin="5"/>
             <Label Content="Description: " Grid.Row="4" Grid.Column="2"/>
-            <TextBox IsReadOnly="False" x:Name="txtDescription" Text="{Binding SelectedJob.Description}" Grid.Row="4" Grid.Column="3" Margin="5" Grid.RowSpan="2" />
+            <TextBox IsEnabled="False" x:Name="txtDescription" Text="{Binding SelectedJob.Description}" Grid.Row="4" Grid.Column="3" Margin="5" Grid.RowSpan="2" />
         </Grid>
         <Grid Grid.Row="3" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
