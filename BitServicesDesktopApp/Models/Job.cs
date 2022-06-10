@@ -12,7 +12,7 @@ using BitServicesDesktopApp.DAL;
 
 namespace BitServicesDesktopApp.Models
 {
-    public class Job : INotifyPropertyChanged
+    public class Job : INotifyPropertyChanged, IDataErrorInfo
     {
         private int _jobId;
         // Aggregation relationship
@@ -28,6 +28,50 @@ namespace BitServicesDesktopApp.Models
         private DateTime _completionDate;
         private SQLHelper _db;
         public event PropertyChangedEventHandler PropertyChanged;
+        public Dictionary<string, string> ErrorCollection { get; private set; } = new Dictionary<string, string>();
+        public string Error { get { return null; } }
+        public string this[string propertyName]
+        {
+            get
+            {
+                string result = null;
+                switch (propertyName)
+                {
+                    case "DeadlineDate":
+                        if (DeadlineDate.Date < DateTime.Now.Date)
+                        {
+                            result = "Deadline date cannot be in the past";
+                        }
+                        break;
+                    case "Title":
+                        if (string.IsNullOrEmpty(this.Title))
+                        {
+                            result = "Job title cannot be left empty";
+                        }
+                        else if (this.Title.Length > 100)
+                        {
+                            result = "Job title cannot be more than 100 characters";
+                        }
+                        break;
+                    case "Description":
+                        if (string.IsNullOrEmpty(this.Description))
+                        {
+                            result = "Job description cannot be left empty";
+                        }
+                        else if (this.Title.Length > 100)
+                        {
+                            result = "Job description cannot be more than 100 characters";
+                        }
+                        break;
+                }
+                if (result != null && !ErrorCollection.ContainsKey(propertyName))
+                {
+                    ErrorCollection[propertyName] = result;
+                    OnPropertyChanged("ErrorCollection");
+                }
+                return result;
+            }
+        }        
         private void OnPropertyChanged(string prop)
         {
             if (PropertyChanged != null)
