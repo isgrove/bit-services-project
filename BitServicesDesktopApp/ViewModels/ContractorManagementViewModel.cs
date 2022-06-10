@@ -22,13 +22,15 @@ namespace BitServicesDesktopApp.ViewModels
         private RelayCommand _addSkillCommand;
         private RelayCommand _deleteAvailabilityCommand;
         private RelayCommand _addAvailabilityCommand;
+        private RelayCommand _searchCommand;
         private Skill _selectedSkill;
         private Skill _newSkill;
         private Availability _selectedAvailability;
         private Availability _newAvailability;
-        private bool _isDetailsTabSelected;
         private bool _isSkillsTabSelected;
         private bool _isAvailabilityTabSelected;
+        private string _searchText;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string prop)
@@ -115,6 +117,18 @@ namespace BitServicesDesktopApp.ViewModels
                 return _deleteAvailabilityCommand;
             }
             set { _deleteAvailabilityCommand = value; }
+        }
+        public RelayCommand SearchCommand
+        {
+            get
+            {
+                if (_searchCommand == null)
+                {
+                    _searchCommand = new RelayCommand(this.SearchMethod, true);
+                }
+                return _searchCommand;
+            }
+            set { _searchCommand = value; }
         }
         #endregion
 
@@ -269,6 +283,11 @@ namespace BitServicesDesktopApp.ViewModels
             UpdateAvailabilities();
 
         }
+        public void SearchMethod()
+        {
+            Contractors allContractors = new Contractors(SearchText);
+            this.Contractors = new ObservableCollection<Contractor>(allContractors);
+        }
         #endregion
 
         #region Public Properties
@@ -378,13 +397,12 @@ namespace BitServicesDesktopApp.ViewModels
         }
         public bool IsAvailabilityTabSelected
         {
-            get { return _isSkillsTabSelected; }
+            get { return _isAvailabilityTabSelected; }
             set
             {
-
                 if (value && SelectedContractor == null)
                 {
-                    _isSkillsTabSelected = false;
+                    _isAvailabilityTabSelected = false;
                     MessageBox.Show("You must select a contractor before looking at their availability");
                 }
                 else
@@ -397,9 +415,18 @@ namespace BitServicesDesktopApp.ViewModels
                             AvailabilityDate = DateTime.Now
                         };
                     }
-                    _isSkillsTabSelected = value;
+                    _isAvailabilityTabSelected = value;
                 }
                 OnPropertyChanged("IsAvailabilityTabSelected");
+            }
+        }
+        public string SearchText
+        {
+            get { return _searchText; }
+            set
+            {
+                _searchText = value;
+                OnPropertyChanged("SearchText");
             }
         }
         public void UpdateContractors()

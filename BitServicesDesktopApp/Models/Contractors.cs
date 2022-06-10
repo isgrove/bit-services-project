@@ -59,5 +59,21 @@ namespace BitServicesDesktopApp.Models
                 this.Add(newContractor);
             }
         }
+        public Contractors(string searchText)
+        {
+            SQLHelper helper = new SQLHelper();
+            string sql = "usp_SearchContractors";
+            SqlParameter[] objParams = new SqlParameter[1];
+            objParams[0] = new SqlParameter("@SearchQuery", DbType.String)
+            {
+                Value = searchText
+            };
+            DataTable dataTable = helper.ExecuteSQL(sql, objParams, true);
+            foreach (DataRow dr in dataTable.Rows)
+            {
+                Contractor newContractor = new Contractor(dr);
+                this.Add(newContractor);
+            }
+        }
     }
 }
