@@ -8,13 +8,40 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ContractorManagementView">
 
-    <Grid Background="white">
+    <Grid Background="white" Margin="20,0,20,20">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
+            <RowDefinition Height="70px"/>
+                <RowDefinition Height="*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="50px" />
         </Grid.RowDefinitions>
-        <DataGrid Grid.Row="0" x:Name="dgContractors" Margin="5"
+        <Border BorderBrush="#646464" BorderThickness="0,0,0,0" Grid.Row="0" Grid.Column="1">
+            <Grid Grid.Row="0" Grid.Column="1" Background="#FFFFFF" Margin="0, 5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3.5*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBox x:Name="txtSearch" Grid.Column="0" Margin="10" VerticalContentAlignment="Center" BorderBrush="#707070" BorderThickness="1">
+                    <TextBox.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+                <Button x:Name="btnSearch" Grid.Column="1" Content="Search" Foreground="White" Background="#EA5D32" BorderBrush="#EA5D32"
+                        Margin="10" FontSize="16">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+        </Border>
+<DataGrid Grid.Row="1" x:Name="dgContractors" Margin="5"
                       ItemsSource="{Binding Contractors}"
                       SelectedItem="{Binding SelectedContractor}" AutoGenerateColumns="false">
             <DataGrid.Columns>
@@ -31,7 +58,7 @@
                 <DataGridTextColumn Header="Vehicle Registration" Binding="{Binding VehicleRegistration}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <TabControl Grid.Row="1">
+        <TabControl Grid.Row="2">
             <TabItem Header="Details">
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
@@ -151,7 +178,7 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <Grid Grid.Row="2" Grid.ColumnSpan="4">
+        <Grid Grid.Row="3" Grid.ColumnSpan="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>

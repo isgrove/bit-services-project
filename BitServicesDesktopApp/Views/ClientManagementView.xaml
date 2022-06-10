@@ -8,11 +8,38 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ClientManagementView">
 
-    <Grid Background="White">
+    <Grid Background="White" Margin="20,0,20,20">
         <Grid.RowDefinitions>
+            <RowDefinition Height="70px" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TabControl Grid.Row="0">
+        <Border BorderBrush="#646464" BorderThickness="0,0,0,0" Grid.Row="0">
+            <Grid Grid.Row="0" Grid.Column="1" Background="#FFFFFF" Margin="0, 5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3.5*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBox x:Name="txtSearch" Grid.Column="0" Margin="10" VerticalContentAlignment="Center" BorderBrush="#707070" BorderThickness="1">
+                    <TextBox.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+                <Button x:Name="btnSearch" Grid.Column="1" Content="Search" Foreground="White" Background="#EA5D32" BorderBrush="#EA5D32"
+                        Margin="10" FontSize="16">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+        </Border>
+        <TabControl Grid.Row="1">
             <TabItem Header="Clients">
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
