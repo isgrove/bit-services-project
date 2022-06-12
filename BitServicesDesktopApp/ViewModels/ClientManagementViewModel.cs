@@ -21,6 +21,8 @@ namespace BitServicesDesktopApp.ViewModels
         private RelayCommand _saveCommand;
         private RelayCommand _deleteLocationCommand;
         private RelayCommand _saveLocationCommand;
+        private RelayCommand _searchCommand;
+        private string _searchText;
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string prop)
@@ -30,6 +32,7 @@ namespace BitServicesDesktopApp.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
             }
         }
+        #region Commands
         public RelayCommand DeleteCommand
         {
             get
@@ -78,6 +81,20 @@ namespace BitServicesDesktopApp.ViewModels
             }
             set { _saveLocationCommand = value; }
         }
+        public RelayCommand SearchCommand
+        {
+            get
+            {
+                if (_searchCommand == null)
+                {
+                    _searchCommand = new RelayCommand(this.SearchMethod, true);
+                }
+                return _searchCommand;
+            }
+            set { _searchCommand = value; }
+        }
+        #endregion
+        #region Command Methods
         public void DeleteMethod()
         {
             string ClientName = SelectedClient.Name;
@@ -163,6 +180,18 @@ namespace BitServicesDesktopApp.ViewModels
                 UpdateClientLocations();
             }
         }
+        public void SearchMethod()
+        {
+            Clients allClients = new Clients(SearchText);
+            this.Clients = new ObservableCollection<Client>(allClients);
+            // Cannot search client locations because _selectedClient is always null????
+            //if (_selectedClient != null)
+            //{
+            //    ClientLocations allLocations = new ClientLocations(SelectedClient.ClientId, SearchText);
+            //    this.ClientLocations = new ObservableCollection<ClientLocation>(allLocations);
+            //}
+        }
+        #endregion
         public ObservableCollection<Client> Clients
         {
             get { return _clients; }
@@ -203,7 +232,15 @@ namespace BitServicesDesktopApp.ViewModels
                 OnPropertyChanged("SelectedLocation");
             }
         }
-
+        public string SearchText
+        {
+            get { return _searchText; }
+            set
+            {
+                _searchText = value;
+                OnPropertyChanged("SearchText");
+            }
+        }
         private void UpdateClients()
         {
             Clients allClients = new Clients();

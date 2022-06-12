@@ -34,5 +34,25 @@ namespace BitServicesDesktopApp.Models
                 this.Add(newLocation);
             }
         }
+        public ClientLocations(int clientId, string searchText)
+        {
+            SQLHelper db = new SQLHelper();
+            string sql = "usp_SearchClientLocations";
+            SqlParameter[] objParams = new SqlParameter[2];
+            objParams[0] = new SqlParameter("@SearchQuery", DbType.String)
+            {
+                Value = searchText
+            };
+            objParams[0] = new SqlParameter("@ClientId", DbType.Int32)
+            {
+                Value = clientId
+            };
+            DataTable locationTable = db.ExecuteSQL(sql, objParams, true);
+            foreach (DataRow dr in locationTable.Rows)
+            {
+                ClientLocation newLocation = new ClientLocation(dr);
+                this.Add(newLocation);
+            }
+        }
     }
 }

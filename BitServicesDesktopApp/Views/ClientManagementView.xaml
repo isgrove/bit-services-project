@@ -22,7 +22,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBox x:Name="txtSearch" Grid.Column="0" Margin="10" VerticalContentAlignment="Center" BorderBrush="#707070" BorderThickness="1">
+                <TextBox x:Name="txtSearch" Text="{Binding SearchText}" Grid.Column="0" Margin="10" VerticalContentAlignment="Center" BorderBrush="#707070" BorderThickness="1">
                     <TextBox.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="5"/>
@@ -30,7 +30,7 @@
                     </TextBox.Resources>
                 </TextBox>
                 <Button x:Name="btnSearch" Grid.Column="1" Content="Search" Foreground="White" Background="#EA5D32" BorderBrush="#EA5D32"
-                        Margin="10" FontSize="16">
+                        Margin="10" FontSize="16" Command="{Binding SearchCommand}">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="5"/>
