@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitServicesDesktopApp", "Bi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitServicesTests", "BitServicesTests\BitServicesTests.csproj", "{70BE10EA-F2CF-4DD6-B7D3-DB11AFFBB389}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "BitServicesDatabase", "BitServicesDatabase\BitServicesDatabase.sqlproj", "{2CC3809D-D49B-4BA9-A784-0C1355DAF14B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,12 +27,6 @@ Global
 		{70BE10EA-F2CF-4DD6-B7D3-DB11AFFBB389}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70BE10EA-F2CF-4DD6-B7D3-DB11AFFBB389}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70BE10EA-F2CF-4DD6-B7D3-DB11AFFBB389}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2CC3809D-D49B-4BA9-A784-0C1355DAF14B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2CC3809D-D49B-4BA9-A784-0C1355DAF14B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2CC3809D-D49B-4BA9-A784-0C1355DAF14B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{2CC3809D-D49B-4BA9-A784-0C1355DAF14B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2CC3809D-D49B-4BA9-A784-0C1355DAF14B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2CC3809D-D49B-4BA9-A784-0C1355DAF14B}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
