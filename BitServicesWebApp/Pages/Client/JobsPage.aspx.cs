@@ -47,6 +47,10 @@ namespace BitServicesWebApp.Pages
             {
                 pnlNoJobs.CssClass = pnlNoJobs.CssClass.Replace("d-none", "").Trim();
             }
+            else
+            {
+                pnlNoJobs.CssClass += " d-none";
+            }
         }
         
         private List<string> GetActiveFilters()

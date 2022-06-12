@@ -101,8 +101,9 @@
                 </div>
             </div>
             <!-- In progress jobs -->
-            <div class="row">
+            <div class="row mb-3">
                 <div class="col-12 mx-auto">
+                    <h5>In Progress Jobs</h5>
                     <asp:Panel runat="server" CssClass="text-center mt-5 d-none" ID="pnlNoInProgressJobs">
                         <i class="fa-regular fa-face-laugh-beam h1 mb-3"></i>
                         <p class="">You have no in progress jobs.</p>
@@ -136,8 +137,9 @@
                 </div>
             </div>
             <!-- All jobs -->
-            <div class="row">
+            <div class="row mb-3">
                 <div class="col-12 mx-auto">
+                    <h5>Jobs</h5>
                     <asp:Panel runat="server" CssClass="text-center mt-5 d-none" ID="pnlNoJobs">
                         <i class="fa-regular fa-face-laugh-beam h1 mb-3"></i>
                         <p class="">You have no pending, verified or completed jobs.</p>
@@ -159,8 +161,9 @@
             </div>
 
             <!-- Rejected jobs -->
-            <div class="row">
+            <div class="row mb-3">
                 <div class="col-12 mx-auto">
+                    <h5>Rejected Jobs</h5>
                     <asp:Panel runat="server" CssClass="text-center mt-5 d-none" ID="pnlNoRejectedJobs">
                         <i class="fa-regular fa-face-laugh-beam h1 mb-3"></i>
                         <p class="">You have no rejected jobs.</p>

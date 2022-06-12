@@ -46,18 +46,26 @@ namespace BitServicesWebApp.Pages.Staff
             gvAllJobs.DataSource = allJobs.DefaultView;
             gvAllJobs.DataBind();
 
-            if (allJobs.Rows.Count == 0 && !(filters.Contains("Rejected") && filters.Count == 1))
+            if (allJobs.Rows.Count == 0)
             {
                 pnlNoJobs.CssClass = pnlNoJobs.CssClass.Replace("d-none", "").Trim();
+            }
+            else
+            {
+                pnlNoJobs.CssClass += " d-done";
             }
 
             DataTable rejectedJobs = filteredJobs[1];
             gvRejectedJobs.DataSource = rejectedJobs.DefaultView;
             gvRejectedJobs.DataBind();
 
-            if (rejectedJobs.Rows.Count == 0 && filters.Contains("Rejected"))
+            if (rejectedJobs.Rows.Count == 0)
             {
                 pnlNoRejectedJobs.CssClass = pnlNoRejectedJobs.CssClass.Replace("d-none", "").Trim();
+            }
+            else
+            {
+                pnlNoRejectedJobs.CssClass += " d-none";
             }
         }
 
