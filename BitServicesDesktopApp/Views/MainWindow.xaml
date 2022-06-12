@@ -42,6 +42,12 @@
                     x:Name="btnStaffManagement"
                     Height="50" 
                     BorderThickness="0,0,0,0" Click="btnStaffManagement_Click" IsEnabled="False"/>
+            <Button Foreground="#000000" Background="#EFEFEF"
+                    Content="Logout" FontSize="20" FontWeight="Bold"
+                    x:Name="btnLogout"
+                    Height="50" 
+                    Visibility="Hidden"
+                    BorderThickness="0,0,0,0" Click="BtnLogout_OnClick"/>
         </StackPanel>
         <Frame NavigationUIVisibility="Hidden" x:Name="contentFrame" Grid.Column="1" Grid.RowSpan="2" Grid.Row="0" Margin="2,0"/>
     </Grid>

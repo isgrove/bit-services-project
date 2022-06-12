@@ -41,6 +41,7 @@ namespace BitServicesDesktopApp.Views
                 btnContractorManagement.IsEnabled = true;
                 btnJobManagement.IsEnabled = true;
                 btnStaffManagement.IsEnabled = true;
+                btnLogout.Visibility = Visibility.Visible;
             }
         }
 
@@ -102,6 +103,7 @@ namespace BitServicesDesktopApp.Views
             btnContractorManagement.IsEnabled = true;
             btnJobManagement.IsEnabled = true;
             btnStaffManagement.IsEnabled = true;
+            btnLogout.Visibility = Visibility.Visible;
         }
         private void CoordinatorLogin()
         {
@@ -109,6 +111,19 @@ namespace BitServicesDesktopApp.Views
             btnContractorManagement.IsEnabled = true;
             btnJobManagement.IsEnabled = true;
             btnStaffManagement.IsEnabled = false;
+            btnLogout.Visibility = Visibility.Visible;
+        }
+
+        private void BtnLogout_OnClick(object sender, RoutedEventArgs e)
+        {
+            ResetColours();
+            btnClientManagement.IsEnabled = false;
+            btnContractorManagement.IsEnabled = false;
+            btnJobManagement.IsEnabled = false;
+            btnStaffManagement.IsEnabled = false;
+            btnLogout.Visibility = Visibility.Hidden;
+            LoggedInStaff = null;
+            contentFrame.Navigate(new LoginView());
         }
     }
 }
