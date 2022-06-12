@@ -69,17 +69,30 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
-            <Label Content="First Name: " Grid.Row="0" Grid.Column="0"/>
-            <TextBox  Text="{Binding SelectedStaff.FirstName}" x:Name="txtFirstName" Grid.Row="0" Grid.Column="1" Margin="5" />
-            <Label Content="Last Name: " Grid.Row="1" Grid.Column="0"/>
-            <TextBox Text ="{Binding SelectedStaff.LastName}" x:Name="txtLasttName" Grid.Row="1" Grid.Column="1" Margin="5" />
-            <Label Content="Phone: " Grid.Row="2" Grid.Column="0"/>
-            <TextBox Text ="{Binding SelectedStaff.Phone}" x:Name="txtPhone" Grid.Row="2" Grid.Column="1" Margin="5" />
-            <Label Content="Email: " Grid.Row="0" Grid.Column="2"/>
-            <TextBox Text ="{Binding SelectedStaff.Email}" x:Name="txtEmail" Grid.Row="0" Grid.Column="3" Margin="5" />
+            <Label Content="First Name:" Grid.Row="0" Grid.Column="0"/>
+            <TextBox  Text="{Binding SelectedStaff.FirstName, ValidatesOnDataErrors=True}"
+                      ToolTip="{Binding NewStaff.ErrorCollection[FirstName]}"
+                      x:Name="txtFirstName" Grid.Row="0" Grid.Column="1" Margin="5" />
+            
+            <Label Content="Last Name:" Grid.Row="1" Grid.Column="0"/>
+            <TextBox Text ="{Binding SelectedStaff.LastName, ValidatesOnDataErrors=True}"
+                     ToolTip="{Binding NewStaff.ErrorCollection[LastName]}"
+                     x:Name="txtLasttName" Grid.Row="1" Grid.Column="1" Margin="5" />
+            
+            <Label Content="Phone:" Grid.Row="2" Grid.Column="0"/>
+            <TextBox Text ="{Binding SelectedStaff.Phone, ValidatesOnDataErrors=True}"
+                     ToolTip="{Binding NewStaff.ErrorCollection[Phone]}"
+                     x:Name="txtPhone" Grid.Row="2" Grid.Column="1" Margin="5" />
+            
+            <Label Content="Email:" Grid.Row="0" Grid.Column="2"/>
+            <TextBox Text ="{Binding SelectedStaff.Email, ValidatesOnDataErrors=True}"
+                     ToolTip="{Binding NewStaff.ErrorCollection[Email]}"
+                     x:Name="txtEmail" Grid.Row="0" Grid.Column="3" Margin="5" />
 
-            <Label Content="Staff Type: " Grid.Row="1" Grid.Column="2"/>
-            <TextBox Text ="{Binding SelectedStaff.StaffType}" x:Name="txtType" Grid.Row="1" Grid.Column="3" Margin="5" IsReadOnly="True"/>
+            <Label Content="Staff Type:" Grid.Row="1" Grid.Column="2"/>
+            <TextBox Text ="{Binding SelectedStaff.StaffType, ValidatesOnDataErrors=True}"
+                     ToolTip="{Binding NewStaff.ErrorCollection[StaffType]}"
+                     x:Name="txtType" Grid.Row="1" Grid.Column="3" Margin="5" IsEnabled="False"/>
         </Grid>
         <Grid Grid.Row="3" Grid.ColumnSpan="4">
             <Grid.ColumnDefinitions>
