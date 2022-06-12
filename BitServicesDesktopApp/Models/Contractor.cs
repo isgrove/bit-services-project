@@ -365,7 +365,7 @@ namespace BitServicesDesktopApp.Models
 
         public int InsertContractor(ObservableCollection<Skill> skills)
         {
-            if (this.ErrorCollection.Count > 0)
+            if (this.Error != null)
             {
                 return -1;
             } 
@@ -439,7 +439,7 @@ namespace BitServicesDesktopApp.Models
 
         public int DeleteContractor()
         {
-            if (this.ErrorCollection.Count > 0)
+            if (this.Error != null)
             {
                 return -1;
             }
@@ -456,7 +456,7 @@ namespace BitServicesDesktopApp.Models
 
         public int UpdateContractor()
         {
-            if (this.ErrorCollection.Count > 0)
+            if (this.Error != null)
             {
                 return -1;
             }
