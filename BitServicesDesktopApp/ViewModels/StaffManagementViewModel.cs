@@ -16,6 +16,8 @@ namespace BitServicesDesktopApp.ViewModels
         private Staff _selectedStaff;
         private RelayCommand _deleteCommand;
         private RelayCommand _saveCommand;
+        private RelayCommand _searchCommand;
+        private string _searchText;
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string prop)
@@ -25,6 +27,7 @@ namespace BitServicesDesktopApp.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
             }
         }
+        #region Commands
         public RelayCommand DeleteCommand
         {
             get
@@ -49,7 +52,20 @@ namespace BitServicesDesktopApp.ViewModels
             }
             set { _saveCommand = value; }
         }
-
+        public RelayCommand SearchCommand
+        {
+            get
+            {
+                if (_searchCommand == null)
+                {
+                    _searchCommand = new RelayCommand(this.SearchMethod, true);
+                }
+                return _searchCommand;
+            }
+            set { _searchCommand = value; }
+        }
+        #endregion
+        #region Command Methods
         public void DeleteMethod()
         {
             if (SelectedStaff.StaffType == "Admin")
@@ -106,6 +122,13 @@ namespace BitServicesDesktopApp.ViewModels
             }
 
         }
+        public void SearchMethod()
+        {
+            Staffs allStaff = new Staffs(SearchText);
+            this.Staffs = new ObservableCollection<Staff>(allStaff);
+        }
+        #endregion
+        #region Public Properties
         public ObservableCollection<Staff> Staffs
         {
             get { return _staffs; }
@@ -133,7 +156,16 @@ namespace BitServicesDesktopApp.ViewModels
                 OnPropertyChanged("SelectedStaff");
             }
         }
-
+        public string SearchText
+        {
+            get { return _searchText; }
+            set
+            {
+                _searchText = value;
+                OnPropertyChanged("SearchText");
+            }
+        }
+        #endregion
         private void UpdateStaff()
         {
             Staffs allStaff = new Staffs();
