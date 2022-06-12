@@ -72,9 +72,9 @@ namespace BitServicesDesktopApp.Models
                         {
                             result = "Email cannot be empty";
                         }
-                        else if (this.FirstName.Length > 254)
+                        else if (this.Email.Length > 254)
                         {
-                            result = "First name cannot be more than 254 characters";
+                            result = "Email cannot be more than 254 characters";
                         }
                         break;
                     case "Street":
