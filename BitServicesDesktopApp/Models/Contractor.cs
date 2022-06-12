@@ -531,5 +531,22 @@ namespace BitServicesDesktopApp.Models
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
             return rowsAffected;
         }
+
+        public int DeleteSkill(string skillName)
+        {
+            _db = new SQLHelper();
+            string sql = "usp_DeleteSkill";
+            SqlParameter[] objParams = new SqlParameter[2];
+            objParams[0] = new SqlParameter("@SkillName", DbType.String)
+            {
+                Value = skillName
+            };
+            objParams[1] = new SqlParameter("@ContractorId", DbType.Int32)
+            {
+                Value = this.ContractorId
+            };
+            int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
+            return rowsAffected;
+        }
     }
 }

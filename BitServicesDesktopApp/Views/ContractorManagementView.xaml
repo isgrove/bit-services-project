@@ -133,7 +133,7 @@
                         </ComboBox>
                         <Button Command="{Binding AddSkillCommand}" Content="ADD SKILL" x:Name="btnAddSkill" Grid.Column="0" 
                                 Grid.Row="1" Margin="5" />
-                        <Button Command="{Binding RemoveSkillCommand}" Content="DELETE SKILL" x:Name="btnDeleteSkill" Grid.Column="1" 
+                        <Button Command="{Binding DeleteSkillCommand}" Content="DELETE SKILL" x:Name="btnDeleteSkill" Grid.Column="1" 
                                 Grid.Row="1" Margin="5" />
                         <TextBlock Text="Skill Name: " Margin="5" Grid.Row="3" Grid.Column="0"/>
                         <TextBox x:Name="txtAddNewSkill" Text="{Binding NewSkill.SkillName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" ToolTip="{Binding NewSkill.ErrorCollection[SkillName]}"  Margin="5" Grid.Row="3" Grid.Column="1" />

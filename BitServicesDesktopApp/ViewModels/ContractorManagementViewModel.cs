@@ -19,6 +19,7 @@ namespace BitServicesDesktopApp.ViewModels
         private RelayCommand _deleteCommand;
         private RelayCommand _saveCommand;
         private RelayCommand _addNewSkillCommand;
+        private RelayCommand _deletedSkillCommand;
         private RelayCommand _addSkillCommand;
         private RelayCommand _deleteAvailabilityCommand;
         private RelayCommand _addAvailabilityCommand;
@@ -77,6 +78,18 @@ namespace BitServicesDesktopApp.ViewModels
                 return _addSkillCommand;
             }
             set { _addSkillCommand = value; }
+        }
+        public RelayCommand DeleteSkillCommand
+        {
+            get
+            {
+                if (_deletedSkillCommand == null)
+                {
+                    _deletedSkillCommand = new RelayCommand(this.DeleteSkillMethod, true);
+                }
+                return _deletedSkillCommand;
+            }
+            set { _deletedSkillCommand = value; }
         }
         public RelayCommand AddNewSkillCommand
         {
@@ -208,6 +221,34 @@ namespace BitServicesDesktopApp.ViewModels
             MessageBox.Show(message, $"Add {SelectedSkill.SkillName}");
             UpdateSkills();
         }
+
+        public void DeleteSkillMethod()
+        {
+            if (this.SelectedContractor == null)
+            {
+                MessageBox.Show("Please select a contractor first!", "Delete Skill");
+                return;
+            }
+            if (this.SelectedSkill == null)
+            {
+                MessageBox.Show("Please select a skill first!", "Delete Skill");
+                return;
+            }
+            string contractorName = SelectedContractor.FullName;
+            string skillName = SelectedSkill.SkillName;
+            string message;
+            int rowsAffected = SelectedContractor.DeleteSkill(skillName);
+            if (rowsAffected >= 1)
+            {
+                message = $"You have successfully deleted {skillName} from {contractorName}!";
+            }
+            else
+            {
+                message = $"There was an issue when deleting {skillName} from {contractorName}, please try again!";
+            }
+            MessageBox.Show(message, $"Delete Skill");
+            UpdateSkills();
+        }        
         public void AddNewSkill()
         {
             string skillName = NewSkill.SkillName;
