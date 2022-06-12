@@ -57,7 +57,7 @@ namespace BitServicesDesktopApp.Views
             }
             this._log.Log($"{MainWindow.LoggedInStaff.StaffType} {MainWindow.LoggedInStaff.FullName} ({MainWindow.LoggedInStaff.Email}) has logged in.", LogType.Info);
             NavigationService.Navigate(new JobManagementView());
-            mainWindow.btnContractorManagement.Foreground = (Brush)new BrushConverter().ConvertFrom("#EA5D32");
+            mainWindow.btnJobManagement.Foreground = (Brush)new BrushConverter().ConvertFrom("#EA5D32");
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
