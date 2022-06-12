@@ -68,13 +68,16 @@
                     </DataGrid>
                     <Label Content="Client Name: " Grid.Row="3" Grid.Column="0"/>
                     <TextBox x:Name="txtClientName" Text="{Binding SelectedClient.Name, ValidatesOnDataErrors=True}"
-                             ToolTip="{Binding SelectedClient.ErrorCollection[Name]}" Grid.Row="3" Grid.Column="1" Margin="5" />
+                             ToolTip="{Binding SelectedClient.ErrorCollection[Name]}"
+                             Grid.Row="3" Grid.Column="1" Margin="5" />
                     <Label Content="Phone: " Grid.Row="4" Grid.Column="0"/>
                     <TextBox x:Name="txtPhone" Text="{Binding SelectedClient.Phone, ValidatesOnDataErrors=True}"
-                             ToolTip="{Binding SelectedClient.ErrorCollection[Phone]}" Grid.Row="4" Grid.Column="1" Margin="5" />
+                             ToolTip="{Binding SelectedClient.ErrorCollection[Phone]}"
+                             Grid.Row="4" Grid.Column="1" Margin="5" />
                     <Label Content="Email: " Grid.Row="5" Grid.Column="0"/>
                     <TextBox x:Name="txtEmail" Text="{Binding SelectedClient.Email, ValidatesOnDataErrors=True}"
-                             ToolTip="{Binding SelectedClient.ErrorCollection[Email]}" Grid.Row="5" Grid.Column="1" Margin="5" />
+                             ToolTip="{Binding SelectedClient.ErrorCollection[Email]}"
+                             Grid.Row="5" Grid.Column="1" Margin="5" />
                     <Grid Grid.Row="6" Grid.ColumnSpan="4">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -117,18 +120,30 @@
                     </DataGrid>
 
                     <TextBlock Text="Email : " Margin="5" Grid.Row="3" Grid.Column="0" />
-                    <TextBox x:Name="txtNewEmail" Text="{Binding SelectedLocation.Email}" Margin="5" Grid.Row="3" Grid.Column="1" />
+                    <TextBox x:Name="txtNewEmail" Text="{Binding SelectedLocation.Email, ValidatesOnDataErrors=True}"
+                             ToolTip="{Binding SelectedLocation.ErrorCollection[Email]}"
+                             Margin="5" Grid.Row="3" Grid.Column="1" />
                     <TextBlock Text="Phone : " Margin="5" Grid.Row="4" Grid.Column="0"/>
-                    <TextBox x:Name="txtNewPhone" Text="{Binding SelectedLocation.Phone}" Margin="5" Grid.Row="4" Grid.Column="1" />
+                    <TextBox x:Name="txtNewPhone" Text="{Binding SelectedLocation.Phone, ValidatesOnDataErrors=True}"
+                             ToolTip="{Binding SelectedLocation.ErrorCollection[Phone]}"
+                             Margin="5" Grid.Row="4" Grid.Column="1" />
                     <TextBlock Text="Street : " Margin="5" Grid.Row="5" Grid.Column="0"/>
-                    <TextBox x:Name="txtNewStreet" Text="{Binding SelectedLocation.Street}" Margin="5" Grid.Row="5" Grid.Column="1" />
+                    <TextBox x:Name="txtNewStreet" Text="{Binding SelectedLocation.Street, ValidatesOnDataErrors=True}"
+                             ToolTip="{Binding SelectedLocation.ErrorCollection[Street]}"
+                             Margin="5" Grid.Row="5" Grid.Column="1" />
 
                     <TextBlock Text="Suburb : " Margin="5" Grid.Row="3" Grid.Column="2"/>
-                    <TextBox x:Name="txtNewSuburb" Text="{Binding SelectedLocation.Suburb}" Margin="5" Grid.Row="3" Grid.Column="3" />
+                    <TextBox x:Name="txtNewSuburb" Text="{Binding SelectedLocation.Suburb, ValidatesOnDataErrors=True}"
+                             ToolTip="{Binding SelectedLocation.ErrorCollection[Suburb]}"
+                             Margin="5" Grid.Row="3" Grid.Column="3" />
                     <TextBlock Text="Postcode: " Margin="5" Grid.Row="4" Grid.Column="2"/>
-                    <TextBox x:Name="txtNewPostcode" Text="{Binding SelectedLocation.Postcode}" Margin="5" Grid.Row="4" Grid.Column="3" />
+                    <TextBox x:Name="txtNewPostcode" Text="{Binding SelectedLocation.Postcode, ValidatesOnDataErrors=True}"
+                             ToolTip="{Binding SelectedLocation.ErrorCollection[Postcode]}"
+                             Margin="5" Grid.Row="4" Grid.Column="3" />
                     <TextBlock Text="State: " Margin="5" Grid.Row="5" Grid.Column="2"/>
-                    <TextBox x:Name="txtNewState" Text="{Binding SelectedLocation.State}" Margin="5" Grid.Row="5" Grid.Column="3" />
+                    <TextBox x:Name="txtNewState" Text="{Binding SelectedLocation.State, ValidatesOnDataErrors=True}"
+                             ToolTip="{Binding SelectedLocation.ErrorCollection[State]}"
+                             Margin="5" Grid.Row="5" Grid.Column="3" />
 
                     <Grid Grid.Row="6" Grid.ColumnSpan="4">
                         <Grid.ColumnDefinitions>

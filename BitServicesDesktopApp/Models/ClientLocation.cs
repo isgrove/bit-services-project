@@ -9,7 +9,7 @@ using BitServicesDesktopApp.DAL;
 
 namespace BitServicesDesktopApp.Models
 {
-    public class ClientLocation : INotifyPropertyChanged
+    public class ClientLocation : INotifyPropertyChanged, IDataErrorInfo
     {
         private int _locationId;
         private int _clientId;
@@ -23,6 +23,85 @@ namespace BitServicesDesktopApp.Models
         private bool _active;
         private SQLHelper _db;
         public event PropertyChangedEventHandler PropertyChanged;
+        public Dictionary<string, string> ErrorCollection { get; private set; } = new Dictionary<string, string>();
+        public string Error { get { return null; } }
+        public string this[string propertyName]
+        {
+            get
+            {
+                string result = null;
+                switch (propertyName)
+                {
+                    case "Phone":
+                        if (string.IsNullOrEmpty(Phone))
+                        {
+                            result = "Phone number cannot be empty";
+                        }
+                        else if (Phone.Length != 10)
+                        {
+                            result = "Phone numbers must be 10 digits";
+                        }
+                        break;
+
+                    case "Email":
+                        if (string.IsNullOrEmpty(Email))
+                        {
+                            result = "Email cannot be empty";
+                        }
+                        else if (this.Email.Length > 254)
+                        {
+                            result = "Email cannot be more than 254 characters";
+                        }
+                        break;
+                    case "Street":
+                        if (string.IsNullOrEmpty(Street))
+                        {
+                            result = "Field cannot be left empty";
+                        }
+                        else if (this.Street.Length > 32)
+                        {
+                            result = "Street cannot be more than 32 characters!";
+                        }
+                        break;
+                    case "Suburb":
+                        if (string.IsNullOrEmpty(Suburb))
+                        {
+                            result = "Suburb cannot be empty";
+                        }
+                        else if (this.Suburb.Length > 32)
+                        {
+                            result = "Suburb cannot be more than 32 characters!";
+                        }
+                        break;
+                    case "State":
+                        if (string.IsNullOrEmpty(State))
+                        {
+                            result = "Field cannot be empty";
+                        }
+                        else if (this.State.Length > 3)
+                        {
+                            result = "State cannot be more than 3 characters!";
+                        }
+                        break;
+                    case "Postcode":
+                        if (string.IsNullOrEmpty(Postcode))
+                        {
+                            result = "Postcode cannot be empty";
+                        }
+                        else if (this.Postcode.Length > 4)
+                        {
+                            result = "Postcode cannot be more than 4 characters!";
+                        }
+                        break;
+                }
+                if (result != null && !ErrorCollection.ContainsKey(propertyName))
+                {
+                    ErrorCollection[propertyName] = result;
+                    OnPropertyChanged("ErrorCollection");
+                }
+                return result;
+            }
+        }
 
         private void OnPropertyChanged(string prop)
         {
