@@ -80,6 +80,7 @@ namespace BitServicesDesktopApp.ViewModels
         }
         public void SaveMethod()
         {
+            if (SelectedStaff == null) return;
             if (SelectedStaff.StaffType == "Admin")
             {
                 MessageBox.Show(

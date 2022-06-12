@@ -8,7 +8,7 @@ using BitServicesDesktopApp.DAL;
 
 namespace BitServicesDesktopApp.Models
 {
-    public class Staff : INotifyPropertyChanged
+    public class Staff : INotifyPropertyChanged, IDataErrorInfo
     {
         private int _staffId;
         private string _staffType;
@@ -20,6 +20,65 @@ namespace BitServicesDesktopApp.Models
         private bool _active;
         private SQLHelper _db;
         public event PropertyChangedEventHandler PropertyChanged;
+        public Dictionary<string, string> ErrorCollection { get; private set; } = new Dictionary<string, string>();
+        public string Error { get { return null; } }
+        public string this[string propertyName]
+        {
+            get
+            {
+                string result = null;
+                switch (propertyName)
+                {
+                    case "FirstName":
+                        if (string.IsNullOrEmpty(this.FirstName))
+                        {
+                            result = "First name cannot be left empty";
+                        }
+                        else if (this.FirstName.Length > 32)
+                        {
+                            result = "First name cannot be more than 32 characters";
+                        }
+                        break;
+                    case "LastName":
+                        if (string.IsNullOrEmpty(LastName))
+                        {
+                            result = "Last name cannot be left empty";
+                        }
+                        else if (this.LastName.Length > 32)
+                        {
+                            result = "Last name cannot be more than 32 characters";
+                        }
+                        break;
+                    case "Phone":
+                        if (string.IsNullOrEmpty(Phone))
+                        {
+                            result = "Phone number cannot be empty";
+                        }
+                        else if (Phone.Length != 10)
+                        {
+                            result = "Phone numbers must be 10 digits";
+                        }
+                        break;
+
+                    case "Email":
+                        if (string.IsNullOrEmpty(Email))
+                        {
+                            result = "Email cannot be empty";
+                        }
+                        else if (this.FirstName.Length > 254)
+                        {
+                            result = "First name cannot be more than 254 characters";
+                        }
+                        break;
+                }
+                if (result != null && !ErrorCollection.ContainsKey(propertyName))
+                {
+                    ErrorCollection[propertyName] = result;
+                    OnPropertyChanged("ErrorCollection");
+                }
+                return result;
+            }
+        }
         private void OnPropertyChanged(string prop)
         {
             if (PropertyChanged != null)
@@ -27,6 +86,7 @@ namespace BitServicesDesktopApp.Models
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
             }
         }
+        #region Public Properties
         public int StaffId
         {
             get { return _staffId; }
@@ -95,11 +155,12 @@ namespace BitServicesDesktopApp.Models
                 OnPropertyChanged("Active");
             }
         }
-
         public string FullName
         {
             get { return this.FirstName + " " + this.LastName; }
         }
+        #endregion
+        #region Contructors 
         public Staff()
         {
             _db = new SQLHelper();
@@ -116,9 +177,14 @@ namespace BitServicesDesktopApp.Models
             this.Password = dr["password"].ToString();
             this.Active = Convert.ToBoolean(dr["active"]);
         }
-
+        #endregion
+        #region Methods
         public int InsertStaff()
         {
+            if (this.Error != null)
+            {
+                return -1;
+            }
             GeneratePassword();
             string sql = "usp_InsertStaff";
             SqlParameter[] objParams = new SqlParameter[6];
@@ -167,6 +233,10 @@ namespace BitServicesDesktopApp.Models
 
         public int UpdateStaff()
         {
+            if (this.Error != null)
+            {
+                return -1;
+            }
             string sql = "usp_UpdateStaff";
             SqlParameter[] objParams = new SqlParameter[7];
             objParams[0] = new SqlParameter("@StaffId", DbType.Int32)
@@ -200,5 +270,6 @@ namespace BitServicesDesktopApp.Models
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
             return rowsAffected;
         }
+        #endregion
     }
 }

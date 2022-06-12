@@ -29,14 +29,27 @@
         </Grid.ColumnDefinitions>
         <TextBlock Text="New Coordinator" FontSize="28px"
                        FontWeight="bold" Margin="0,0,0,0" Grid.ColumnSpan="3"/>
+        
         <Label Content="First Name: " Grid.Row="1" Grid.Column="0"/>
-        <TextBox x:Name="txtFirstName" Text="{Binding NewStaff.FirstName}" Grid.Row="1" Grid.Column="1" Margin="5" />
+        <TextBox x:Name="txtFirstName" Text="{Binding NewStaff.FirstName, ValidatesOnDataErrors=True}"
+                 ToolTip="{Binding NewStaff.ErrorCollection[FirstName]}"
+                 Grid.Row="1" Grid.Column="1" Margin="5" />
+        
         <Label Content="Last Name: " Grid.Row="2" Grid.Column="0"/>
-        <TextBox x:Name="txtLastName" Text="{Binding NewStaff.LastName}" Grid.Row="2" Grid.Column="1" Margin="5" />
+        <TextBox x:Name="txtLastName" Text="{Binding NewStaff.LastName, ValidatesOnDataErrors=True}"
+                 ToolTip="{Binding NewStaff.ErrorCollection[LastName]}"
+                 Grid.Row="2" Grid.Column="1" Margin="5" />
+        
         <Label Content="Email: " Grid.Row="3" Grid.Column="0"/>
-        <TextBox x:Name="txtEmail" Text="{Binding NewStaff.Email}" Grid.Row="3" Grid.Column="1" Margin="5" />
+        <TextBox x:Name="txtEmail" Text="{Binding NewStaff.Email, ValidatesOnDataErrors=True}"
+                 ToolTip="{Binding NewStaff.ErrorCollection[Email]}"
+                 Grid.Row="3" Grid.Column="1" Margin="5" />
+        
         <Label Content="Phone: " Grid.Row="4" Grid.Column="0"/>
-        <TextBox x:Name="txtPhone" Text="{Binding NewStaff.Phone}" Grid.Row="4" Grid.Column="1" Margin="5" />
+        <TextBox x:Name="txtPhone" Text="{Binding NewStaff.Phone, ValidatesOnDataErrors=True}"
+                 ToolTip="{Binding NewStaff.ErrorCollection[Phone]}"
+                 Grid.Row="4" Grid.Column="1" Margin="5" />
+        
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="9" Grid.ColumnSpan="4">
             <Button Command="{Binding AddCommand}" x:Name="btnSave" Content="ADD COORDINATOR" Width="150" Margin="10" Click="BtnSave_OnClick"/>
             <Button Command="{Binding ClearCommand}" x:Name="btnClear" Content="CLEAR" Width="150" Margin="10"/>
