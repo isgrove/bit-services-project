@@ -439,10 +439,6 @@ namespace BitServicesDesktopApp.Models
 
         public int DeleteContractor()
         {
-            if (this.Error != null)
-            {
-                return -1;
-            }
             _db = new SQLHelper();
             string sql = "usp_DeleteContractor";
             SqlParameter[] objParams = new SqlParameter[1];
