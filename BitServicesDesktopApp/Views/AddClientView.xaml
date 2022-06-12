@@ -32,11 +32,14 @@
         <TextBlock Text="Add A New Client" FontSize="24px"
                        FontWeight="bold" Margin="0,0,0,0" Grid.ColumnSpan="4" HorizontalAlignment="Center"/>
         <Label Content="Client Name: " Grid.Row="1" Grid.Column="1"/>
-        <TextBox x:Name="txtClientName" Text="{Binding NewClient.Name, Mode=TwoWay}" Grid.Row="1" Grid.Column="2" Margin="10" />
+        <TextBox x:Name="txtClientName" Text="{Binding NewClient.Name, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                 ToolTip="{Binding NewClient.ErrorCollection[Name]}" Grid.Row="1" Grid.Column="2" Margin="10" />
         <Label Content="Email: " Grid.Row="2" Grid.Column="1"/>
-        <TextBox x:Name="txtEmail" Text="{Binding NewClient.Email, Mode=TwoWay}" Grid.Row="2" Grid.Column="2" Margin="10" />
+        <TextBox x:Name="txtEmail" Text="{Binding NewClient.Email, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                 ToolTip="{Binding NewClient.ErrorCollection[Email]}" Grid.Row="2" Grid.Column="2" Margin="10" />
         <Label Content="Phone: " Grid.Row="3" Grid.Column="1"/>
-        <TextBox x:Name="txtPhone" Text="{Binding NewClient.Phone, Mode=TwoWay}" Grid.Row="3" Grid.Column="2" Margin="10" />
+        <TextBox x:Name="txtPhone" Text="{Binding NewClient.Phone, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                 ToolTip="{Binding NewClient.ErrorCollection[Phone]}" Grid.Row="3" Grid.Column="2" Margin="10" />
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="9" Grid.ColumnSpan="4" Grid.Column="0">
             <Button Command="{Binding AddCommand}" x:Name="btnSave" Content="SAVE" Width="150" Margin="10" Click="BtnSave_OnClick"/>
             <Button Command="{Binding ClearCommand}" x:Name="btnClear" Content="CLEAR" Width="150" Margin="10"/>

@@ -9,7 +9,7 @@ using BitServicesDesktopApp.Views;
 
 namespace BitServicesDesktopApp.Models
 {
-    public class Client : INotifyPropertyChanged
+    public class Client : INotifyPropertyChanged, IDataErrorInfo
     {
         private int _clientId;
         private string _name;
@@ -20,6 +20,55 @@ namespace BitServicesDesktopApp.Models
         private SQLHelper _db;
         private LogHelper _log;
         public event PropertyChangedEventHandler PropertyChanged;
+        public Dictionary<string, string> ErrorCollection { get; private set; } = new Dictionary<string, string>();
+        public string Error { get { return null; } }
+        public string this[string propertyName]
+        {
+            get
+            {
+                string result = null;
+                switch (propertyName)
+                {
+                    case "Name":
+                        if (string.IsNullOrEmpty(this.Name))
+                        {
+                            result = "Client name cannot be left empty";
+                        }
+                        else if (this.Name.Length > 32)
+                        {
+                            result = "Client name cannot be more than 32 characters";
+                        }
+                        break;
+                    case "Phone":
+                        if (string.IsNullOrEmpty(Phone))
+                        {
+                            result = "Phone number cannot be empty";
+                        }
+                        else if (Phone.Length != 10)
+                        {
+                            result = "Phone numbers must be 10 digits";
+                        }
+                        break;
+
+                    case "Email":
+                        if (string.IsNullOrEmpty(Email))
+                        {
+                            result = "Email cannot be empty";
+                        }
+                        else if (this.Email.Length > 254)
+                        {
+                            result = "Email cannot be more than 254 characters";
+                        }
+                        break;
+                }
+                if (result != null && !ErrorCollection.ContainsKey(propertyName))
+                {
+                    ErrorCollection[propertyName] = result;
+                    OnPropertyChanged("ErrorCollection");
+                }
+                return result;
+            }
+        }
         private void OnPropertyChanged(string prop)
         {
             if (PropertyChanged != null)

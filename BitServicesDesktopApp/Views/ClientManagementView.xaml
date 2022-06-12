@@ -67,11 +67,14 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <Label Content="Client Name: " Grid.Row="3" Grid.Column="0"/>
-                    <TextBox x:Name="txtClientName" Text="{Binding SelectedClient.Name}" Grid.Row="3" Grid.Column="1" Margin="5" />
+                    <TextBox x:Name="txtClientName" Text="{Binding SelectedClient.Name, ValidatesOnDataErrors=True}"
+                             ToolTip="{Binding SelectedClient.ErrorCollection[Name]}" Grid.Row="3" Grid.Column="1" Margin="5" />
                     <Label Content="Phone: " Grid.Row="4" Grid.Column="0"/>
-                    <TextBox x:Name="txtPhone" Text="{Binding SelectedClient.Phone}" Grid.Row="4" Grid.Column="1" Margin="5" />
+                    <TextBox x:Name="txtPhone" Text="{Binding SelectedClient.Phone, ValidatesOnDataErrors=True}"
+                             ToolTip="{Binding SelectedClient.ErrorCollection[Phone]}" Grid.Row="4" Grid.Column="1" Margin="5" />
                     <Label Content="Email: " Grid.Row="5" Grid.Column="0"/>
-                    <TextBox x:Name="txtEmail" Text="{Binding SelectedClient.Email}" Grid.Row="5" Grid.Column="1" Margin="5" />
+                    <TextBox x:Name="txtEmail" Text="{Binding SelectedClient.Email, ValidatesOnDataErrors=True}"
+                             ToolTip="{Binding SelectedClient.ErrorCollection[Email]}" Grid.Row="5" Grid.Column="1" Margin="5" />
                     <Grid Grid.Row="6" Grid.ColumnSpan="4">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
