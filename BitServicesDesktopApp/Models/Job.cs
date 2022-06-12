@@ -63,6 +63,30 @@ namespace BitServicesDesktopApp.Models
                             result = "Job description cannot be more than 100 characters";
                         }
                         break;
+                    case "Client":
+                        if (this.Client == null)
+                        {
+                            result = "Client cannot be left empty";
+                        }
+                        break;
+                    case "ClientLocation":
+                        if (this.Location == null)
+                        {
+                            result = "Client cannot be left empty";
+                        }
+                        break;
+                    case "AssignedContractor":
+                        if (this.AssignedContractor == null)
+                        {
+                            result = "Assigned contractor cannot be left empty";
+                        }
+                        break;
+                    case "RequiredSkill":
+                        if (string.IsNullOrEmpty(this.RequiredSkill))
+                        {
+                            result = "Required Skill cannot be left empty";
+                        }
+                        break;
                 }
                 if (result != null && !ErrorCollection.ContainsKey(propertyName))
                 {
@@ -79,6 +103,8 @@ namespace BitServicesDesktopApp.Models
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
             }
         }
+
+        #region Public properties
         public int JobId
         {
             get { return _jobId; }
@@ -188,7 +214,7 @@ namespace BitServicesDesktopApp.Models
                 }
             }
         }
-
+        #endregion
         public Job()
         {
             _db = new SQLHelper();
@@ -224,6 +250,10 @@ namespace BitServicesDesktopApp.Models
         }
         public int InsertJob()
         {
+            if (this.Error != null)
+            {
+                return -1;
+            }
             string sql = "usp_InsertJob";
             SqlParameter[] objParams = new SqlParameter[7];
             objParams[0] = new SqlParameter("@LocationId", DbType.Int32)
@@ -259,6 +289,10 @@ namespace BitServicesDesktopApp.Models
         }
         public int InsertJob(int staffId)
         {
+            if (this.Error != null)
+            {
+                return -1;
+            }
             string sql = "usp_InsertJob";
             SqlParameter[] objParams = new SqlParameter[9];
             objParams[0] = new SqlParameter("@LocationId", DbType.Int32)
@@ -302,6 +336,10 @@ namespace BitServicesDesktopApp.Models
         }
         public int DeleteJob()
         {
+            if (this.Error != null)
+            {
+                return -1;
+            }
             string sql = "UPDATE job" +
                          " SET job_status = 'Canceled'" +
                          " WHERE job_id = @JobId";
@@ -313,9 +351,12 @@ namespace BitServicesDesktopApp.Models
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
             return rowsAffected;
         }
-        // TODO: Let users update the assigned contractor of the job
         public int UpdateJob()
         {
+            if (this.Error != null)
+            {
+                return -1;
+            }
             string sql = "UPDATE job" +
                          " SET location_id = @LocationId, required_skill = @RequiredSkill," +
                          " job_status = @JobStatus, kilometers = @Kilometers, title = @Title, description = @Description, deadline_date = @DeadlineDate" +
@@ -358,6 +399,10 @@ namespace BitServicesDesktopApp.Models
         }
         public int AssignContractor(int contractorId, int staffId)
         {
+            if (this.Error != null)
+            {
+                return -1;
+            }
             string sql = "usp_AssignContractor";
             SqlParameter[] objParams = new SqlParameter[3];
             objParams[0] = new SqlParameter("@JobId", DbType.Int32)

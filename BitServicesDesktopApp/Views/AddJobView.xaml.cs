@@ -29,10 +29,5 @@ namespace BitServicesDesktopApp.Views
         {
             NavigationService.Navigate(new Uri("Views/JobManagementView.xaml", UriKind.Relative));
         }
-
-        private void btnSave_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new Uri("Views/JobManagementView.xaml", UriKind.Relative));
-        }
     }
 }

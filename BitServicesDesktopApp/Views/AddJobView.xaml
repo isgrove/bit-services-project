@@ -39,16 +39,18 @@
                 SelectedValue="{Binding SelectedClient}"
                 Grid.Row="1" Grid.Column="1" Margin="5" />
         <Label Content="Client Location: " Grid.Row="2" Grid.Column="0"/>
-        <ComboBox x:Name="cmbClientLocation" ItemsSource="{Binding ClientLocations, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        <ComboBox x:Name="cmbClientLocation" ItemsSource="{Binding ClientLocations, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                 DisplayMemberPath="Suburb"
                 Text="{Binding NewJob.Location.Suburb, UpdateSourceTrigger=PropertyChanged}"
                 SelectedValue="{Binding NewJob.Location}"
-                Grid.Row="2" Grid.Column="1" Margin="5" />
+                Grid.Row="2" Grid.Column="1" Margin="5" 
+                ToolTip="{Binding NewJob.ErrorCollection[Location]}"/>
         <Label Content="Required Skill: " Grid.Row="3" Grid.Column="0"/>
         <ComboBox x:Name="cmbRequiredSkill" ItemsSource="{Binding Skills, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 DisplayMemberPath="SkillName"
-                Text="{Binding NewJob.RequiredSkill, UpdateSourceTrigger=PropertyChanged}"
-                Grid.Row="3" Grid.Column="1" Margin="5" />
+                Text="{Binding NewJob.RequiredSkill, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                Grid.Row="3" Grid.Column="1" Margin="5" 
+                ToolTip="{Binding NewJob.ErrorCollection[RequiredSkill]}"/>
         <Label Content="Deadline Date: " Grid.Row="4" Grid.Column="0"/>
         <DatePicker x:Name="dtpDeadlineDate" SelectedDate="{Binding NewJob.DeadlineDate, ValidatesOnDataErrors=True}" ToolTip="{Binding NewJob.ErrorCollection[DeadlineDate]}" Grid.Row="4" Grid.Column="1" Margin="5" />
         <Label Content="Job Title: " Grid.Row="1" Grid.Column="2"/>
@@ -70,7 +72,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="10" Grid.ColumnSpan="4">
-            <Button Command="{Binding ConfirmCommand}" x:Name="btnSave" Content="SAVE" Width="150" Margin="10" Click="btnSave_Click"/>
+            <Button Command="{Binding ConfirmCommand}" x:Name="btnSave" Content="SAVE" Width="150" Margin="10"/>
             <Button Command="{Binding ClearCommand}" x:Name="btnClear" Content="CLEAR" Width="150" Margin="10"/>
             <Button x:Name="btnCancel" Content="CANCEL" Width="150" Margin="10" Click="btnCancel_Click"/>
         </StackPanel>

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 using System.Windows;
+using System.Windows.Navigation;
 using BitServicesDesktopApp.Commands;
 using BitServicesDesktopApp.Models;
 using BitServicesDesktopApp.Views;
@@ -149,10 +150,12 @@ namespace BitServicesDesktopApp.ViewModels
             if (rowsAffected >= 1)
             {
                 message = $"You have successfully added a new job for {SelectedClient.Name} {NewJob.Location.Suburb}!";
+                MainWindow currentMainWindow = (MainWindow) Application.Current.MainWindow;
+                currentMainWindow.contentFrame.Navigate(new JobManagementView());
             }
             else
             {
-                message = $"There was an issue when adding {SelectedClient.Name} {NewJob.Location.Suburb}, please try again!";
+                message = $"There was an issue when adding a new job, please try again!";
             }
             MessageBox.Show(message);
         }
