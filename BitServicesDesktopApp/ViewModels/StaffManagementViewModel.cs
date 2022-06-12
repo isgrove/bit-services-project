@@ -178,5 +178,15 @@ namespace BitServicesDesktopApp.ViewModels
             StaffTypes allStaffTypes = new StaffTypes();
             this.StaffTypes = new ObservableCollection<StaffType>(allStaffTypes);
         }
+        public virtual ObservableCollection<Staff> GetStaff()
+        {
+            List<Staff> allStaff = new List<Staff>()
+            {
+                new Staff(1),
+                new Staff(2),
+                new Staff(3),
+            };
+            return new ObservableCollection<Staff>(allStaff);
+        }        
     }
 }

@@ -177,6 +177,25 @@ namespace BitServicesDesktopApp.Models
             this.Password = dr["password"].ToString();
             this.Active = Convert.ToBoolean(dr["active"]);
         }
+        public Staff(int staffId)
+        {
+            _db = new SQLHelper();
+            string sql = "usp_GetStaff";
+            SqlParameter[] objParams = new SqlParameter[1];
+            objParams[0] = new SqlParameter("@StaffId", DbType.Int32);
+            objParams[0].Value = staffId;
+
+            DataRow dr = _db.ExecuteSQL(sql, objParams).Rows[0];
+
+            this.StaffId = Convert.ToInt32(dr["staff_id"].ToString());
+            this.StaffType = dr["type"].ToString();
+            this.FirstName = dr["first_name"].ToString();
+            this.LastName = dr["last_name"].ToString();
+            this.Email = dr["email"].ToString();
+            this.Phone = dr["phone"].ToString();
+            this.Password = dr["password"].ToString();
+            this.Active = Convert.ToBoolean(dr["active"]);
+        }
         #endregion
         #region Methods
         public int InsertStaff()
