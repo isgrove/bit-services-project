@@ -24,7 +24,7 @@ namespace BitServicesDesktopApp.DAL
                 Directory.CreateDirectory("logs");
             }
             
-            using (StreamWriter writer = File.AppendText(@"logs/" + date + "-log.txt"))
+            using (StreamWriter writer = File.AppendText($@"logs/{date}-{type.ToString().ToLower()}-log.txt"))
             {
                 writer.WriteLine($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.ffff}] [{type}] {message}");
                 writer.Close();
