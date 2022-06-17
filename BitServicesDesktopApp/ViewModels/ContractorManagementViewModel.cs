@@ -290,7 +290,7 @@ namespace BitServicesDesktopApp.ViewModels
                 }
             }
             string message;
-            int rowsAffected = NewAvailability.InsertAvailability();
+            int rowsAffected = NewAvailability.AddAvailability();
             if (rowsAffected >= 1)
             {
                 message = $"You have successfully added availability for {availabilityDate}!";
@@ -311,7 +311,7 @@ namespace BitServicesDesktopApp.ViewModels
             }
             string availabilityDate = SelectedAvailability.AvailabilityDate.ToString("MM/dd/yyyy");
             string message;
-            int rowsAffected = NewAvailability.DeleteAvailability();
+            int rowsAffected = SelectedAvailability.DeleteAvailability();
             if (rowsAffected >= 1)
             {
                 message = $"You have successfully deleted availability for {availabilityDate}!";
@@ -453,7 +453,7 @@ namespace BitServicesDesktopApp.ViewModels
                         this.NewAvailability = new Availability()
                         {
                             ContractorId = SelectedContractor.ContractorId,
-                            AvailabilityDate = DateTime.Now
+                            AvailabilityDate = DateTime.Now.Add(new TimeSpan(1, 0, 0, 0, 0))
                         };
                     }
                     _isAvailabilityTabSelected = value;

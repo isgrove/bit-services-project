@@ -13,10 +13,22 @@ namespace BitServicesDesktopApp.Models
 {
     public class Availability : INotifyPropertyChanged, IDataErrorInfo
     {
+        #region Private Properties
         private DateTime _availabilityDate;
         private int _contractorId;
         private SQLHelper _db;
+        #endregion Private Properties
+
         public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string prop)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            }
+        }
+
+        #region Validation
         public Dictionary<string, string> ErrorCollection { get; private set; } = new Dictionary<string, string>();
         public string Error { get { return null; } }
         public string this[string propertyName]
@@ -26,29 +38,33 @@ namespace BitServicesDesktopApp.Models
                 string result = null;
                 switch (propertyName)
                 {
+
                     case "AvailabilityDate":
                         if (AvailabilityDate.Date < DateTime.Now.Date)
                         {
-                            result = "Date cannot be in the past";
+                            result = "Date for a new availability cannot be in the past";
+                        }
+                        else if (AvailabilityDate.Date == DateTime.Now.Date)
+                        {
+                            result = "Date for a new availability cannot be today";
                         }
                         break;
                 }
-                if (result != null && !ErrorCollection.ContainsKey(propertyName))
+                if (result != null)
                 {
                     ErrorCollection[propertyName] = result;
-                    OnPropertyChanged("ErrorCollection");
                 }
+                else if (ErrorCollection.ContainsKey(propertyName))
+                {
+                    ErrorCollection.Remove(propertyName);
+                }
+                OnPropertyChanged("ErrorCollection");
                 return result;
             }
         }
-        private void OnPropertyChanged(string prop)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-            }
-        }
+        #endregion Validation        
 
+        #region Public Properties
         public DateTime AvailabilityDate
         {
             get { return _availabilityDate; }
@@ -58,7 +74,6 @@ namespace BitServicesDesktopApp.Models
                 OnPropertyChanged("AvailabilityDate");
             }
         }
-
         public int ContractorId
         {
             get { return _contractorId; }
@@ -68,19 +83,24 @@ namespace BitServicesDesktopApp.Models
                 OnPropertyChanged("ContractorId");
             }
         }
+        #endregion Public Properties
 
+        #region Constructors
         public Availability()
         {
             this._db = new SQLHelper();
         }
+
         public Availability(DataRow dr)
         {
             this._db = new SQLHelper();
             this.ContractorId = Convert.ToInt32(dr["contractor_id"].ToString());
             this.AvailabilityDate = Convert.ToDateTime(dr["availability_date"].ToString());
         }
+        #endregion Constructors
 
-        public int InsertAvailability()
+        #region Public Methods
+        public int AddAvailability()
         {
             if (this.ErrorCollection.Count > 0)
             {
@@ -99,8 +119,16 @@ namespace BitServicesDesktopApp.Models
                 Value = this.ContractorId
 
             };
-            int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
-            return rowsAffected;
+            try
+            {
+                int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
+                return rowsAffected;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public int DeleteAvailability()
@@ -115,15 +143,29 @@ namespace BitServicesDesktopApp.Models
             objParams[0] = new SqlParameter("@AvailabilityDate", DbType.Date)
             {
                 Value = this.AvailabilityDate
-
             };
             objParams[1] = new SqlParameter("@ContractorId", DbType.Int32)
             {
                 Value = this.ContractorId
-
             };
-            int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
-            return rowsAffected;
+            try
+            {
+                int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
+                return rowsAffected;
+            }
+            catch
+            {
+                StringBuilder errorMessage = new StringBuilder();
+                errorMessage.Append("Delete Availability caused previous error:\n" +
+                                    "SqlParameters:\n");
+                foreach (SqlParameter sqlParameter in objParams)
+                {
+                    errorMessage.Append($"- {sqlParameter.ParameterName} {sqlParameter.DbType}: {sqlParameter.Value}\n");
+                }
+                new LogHelper().Log(errorMessage.ToString(), LogType.Error);
+                return -1;
+            }
         }
+        #endregion Public Methods
     }
 }
