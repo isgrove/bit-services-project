@@ -124,10 +124,18 @@ namespace BitServicesDesktopApp.Models
                 int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
                 return rowsAffected;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e);
-                throw;
+                StringBuilder errorMessage = new StringBuilder();
+                errorMessage.Append("Add Availability caused previous error:\n" +
+                                    "Exception: " + ex.Message + "\n" +
+                                    "SqlParameters:\n");
+                foreach (SqlParameter sqlParameter in objParams)
+                {
+                    errorMessage.Append($"- {sqlParameter.ParameterName} {sqlParameter.DbType}: {sqlParameter.Value}\n");
+                }
+                new LogHelper().Log(errorMessage.ToString(), LogType.Error);
+                return -1;
             }
         }
 
@@ -153,10 +161,11 @@ namespace BitServicesDesktopApp.Models
                 int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
                 return rowsAffected;
             }
-            catch
+            catch (Exception ex)
             {
                 StringBuilder errorMessage = new StringBuilder();
                 errorMessage.Append("Delete Availability caused previous error:\n" +
+                                    "Exception: " + ex.Message + "\n" +
                                     "SqlParameters:\n");
                 foreach (SqlParameter sqlParameter in objParams)
                 {
