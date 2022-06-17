@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using BitServicesDesktopApp.Views;
 
 namespace BitServicesDesktopApp.Helpers
@@ -34,14 +35,16 @@ namespace BitServicesDesktopApp.Helpers
             {
                 case LogType.Info:
                     MainWindow.Logger.Info(message);
+                    MessageBox.Show("Logging info");
                     break;
                 case LogType.Debug:
                     MainWindow.Logger.Debug(message);
+                    MessageBox.Show("Logging debug");
                     break;
                 case LogType.Error:
                     MainWindow.Logger.Error(message);
+                    MessageBox.Show("Logging error");
                     break;
-
             }
         }
     }
