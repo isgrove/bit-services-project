@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using BitServicesDesktopApp.DAL;
+using BitServicesDesktopApp.Helpers;
 
 namespace BitServicesDesktopApp.Models
 {

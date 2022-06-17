@@ -1,5 +1,4 @@
-﻿using BitServicesDesktopApp.DAL;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -8,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BitServicesDesktopApp.Models;
 
-namespace BitServicesDesktopApp.DAL
+namespace BitServicesDesktopApp.Helpers
 {
     public class LoginHelper
     {

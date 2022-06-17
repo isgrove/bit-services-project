@@ -5,7 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Text;
 using System.Windows.Forms;
-using BitServicesDesktopApp.DAL;
+using BitServicesDesktopApp.Helpers;
 
 namespace BitServicesDesktopApp.Models
 {

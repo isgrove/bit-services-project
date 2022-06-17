@@ -78,15 +78,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="DAL\LogHelper.cs" />
-    <Compile Include="DAL\SQLHelper.cs" />
+    <Compile Include="Helpers\LogHelper.cs" />
+    <Compile Include="Helpers\SQLHelper.cs" />
     <Compile Include="Models\Availabilities.cs" />
     <Compile Include="Models\Availability.cs" />
     <Compile Include="Models\Job.cs" />
     <Compile Include="Models\Jobs.cs" />
     <Compile Include="Models\JobStatus.cs" />
     <Compile Include="Models\JobStatuses.cs" />
-    <Compile Include="DAL\LoginHelper.cs" />
+    <Compile Include="Helpers\LoginHelper.cs" />
     <Compile Include="Models\StaffType.cs" />
     <Compile Include="Models\StaffTypes.cs" />
     <Compile Include="ViewModels\AddClientLocationViewModel.cs" />

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BitServicesDesktopApp.Views;
 
-namespace BitServicesDesktopApp.DAL
+namespace BitServicesDesktopApp.Helpers
 {
     public enum LogType
     {

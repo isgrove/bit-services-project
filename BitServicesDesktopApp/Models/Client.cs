@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text;
-using BitServicesDesktopApp.DAL;
+using BitServicesDesktopApp.Helpers;
 using BitServicesDesktopApp.Views;
 
 namespace BitServicesDesktopApp.Models
