@@ -13,23 +13,12 @@ namespace BitServicesDesktopApp.Models
     {
         public Availabilities()
         {
-            DataTable availabilityTable;
             SQLHelper helper = new SQLHelper();
             string sql = "SELECT availability_date, contractor_id" +
                 " FROM contractor_availability" +
                 " WHERE availability_date >= CONVERT(char(10), GetDate(),126)";
-            try
-            {
-                availabilityTable = helper.ExecuteSQL(sql);
-            }
-            catch (Exception ex)
-            {
-                StringBuilder errorMessage = new StringBuilder();
-                errorMessage.Append("Availabilities() caused previous error.\n" +
-                                    "Exception: " + ex.Message + "\n");
-                new LogHelper().Log(errorMessage.ToString(), LogType.Error);
-                return;
-            }
+
+            DataTable availabilityTable = helper.ExecuteSQL(sql);
             foreach (DataRow dr in availabilityTable.Rows)
             {
                 Availability newAvailability = new Availability(dr);
@@ -38,7 +27,6 @@ namespace BitServicesDesktopApp.Models
         }
         public Availabilities(int contractorId)
         {
-            DataTable availabilityTable;
             SQLHelper db = new SQLHelper();
             string sql = "SELECT availability_date, contractor_id" +
                 " FROM contractor_availability" +
@@ -47,28 +35,14 @@ namespace BitServicesDesktopApp.Models
             SqlParameter[] objParams = new SqlParameter[1];
             objParams[0] = new SqlParameter("@ContractorId", DbType.Int32);
             objParams[0].Value = contractorId;
-            try
+
+            DataTable availabilityTable = db.ExecuteSQL(sql, objParams);
+            foreach (DataRow dr in availabilityTable.Rows)
             {
-                availabilityTable = db.ExecuteSQL(sql, objParams);
-                foreach (DataRow dr in availabilityTable.Rows)
-                {
-                    Availability newAvailability = new Availability(dr);
-                    this.Add(newAvailability);
-                }
+                Availability newAvailability = new Availability(dr);
+                this.Add(newAvailability);
             }
-            catch (Exception ex)
-            {
-                StringBuilder errorMessage = new StringBuilder();
-                errorMessage.Append("Availabilities(contractorId) caused previous error:\n" +
-                                    "Exception: " + ex.Message + "\n" +
-                                    "SqlParameters:\n");
-                foreach (SqlParameter sqlParameter in objParams)
-                {
-                    errorMessage.Append($"- {sqlParameter.ParameterName} {sqlParameter.DbType}: {sqlParameter.Value}\n");
-                }
-                new LogHelper().Log(errorMessage.ToString(), LogType.Error);
-                return;
-            }
+
         }
     }
 }

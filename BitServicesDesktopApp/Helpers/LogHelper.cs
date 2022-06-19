@@ -27,7 +27,7 @@ namespace BitServicesDesktopApp.Helpers
             
             using (StreamWriter writer = File.AppendText($@"logs/{date}-{type.ToString().ToLower()}-log.txt"))
             {
-                writer.WriteLine($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.ffff}] [{type}] {message}");
+                writer.WriteLine($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.ffff}] [{type.ToString().ToUpper()}] {message}");
                 writer.Close();
             }
 
@@ -35,15 +35,12 @@ namespace BitServicesDesktopApp.Helpers
             {
                 case LogType.Info:
                     MainWindow.Logger.Info(message);
-                    MessageBox.Show("Logging info");
                     break;
                 case LogType.Debug:
                     MainWindow.Logger.Debug(message);
-                    MessageBox.Show("Logging debug");
                     break;
                 case LogType.Error:
                     MainWindow.Logger.Error(message);
-                    MessageBox.Show("Logging error");
                     break;
             }
         }

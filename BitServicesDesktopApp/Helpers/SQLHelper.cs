@@ -44,15 +44,18 @@ namespace BitServicesDesktopApp.Helpers
             catch (SqlException ex)
             {
                 StringBuilder errorMessages = new StringBuilder();
+                errorMessages.Append("ExecuteSQL:\n");
                 for (int i = 0; i < ex.Errors.Count; i++)
                 {
-                    errorMessages.Append("Index #" + i + "\n" +
-                                         "Message: " + ex.Errors[i].Message + "\n" +
-                                         "LineNumber: " + ex.Errors[i].LineNumber + "\n" +
-                                         "Source: " + ex.Errors[i].Source + "\n" +
-                                         "Procedure: " + ex.Errors[i].Procedure + "\n");
+                    errorMessages.Append("\tIndex #" + i + "\n" +
+                                         "\tMessage: " + ex.Errors[i].Message + "\n" +
+                                         "\tLineNumber: " + ex.Errors[i].LineNumber + "\n" +
+                                         "\tSource: " + ex.Errors[i].Source + "\n" +
+                                         "\tProcedure: " + ex.Errors[i].Procedure + "\n");
                 }
+                errorMessages.Append("\tStackTrace:\n" + ex.StackTrace.Replace("\n", "\n\t") + "\n");
                 new LogHelper().Log(errorMessages.ToString(), LogType.Error);
+                throw;
                 throw;
             }
             return dataTable;
@@ -89,14 +92,16 @@ namespace BitServicesDesktopApp.Helpers
             catch (SqlException ex)
             {
                 StringBuilder errorMessages = new StringBuilder();
+                errorMessages.Append("ExecuteNonQuery:\n");
                 for (int i = 0; i < ex.Errors.Count; i++)
                 {
-                    errorMessages.Append("Index #" + i + "\n" +
-                                         "Message: " + ex.Errors[i].Message + "\n" +
-                                         "LineNumber: " + ex.Errors[i].LineNumber + "\n" +
-                                         "Source: " + ex.Errors[i].Source + "\n" +
-                                         "Procedure: " + ex.Errors[i].Procedure + "\n");
+                    errorMessages.Append("\tIndex #" + i + "\n" +
+                                         "\tMessage: " + ex.Errors[i].Message + "\n" +
+                                         "\tLineNumber: " + ex.Errors[i].LineNumber + "\n" +
+                                         "\tSource: " + ex.Errors[i].Source + "\n" +
+                                         "\tProcedure: " + ex.Errors[i].Procedure + "\n");
                 }
+                errorMessages.Append("\tStackTrace:\n" + ex.StackTrace.Replace("\n", "\n\t") + "\n");
                 new LogHelper().Log(errorMessages.ToString(), LogType.Error);
                 throw;
             }
