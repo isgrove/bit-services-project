@@ -14,8 +14,8 @@ namespace BitServicesDesktopApp.Models
 {
     public class Job : INotifyPropertyChanged, IDataErrorInfo
     {
+        #region Private Properties
         private int _jobId;
-        // Aggregation relationship
         private Contractor _assignedContractor;
         private Client _client;
         private ClientLocation _location;
@@ -27,7 +27,18 @@ namespace BitServicesDesktopApp.Models
         private DateTime _deadlineDate;
         private DateTime _completionDate;
         private SQLHelper _db;
+        #endregion
+
         public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string prop)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            }
+        }
+
+        #region Validation
         public Dictionary<string, string> ErrorCollection { get; private set; } = new Dictionary<string, string>();
         public string Error { get { return null; } }
         public string this[string propertyName]
@@ -58,9 +69,9 @@ namespace BitServicesDesktopApp.Models
                         {
                             result = "Job description cannot be left empty";
                         }
-                        else if (this.Title.Length > 100)
+                        else if (this.Title.Length > 1000)
                         {
-                            result = "Job description cannot be more than 100 characters";
+                            result = "Job description cannot be more than 1000 characters";
                         }
                         break;
                     case "Client":
@@ -84,25 +95,24 @@ namespace BitServicesDesktopApp.Models
                     case "RequiredSkill":
                         if (string.IsNullOrEmpty(this.RequiredSkill))
                         {
-                            result = "Required Skill cannot be left empty";
+                            result = "Required skill cannot be left empty";
                         }
                         break;
                 }
-                if (result != null && !ErrorCollection.ContainsKey(propertyName))
+                if (result != null)
                 {
                     ErrorCollection[propertyName] = result;
-                    OnPropertyChanged("ErrorCollection");
                 }
+                else if (ErrorCollection.ContainsKey(propertyName))
+                {
+                    ErrorCollection.Remove(propertyName);
+                }
+
+                OnPropertyChanged("ErrorCollection");
                 return result;
             }
-        }        
-        private void OnPropertyChanged(string prop)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-            }
         }
+        #endregion
 
         #region Public properties
         public int JobId
@@ -215,6 +225,8 @@ namespace BitServicesDesktopApp.Models
             }
         }
         #endregion
+
+        #region Constructors
         public Job()
         {
             _db = new SQLHelper();
@@ -229,7 +241,7 @@ namespace BitServicesDesktopApp.Models
             this.Description = dr["Description"].ToString();
             this.Kilometers = Convert.ToInt32(dr["kilometers"].ToString());
             this.DeadlineDate = Convert.ToDateTime(dr["Deadline Date"].ToString());
-            
+
             this.Location = new ClientLocation(Convert.ToInt32(dr["location_id"]));
             this.Client = new Client(Convert.ToInt32(dr["location_id"]));
 
@@ -248,9 +260,12 @@ namespace BitServicesDesktopApp.Models
                 this.CompletionDate = dt;
             }
         }
-        public int InsertJob()
+        #endregion
+
+        #region Public Methods
+        public int Create()
         {
-            if (this.Error != null)
+            if (this.ErrorCollection.Count > 0)
             {
                 return -1;
             }
@@ -287,9 +302,9 @@ namespace BitServicesDesktopApp.Models
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
             return rowsAffected;
         }
-        public int InsertJob(int staffId)
+        public int Create(int staffId)
         {
-            if (this.Error != null)
+            if (this.ErrorCollection.Count > 0)
             {
                 return -1;
             }
@@ -334,12 +349,8 @@ namespace BitServicesDesktopApp.Models
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
             return rowsAffected;
         }
-        public int DeleteJob()
+        public int Delete()
         {
-            if (this.Error != null)
-            {
-                return -1;
-            }
             string sql = "UPDATE job" +
                          " SET job_status = 'Canceled'" +
                          " WHERE job_id = @JobId";
@@ -351,9 +362,9 @@ namespace BitServicesDesktopApp.Models
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
             return rowsAffected;
         }
-        public int UpdateJob()
+        public int Update()
         {
-            if (this.Error != null)
+            if (this.ErrorCollection.Count > 0)
             {
                 return -1;
             }
@@ -399,10 +410,6 @@ namespace BitServicesDesktopApp.Models
         }
         public int AssignContractor(int contractorId, int staffId)
         {
-            if (this.Error != null)
-            {
-                return -1;
-            }
             string sql = "usp_AssignContractor";
             SqlParameter[] objParams = new SqlParameter[3];
             objParams[0] = new SqlParameter("@JobId", DbType.Int32)
@@ -419,6 +426,7 @@ namespace BitServicesDesktopApp.Models
             };
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
             return rowsAffected;
-        }        
+        }
+        #endregion
     }
 }

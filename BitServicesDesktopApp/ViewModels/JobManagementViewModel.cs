@@ -69,7 +69,7 @@ namespace BitServicesDesktopApp.ViewModels
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 string message;
-                int rowsAffected = SelectedJob.DeleteJob();
+                int rowsAffected = SelectedJob.Delete();
                 if (rowsAffected >= 1)
                 {
                     message = $"You have successfully deleted this job for {SelectedJob.Client.Name} {SelectedJob.Location.Suburb}!";
@@ -98,7 +98,7 @@ namespace BitServicesDesktopApp.ViewModels
                 }
                 else
                 {
-                    rowsAffected = SelectedJob.UpdateJob();
+                    rowsAffected = SelectedJob.Update();
                 }
                 if (rowsAffected >= 1)
                 {
