@@ -124,7 +124,7 @@ namespace BitServicesDesktopApp.Models
 
         #region Public Methods
 
-        public int AddAvailability()
+        public int Create()
         {
             if (this.ErrorCollection.Count > 0)
             {
@@ -149,12 +149,8 @@ namespace BitServicesDesktopApp.Models
             return rowsAffected;
         }
 
-        public int DeleteAvailability()
+        public int Delete()
         {
-            if (this.ErrorCollection.Count > 0)
-            {
-                return -1;
-            }
             _db = new SQLHelper();
             string sql = "usp_DeleteContractorAvailability";
             SqlParameter[] objParams = new SqlParameter[2];
