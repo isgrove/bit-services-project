@@ -30,7 +30,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
-        <TextBlock Text="Add A New Job" FontSize="28px"
+        <TextBlock Text="Create A New Job" FontSize="28px"
                        FontWeight="bold" Margin="0,0,0,0" Grid.ColumnSpan="3"/>
         <Label Content="Client: " Grid.Row="1" Grid.Column="0"/>
         <ComboBox x:Name="cmbClient" ItemsSource="{Binding Clients, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
