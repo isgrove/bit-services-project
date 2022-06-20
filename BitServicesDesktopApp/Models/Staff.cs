@@ -10,6 +10,7 @@ namespace BitServicesDesktopApp.Models
 {
     public class Staff : INotifyPropertyChanged, IDataErrorInfo
     {
+        #region Private Properties
         private int _staffId;
         private string _staffType;
         private string _firstName;
@@ -19,7 +20,18 @@ namespace BitServicesDesktopApp.Models
         private string _password;
         private bool _active;
         private SQLHelper _db;
+        #endregion
+
         public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string prop)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            }
+        }
+
+        #region Validation
         public Dictionary<string, string> ErrorCollection { get; private set; } = new Dictionary<string, string>();
         public string Error { get { return null; } }
         public string this[string propertyName]
@@ -71,21 +83,21 @@ namespace BitServicesDesktopApp.Models
                         }
                         break;
                 }
-                if (result != null && !ErrorCollection.ContainsKey(propertyName))
+                if (result != null)
                 {
                     ErrorCollection[propertyName] = result;
-                    OnPropertyChanged("ErrorCollection");
                 }
+                else if (ErrorCollection.ContainsKey(propertyName))
+                {
+                    ErrorCollection.Remove(propertyName);
+                }
+
+                OnPropertyChanged("ErrorCollection");
                 return result;
             }
         }
-        private void OnPropertyChanged(string prop)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-            }
-        }
+        #endregion
+        
         #region Public Properties
         public int StaffId
         {
@@ -160,6 +172,7 @@ namespace BitServicesDesktopApp.Models
             get { return this.FirstName + " " + this.LastName; }
         }
         #endregion
+
         #region Contructors 
         public Staff()
         {
@@ -197,10 +210,16 @@ namespace BitServicesDesktopApp.Models
             this.Active = Convert.ToBoolean(dr["active"]);
         }
         #endregion
-        #region Methods
-        public int InsertStaff()
+
+        private void GeneratePassword()
         {
-            if (this.Error != null)
+            this.Password = "Password";
+        }
+
+        #region Public Methods
+        public int Create()
+        {
+            if (this.ErrorCollection.Count > 0)
             {
                 return -1;
             }
@@ -234,7 +253,7 @@ namespace BitServicesDesktopApp.Models
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
             return rowsAffected;
         }
-        public int DeleteStaff()
+        public int Delete()
         {
             string sql = "usp_DeleteStaff";
             SqlParameter[] objParams = new SqlParameter[1];
@@ -245,14 +264,9 @@ namespace BitServicesDesktopApp.Models
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
             return rowsAffected;
         }
-        private void GeneratePassword()
+        public int Update()
         {
-            this.Password = "Password";
-        }
-
-        public int UpdateStaff()
-        {
-            if (this.Error != null)
+            if (this.ErrorCollection.Count > 0)
             {
                 return -1;
             }

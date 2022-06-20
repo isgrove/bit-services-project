@@ -50,7 +50,7 @@ namespace BitServicesDesktopApp.ViewModels
         public void AddMethod()
         {
             string message;
-            int rowsAffected = NewStaff.InsertStaff();
+            int rowsAffected = NewStaff.Create();
             string staffName = NewStaff.FullName;
             if (rowsAffected >= 1)
             {

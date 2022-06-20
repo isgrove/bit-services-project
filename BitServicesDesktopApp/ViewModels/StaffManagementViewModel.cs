@@ -80,7 +80,7 @@ namespace BitServicesDesktopApp.ViewModels
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 string message;
-                int rowsAffected = SelectedStaff.DeleteStaff();
+                int rowsAffected = SelectedStaff.Delete();
                 if (rowsAffected >= 1)
                 {
                     message = $"You have successfully deleted {StaffName}!";
@@ -108,7 +108,7 @@ namespace BitServicesDesktopApp.ViewModels
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 string message;
-                int rowsAffected = SelectedStaff.UpdateStaff();
+                int rowsAffected = SelectedStaff.Update();
                 if (rowsAffected >= 1)
                 {
                     message = $"You have successfully saved {StaffName}!";
