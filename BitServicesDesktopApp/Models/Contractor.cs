@@ -377,7 +377,7 @@ namespace BitServicesDesktopApp.Models
         }
 
         #region Public Methods
-        public int InsertContractor(ObservableCollection<Skill> skills)
+        public int Create(ObservableCollection<Skill> skills)
         {
             if (this.ErrorCollection.Count > 0)
             {
@@ -451,7 +451,7 @@ namespace BitServicesDesktopApp.Models
             return rowsAffected;
         }
 
-        public int DeleteContractor()
+        public int Delete()
         {
             _db = new SQLHelper();
             string sql = "usp_DeleteContractor";
@@ -464,7 +464,7 @@ namespace BitServicesDesktopApp.Models
             return rowsAffected;
         }
 
-        public int UpdateContractor()
+        public int Update()
         {
             if (this.ErrorCollection.Count > 0)
             {
