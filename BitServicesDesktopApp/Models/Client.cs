@@ -11,6 +11,7 @@ namespace BitServicesDesktopApp.Models
 {
     public class Client : INotifyPropertyChanged, IDataErrorInfo
     {
+        #region Private Properties
         private int _clientId;
         private string _name;
         private string _email;
@@ -19,7 +20,18 @@ namespace BitServicesDesktopApp.Models
         private bool _active;
         private SQLHelper _db;
         private LogHelper _log;
+        #endregion
+
         public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string prop)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            }
+        }
+
+        #region Validation
         public Dictionary<string, string> ErrorCollection { get; private set; } = new Dictionary<string, string>();
         public string Error { get { return null; } }
         public string this[string propertyName]
@@ -61,21 +73,22 @@ namespace BitServicesDesktopApp.Models
                         }
                         break;
                 }
-                if (result != null && !ErrorCollection.ContainsKey(propertyName))
+                if (result != null)
                 {
                     ErrorCollection[propertyName] = result;
-                    OnPropertyChanged("ErrorCollection");
                 }
+                else if (ErrorCollection.ContainsKey(propertyName))
+                {
+                    ErrorCollection.Remove(propertyName);
+                }
+
+                OnPropertyChanged("ErrorCollection");
                 return result;
             }
         }
-        private void OnPropertyChanged(string prop)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-            }
-        }
+        #endregion
+
+        #region Public Properties
         public int ClientId
         {
             get { return _clientId; }
@@ -126,6 +139,9 @@ namespace BitServicesDesktopApp.Models
                 OnPropertyChanged("Active");
             }
         }
+        #endregion
+
+        #region Constructors
         public Client()
         {
             this._db = new SQLHelper();
@@ -160,9 +176,20 @@ namespace BitServicesDesktopApp.Models
             this.Phone = dr["phone"].ToString();
             this.Active = Convert.ToBoolean(dr["active"]);
         }
+        #endregion
 
-        public int InsertClient()
+        private void GeneratePassword()
         {
+            this.Password = "Password";
+        }
+
+        #region Public Methods
+        public int Create()
+        {
+            if (this.ErrorCollection.Count > 0)
+            {
+                return -1;
+            }
             GeneratePassword();
             string sql = "INSERT INTO client (client_name, email, phone, password, active)" +
                          " VALUES(@Name, @Email, @Phone, @Password, 1)";
@@ -184,7 +211,7 @@ namespace BitServicesDesktopApp.Models
                 Value = this.Password
             };
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
-            
+
             if (rowsAffected > 0)
             {
                 this._log.Log($"Client {this.Name} was successfully added by {MainWindow.LoggedInStaff.FullName} ({MainWindow.LoggedInStaff.StaffId}).", LogType.Info);
@@ -195,7 +222,7 @@ namespace BitServicesDesktopApp.Models
             }
             return rowsAffected;
         }
-        public int DeleteClient()
+        public int Delete()
         {
             string sql = "UPDATE client" +
                          " SET active = 0" +
@@ -206,7 +233,7 @@ namespace BitServicesDesktopApp.Models
                 Value = this.ClientId
             };
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
-            
+
             if (rowsAffected > 0)
             {
                 this._log.Log($"Client {this.Name} ({this.ClientId}) was deleted by {MainWindow.LoggedInStaff.FullName} ({MainWindow.LoggedInStaff.StaffId}).", LogType.Info);
@@ -217,13 +244,13 @@ namespace BitServicesDesktopApp.Models
             }
             return rowsAffected;
         }
-        private void GeneratePassword()
-        {
-            this.Password = "Password";
-        }
 
-        public int UpdateClient()
+        public int Update()
         {
+            if (this.ErrorCollection.Count > 0)
+            {
+                return -1;
+            }
             string sql = "UPDATE client" +
                          " SET client_name = @Name, email = @Email, phone = @Phone" +
                          " WHERE client_id = @ClientId";
@@ -245,7 +272,7 @@ namespace BitServicesDesktopApp.Models
                 Value = this.ClientId
             };
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
-            
+
             if (rowsAffected > 0)
             {
                 this._log.Log($"Client {this.Name} ({this.ClientId}) was successfully updated by {MainWindow.LoggedInStaff.FullName} ({MainWindow.LoggedInStaff.StaffId}).", LogType.Info);
@@ -256,5 +283,6 @@ namespace BitServicesDesktopApp.Models
             }
             return rowsAffected;
         }
+        #endregion
     }
 }

@@ -51,7 +51,7 @@ namespace BitServicesDesktopApp.ViewModels
         public void AddMethod()
         {
             string message;
-            int rowsAffected = NewClient.InsertClient();
+            int rowsAffected = NewClient.Create();
             if (rowsAffected >= 1)
             {
                 message = "You have successfully added " + NewClient.Name + "!";

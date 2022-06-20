@@ -102,7 +102,7 @@ namespace BitServicesDesktopApp.ViewModels
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 string message;
-                int rowsAffected = SelectedClient.DeleteClient();
+                int rowsAffected = SelectedClient.Delete();
                 if (rowsAffected >= 1)
                 {
                     message = "You have successfully deleted " + SelectedClient.Name + "!";
@@ -122,7 +122,7 @@ namespace BitServicesDesktopApp.ViewModels
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 string message;
-                int rowsAffected = SelectedClient.UpdateClient();
+                int rowsAffected = SelectedClient.Update();
                 if (rowsAffected >= 1)
                 {
                     message = "You have successfully saved " + SelectedClient.Name + "!";
