@@ -13,7 +13,17 @@ namespace BitServicesDesktopApp.Models
     {
         private string _skillName;
         private SQLHelper _db;
+        
         public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string prop)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            }
+        }
+
+        #region Validation
         public Dictionary<string, string> ErrorCollection { get; private set; } = new Dictionary<string, string>();
         public string Error { get { return null; } }
         public string this[string propertyName]
@@ -34,21 +44,21 @@ namespace BitServicesDesktopApp.Models
                         }
                         break;
                 }
-                if (result != null && !ErrorCollection.ContainsKey(propertyName))
+                if (result != null)
                 {
-                    ErrorCollection.Add(propertyName, result);
-                    OnPropertyChanged("ErrorCollection");
+                    ErrorCollection[propertyName] = result;
                 }
+                else if (ErrorCollection.ContainsKey(propertyName))
+                {
+                    ErrorCollection.Remove(propertyName);
+                }
+
+                OnPropertyChanged("ErrorCollection");
                 return result;
             }
         }
-        private void OnPropertyChanged(string prop)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-            }
-        }
+        #endregion
+        
         public string SkillName
         {
             get { return _skillName; }
@@ -58,17 +68,19 @@ namespace BitServicesDesktopApp.Models
                 OnPropertyChanged("SkillName");
             }
         }
+
         public Skill()
         {
             _db = new SQLHelper();
         }
+
         public Skill(DataRow dr)
         {
             _db = new SQLHelper();
             this.SkillName = dr["skill_name"].ToString();
         }
 
-        public int InsertSkill()
+        public int Create()
         {
             if (this.ErrorCollection.Count > 0)
             {
