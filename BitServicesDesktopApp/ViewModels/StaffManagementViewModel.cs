@@ -11,6 +11,7 @@ namespace BitServicesDesktopApp.ViewModels
 {
     public class StaffManagementViewModel : INotifyPropertyChanged
     {
+        #region Private Properties
         private ObservableCollection<Staff> _staffs;
         private ObservableCollection<StaffType> _staffTypes;
         private Staff _selectedStaff;
@@ -18,8 +19,9 @@ namespace BitServicesDesktopApp.ViewModels
         private RelayCommand _saveCommand;
         private RelayCommand _searchCommand;
         private string _searchText;
-        public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
 
+        public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string prop)
         {
             if (PropertyChanged != null)
@@ -27,6 +29,7 @@ namespace BitServicesDesktopApp.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
             }
         }
+
         #region Commands
         public RelayCommand DeleteCommand
         {
@@ -65,62 +68,106 @@ namespace BitServicesDesktopApp.ViewModels
             set { _searchCommand = value; }
         }
         #endregion
+
         #region Command Methods
         public void DeleteMethod()
         {
+            string caption = "Delete Coordinator";
+            if (SelectedStaff == null)
+            {
+                MessageBox.Show(
+                    "You must select a coordinator to delete!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Warning
+                    );
+                return;
+            }
             if (SelectedStaff.StaffType == "Admin")
             {
                 MessageBox.Show(
-                    "You can only delete the details of coordinators! Please contact the database admin if you would like to delete a staff admin.", "Cannot Delete Admin");
+                    "You can only delete the details of coordinators! Please contact the database admin if you would like to delete a staff admin.",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Warning
+                    );
                 return;
             }
-            string StaffName = SelectedStaff.FullName;
-            MessageBoxResult messageBoxResult = MessageBox.Show($"Are you sure that you want to delete {StaffName}?",
-                $"Delete {StaffName}", MessageBoxButton.YesNo);
+            MessageBoxResult messageBoxResult = MessageBox.Show(
+                $"Are you sure that you want to delete {SelectedStaff.FullName}?",
+                caption, MessageBoxButton.YesNo, MessageBoxImage.Information
+            );
+
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                string message;
-                int rowsAffected = SelectedStaff.Delete();
-                if (rowsAffected >= 1)
+                int rowsAffected;
+                try
                 {
-                    message = $"You have successfully deleted {StaffName}!";
+                    rowsAffected = SelectedStaff.Delete();
+                }
+                catch
+                {
+                    rowsAffected = -1;
                 }
 
+                if (rowsAffected >= 1)
+                {
+                    MessageBox.Show(
+                        $"You have successfully deleted {SelectedStaff.FullName}!",
+                        caption, MessageBoxButton.OK, MessageBoxImage.Information
+                        );
+                    UpdateStaff();
+                }
                 else
                 {
-                    message = $"There was an issue when deleting {StaffName}, please try again!";
+                    MessageBox.Show(
+                        $"There was an issue when deleting {SelectedStaff.FullName}, please try again!",
+                        caption, MessageBoxButton.OK, MessageBoxImage.Error
+                        );
                 }
-                MessageBox.Show(message, $"Delete {StaffName}");
-                UpdateStaff();
             }
         }
         public void SaveMethod()
         {
-            if (SelectedStaff == null) return;
+            string caption = "Save Coordinator";
+            if (SelectedStaff == null)
+            {
+                MessageBox.Show(
+                    "You must select a coordinator to save!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Warning
+                    );
+                return;
+            }
             if (SelectedStaff.StaffType == "Admin")
             {
                 MessageBox.Show(
-                    "You can only update the details of coordinators! Please contact the database admin if you would like to make changes to a staff admin.", "Cannot Update Admin");
+                    "You can only update the details of coordinators! Please contact the database admin if you would like to make changes to a staff admin.",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Warning
+                    );
                 return;
             }
-            string StaffName = SelectedStaff.FullName;
-            MessageBoxResult messageBoxResult = MessageBox.Show($"Are you sure that you would like to update {StaffName}?", $"Update {StaffName}", MessageBoxButton.YesNo);
-            if (messageBoxResult == MessageBoxResult.Yes)
+
+            int rowsAffected;
+            try
             {
-                string message;
-                int rowsAffected = SelectedStaff.Update();
-                if (rowsAffected >= 1)
-                {
-                    message = $"You have successfully saved {StaffName}!";
-                }
-                else
-                {
-                    message = $"There was an issue when saving {StaffName}, please try again!";
-                }
-                MessageBox.Show(message, $"Update {StaffName}");
-                UpdateStaff();
+                rowsAffected = SelectedStaff.Update();
+            }
+            catch
+            {
+                rowsAffected = -1;
             }
 
+            if (rowsAffected >= 1)
+            {
+                MessageBox.Show(
+                    $"You have successfully saved {SelectedStaff.FullName}!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Information
+                );
+                UpdateStaff();
+            }
+            else
+            {
+                MessageBox.Show(
+                    $"There was an issue when saving {SelectedStaff.FullName}, please try again!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Error
+                );
+            }
         }
         public void SearchMethod()
         {
@@ -128,6 +175,7 @@ namespace BitServicesDesktopApp.ViewModels
             this.Staffs = new ObservableCollection<Staff>(allStaff);
         }
         #endregion
+
         #region Public Properties
         public ObservableCollection<Staff> Staffs
         {
@@ -166,6 +214,7 @@ namespace BitServicesDesktopApp.ViewModels
             }
         }
         #endregion
+        
         private void UpdateStaff()
         {
             Staffs allStaff = new Staffs();
@@ -187,6 +236,6 @@ namespace BitServicesDesktopApp.ViewModels
                 new Staff(3),
             };
             return new ObservableCollection<Staff>(allStaff);
-        }        
+        }
     }
 }
