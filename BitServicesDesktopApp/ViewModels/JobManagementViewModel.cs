@@ -13,6 +13,7 @@ namespace BitServicesDesktopApp.ViewModels
 {
     public class JobManagementViewModel : INotifyPropertyChanged
     {
+        #region Private Variables
         private ObservableCollection<Job> _jobs;
         private ObservableCollection<Job> _inProgressJobs;
         private ObservableCollection<Job> _verifiedJobs;
@@ -26,8 +27,10 @@ namespace BitServicesDesktopApp.ViewModels
         private RelayCommand _deleteCommand;
         private RelayCommand _saveCommand;
         private bool _isRejectedTabSelected;
-        public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
         
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private void OnPropertyChanged(string prop)
         {
             if (PropertyChanged != null)
@@ -62,57 +65,116 @@ namespace BitServicesDesktopApp.ViewModels
             set { _saveCommand = value; }
         }
         #endregion Commands
+
         #region Command Methods
         public void DeleteMethod()
         {
-            MessageBoxResult messageBoxResult = MessageBox.Show($"Are you sure that you want to delete this job for {SelectedJob.Client.Name} {SelectedJob.Location.Suburb}?", $"Delete Job", MessageBoxButton.YesNo);
+            string caption = "Delete Job";
+            if (SelectedJob == null)
+            {
+                MessageBox.Show(
+                    "You must select a job to delete!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Warning
+                );
+                return;
+            }
+
+            if (SelectedJob.JobStatus == "Canceled")
+            {
+                MessageBox.Show(
+                    "This job has already been deleted!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Warning
+                );
+                return;
+            }
+            MessageBoxResult messageBoxResult = MessageBox.Show(
+                $"Are you sure that you want to delete this job for {SelectedJob.Client.Name} {SelectedJob.Location.Suburb}?",
+                caption, MessageBoxButton.YesNo, MessageBoxImage.Information
+            );
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                string message;
-                int rowsAffected = SelectedJob.Delete();
+                int rowsAffected;
+                try
+                {
+                    rowsAffected = SelectedJob.Delete();
+                }
+                catch
+                {
+                    rowsAffected = -1;
+                }
+
                 if (rowsAffected >= 1)
                 {
-                    message = $"You have successfully deleted this job for {SelectedJob.Client.Name} {SelectedJob.Location.Suburb}!";
+                    MessageBox.Show(
+                        $"You have successfully deleted this job for {SelectedJob.Client.Name} {SelectedJob.Location.Suburb}!!",
+                        caption, MessageBoxButton.OK, MessageBoxImage.Information
+                    );
+                    UpdateJobs();
                 }
                 else
                 {
-                    message = $"There was an issue when deleting this job for {SelectedJob.Client.Name} {SelectedJob.Location.Suburb}, please try again!";
+                    MessageBox.Show(
+                        $"There was an issue when deleting this job for {SelectedJob.Client.Name} {SelectedJob.Location.Suburb}, please try again!",
+                        caption, MessageBoxButton.OK, MessageBoxImage.Error
+                    );
                 }
-                UpdateJobs();
-                MessageBox.Show(message, $"Delete Job");
             }
-
         }
         public void SaveMethod()
         {
-            MessageBoxResult messageBoxResult = MessageBox.Show($"Are you sure that you want to update this job for {SelectedJob.Client.Name} {SelectedJob.Location.Suburb}?", $"Update Job", MessageBoxButton.YesNo);
+            string caption = "Save Job";
+            if (SelectedJob == null)
+            {
+                MessageBox.Show(
+                    "You must select a job to save!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Warning
+                );
+                return;
+            }
+            MessageBoxResult messageBoxResult = MessageBox.Show(
+                $"Are you sure that you want to update this job for {SelectedJob.Client.Name} {SelectedJob.Location.Suburb}?",
+                caption, MessageBoxButton.YesNo, MessageBoxImage.Information
+                );
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                string message;
                 int rowsAffected;
-                if (IsRejectedTabSelected)
+                try
                 {
-                    int contractorId = SelectedJob.AssignedContractor.ContractorId;
-                    int staffId = MainWindow.LoggedInStaff.StaffId;
-                    rowsAffected = SelectedJob.AssignContractor(contractorId, staffId);
+                    if (IsRejectedTabSelected)
+                    {
+                        int contractorId = SelectedJob.AssignedContractor.ContractorId;
+                        int staffId = MainWindow.LoggedInStaff.StaffId;
+
+                        rowsAffected = SelectedJob.AssignContractor(contractorId, staffId);
+                    }
+                    else
+                    {
+                        rowsAffected = SelectedJob.Update();
+                    }
                 }
-                else
+                catch
                 {
-                    rowsAffected = SelectedJob.Update();
+                    rowsAffected = -1;
                 }
                 if (rowsAffected >= 1)
                 {
-                    message = $"You have successfully saved this job for {SelectedJob.Client.Name} {SelectedJob.Location.Suburb}!";
+                    MessageBox.Show(
+                        $"You have successfully saved this job for {SelectedJob.Client.Name} {SelectedJob.Location.Suburb}!",
+                        caption, MessageBoxButton.OK, MessageBoxImage.Information
+                    );
+                    UpdateJobs();
                 }
                 else
                 {
-                    message = $"There was an issue when saving this job for {SelectedJob.Client.Name} {SelectedJob.Location.Suburb}, please try again!";
+                    MessageBox.Show(
+                        $"There was an issue when saving this job for {SelectedJob.Client.Name} {SelectedJob.Location.Suburb}, please try again!",
+                        caption, MessageBoxButton.OK, MessageBoxImage.Error
+                    );
                 }
-                MessageBox.Show(message, $"Update Job");
             }
-
         }
         #endregion Command Methods
+
         #region Public Properties
         public ObservableCollection<Job> Jobs
         {
@@ -223,6 +285,7 @@ namespace BitServicesDesktopApp.ViewModels
             }
         }
         #endregion Public Properties
+
         public void UpdateJobs()
         {
             Jobs allJobs = new Jobs();
@@ -246,6 +309,7 @@ namespace BitServicesDesktopApp.ViewModels
             Jobs allRejectedJobs = new Jobs("Rejected");
             this.RejectedJobs = new ObservableCollection<Job>(allRejectedJobs);
         }
+        
         public JobManagementViewModel()
         {
             UpdateJobs();
