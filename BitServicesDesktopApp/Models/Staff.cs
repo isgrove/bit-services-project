@@ -173,7 +173,7 @@ namespace BitServicesDesktopApp.Models
         }
         #endregion
 
-        #region Contructors 
+        #region Constructors 
         public Staff()
         {
             _db = new SQLHelper();
