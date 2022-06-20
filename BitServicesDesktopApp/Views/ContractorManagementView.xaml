@@ -59,7 +59,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <TabControl Grid.Row="2">
-            <TabItem Header="Details">
+            <TabItem Header="Contractor Management">
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
@@ -141,7 +141,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Availability" IsSelected="{Binding IsAvailabilityTabSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <TabItem Header="Availability Management" IsSelected="{Binding IsAvailabilityTabSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <Grid Margin="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
