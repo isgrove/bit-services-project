@@ -11,6 +11,7 @@ namespace BitServicesDesktopApp.Models
 {
     public class ClientLocation : INotifyPropertyChanged, IDataErrorInfo
     {
+        #region Private Properties
         private int _locationId;
         private int _clientId;
         private string _clientName;
@@ -22,7 +23,18 @@ namespace BitServicesDesktopApp.Models
         private string _state;
         private bool _active;
         private SQLHelper _db;
+        #endregion
+
         public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string prop)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            }
+        }
+
+        #region Validation
         public Dictionary<string, string> ErrorCollection { get; private set; } = new Dictionary<string, string>();
         public string Error { get { return null; } }
         public string this[string propertyName]
@@ -94,22 +106,22 @@ namespace BitServicesDesktopApp.Models
                         }
                         break;
                 }
-                if (result != null && !ErrorCollection.ContainsKey(propertyName))
+                if (result != null)
                 {
                     ErrorCollection[propertyName] = result;
-                    OnPropertyChanged("ErrorCollection");
                 }
+                else if (ErrorCollection.ContainsKey(propertyName))
+                {
+                    ErrorCollection.Remove(propertyName);
+                }
+
+                OnPropertyChanged("ErrorCollection");
                 return result;
             }
         }
+        #endregion
 
-        private void OnPropertyChanged(string prop)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-            }
-        }
+        #region Public Properties
         public int LocationId
         {
             get { return _locationId; }
@@ -197,6 +209,9 @@ namespace BitServicesDesktopApp.Models
         {
             get { return $"{ClientName} {Suburb}"; }
         }
+        #endregion
+
+        #region Constructor
         public ClientLocation()
         {
             _db = new SQLHelper();
@@ -215,7 +230,6 @@ namespace BitServicesDesktopApp.Models
             this.State = dr["state"].ToString();
             this.Active = Convert.ToBoolean(dr["active"]);
         }
-
         public ClientLocation(int locationId)
         {
             _db = new SQLHelper();
@@ -240,8 +254,16 @@ namespace BitServicesDesktopApp.Models
                 this.Active = Convert.ToBoolean(dr["active"]);
             }
         }
-        public int InsertClientLocation()
+
+        #endregion
+
+        #region Public Methods
+        public int Create()
         {
+            if (this.ErrorCollection.Count > 0)
+            {
+                return -1;
+            }
             string sql = "INSERT INTO client_location (client_id, email, phone, street, suburb, postcode, state, active)" +
                          " VALUES(@ClientId, @Email, @Phone, @Street, @Suburb, @Postcode, @State, 1)";
             SqlParameter[] objParams = new SqlParameter[7];
@@ -276,7 +298,7 @@ namespace BitServicesDesktopApp.Models
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
             return rowsAffected;
         }
-        public int DeleteClientLocation()
+        public int Delete()
         {
             string sql = "UPDATE client_location" +
                          " SET active = 0" +
@@ -290,8 +312,12 @@ namespace BitServicesDesktopApp.Models
             return rowsAffected;
         }
 
-        public int UpdateClientLocation()
+        public int Update()
         {
+            if (this.ErrorCollection.Count > 0)
+            {
+                return -1;
+            }
             string sql = "UPDATE client_location" +
                          " SET client_id = @ClientId, email = @Email, phone = @Phone, street = @Street, suburb = @Suburb, postcode = @Postcode, state = @State" +
                          " WHERE location_id = @LocationId";
@@ -331,5 +357,6 @@ namespace BitServicesDesktopApp.Models
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams);
             return rowsAffected;
         }
+        #endregion
     }
 }

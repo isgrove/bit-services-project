@@ -82,7 +82,7 @@ namespace BitServicesDesktopApp.ViewModels
         {
             string message;
             NewClientLocation.ClientId = SelectedClient.ClientId;
-            int rowsAffected =  NewClientLocation.InsertClientLocation();
+            int rowsAffected =  NewClientLocation.Create();
             if (rowsAffected >= 1)
             {
                 message = $"You have successfully added {SelectedClient.Name} {NewClientLocation.Suburb}!";

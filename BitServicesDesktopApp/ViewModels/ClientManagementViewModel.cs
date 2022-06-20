@@ -141,7 +141,7 @@ namespace BitServicesDesktopApp.ViewModels
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 string message;
-                int rowsAffected = SelectedLocation.DeleteClientLocation();
+                int rowsAffected = SelectedLocation.Delete();
                 if (rowsAffected >= 1)
                 {
                     message = $"You have successfully deleted {SelectedClient.Name} {SelectedLocation.Suburb}!";
@@ -165,7 +165,7 @@ namespace BitServicesDesktopApp.ViewModels
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 string message;
-                int rowsAffected = SelectedLocation.UpdateClientLocation();
+                int rowsAffected = SelectedLocation.Update();
                 if (rowsAffected >= 1)
                 {
                     message = $"You have successfully saved {SelectedClient.Name} {SelectedLocation.Suburb}!";

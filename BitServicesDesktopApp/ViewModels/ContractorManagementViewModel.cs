@@ -239,7 +239,7 @@ namespace BitServicesDesktopApp.ViewModels
         #region Skill Command Methods
         public void AddContractorSkillMethod()
         {
-            string caption = "Add Skill";
+            string caption = "Create Skill";
             if (SelectedContractor == null)
             {
                 MessageBox.Show(
@@ -398,7 +398,7 @@ namespace BitServicesDesktopApp.ViewModels
         #region Availability Command Methods
         public void AddAvailabilityMethod()
         {
-            string caption = "Add Availability";
+            string caption = "Create Availability";
             if (SelectedContractor == null)
             {
                 MessageBox.Show(
