@@ -56,7 +56,6 @@ namespace BitServicesDesktopApp.Helpers
                 errorMessages.Append("\tStackTrace:\n" + ex.StackTrace.Replace("\n", "\n\t") + "\n");
                 new LogHelper().Log(errorMessages.ToString(), LogType.Error);
                 throw;
-                throw;
             }
             return dataTable;
         }
