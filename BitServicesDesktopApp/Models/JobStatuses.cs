@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace BitServicesDesktopApp.Models
 {
+
+    //TODO: Convert SQL into stored procedures
     public class JobStatuses : List<JobStatus>
     {
         public JobStatuses()

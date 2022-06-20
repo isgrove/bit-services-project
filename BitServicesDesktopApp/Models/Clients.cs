@@ -7,6 +7,7 @@ using System.Text;
 
 namespace BitServicesDesktopApp.Models
 {
+    //TODO: Convert SQL into stored procedures
     public class Clients : List<Client>
     {
         public Clients()

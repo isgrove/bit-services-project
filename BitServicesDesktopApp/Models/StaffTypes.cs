@@ -8,6 +8,8 @@ using BitServicesDesktopApp.Helpers;
 
 namespace BitServicesDesktopApp.Models
 {
+
+    //TODO: Convert SQL into stored procedures
     public class StaffTypes : List<StaffType>
     {
         public StaffTypes()
