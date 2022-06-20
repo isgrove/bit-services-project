@@ -256,10 +256,10 @@ namespace BitServicesDesktopApp.ViewModels
                 );
                 return;
             }
-            if (ContractorSkills.Any(skill => skill.SkillName == NewSkill.SkillName))
+            if (ContractorSkills.Any(skill => skill.SkillName == SelectedSkill.SkillName))
             {
                 MessageBox.Show(
-                    $"{SelectedContractor.FullName} already has the {NewSkill.SkillName} skill!",
+                    $"{SelectedContractor.FullName} already has the {SelectedSkill.SkillName} skill!",
                     caption, MessageBoxButton.OK, MessageBoxImage.Warning
                 );
                 return;
