@@ -11,6 +11,7 @@ namespace BitServicesDesktopApp.Models
 {
     public class Contractor : INotifyPropertyChanged, IDataErrorInfo
     {
+        #region Private Properties
         private int _contractorId;
         private string _firstName;
         private string _lastName;
@@ -26,7 +27,18 @@ namespace BitServicesDesktopApp.Models
         private int _performanceRating;
         private bool _active;
         private SQLHelper _db;
+        #endregion
+
         public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string prop)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            }
+        }
+
+        #region Validation
         public Dictionary<string, string> ErrorCollection { get; private set; } = new Dictionary<string, string>();
         public string Error { get { return null; } }
         public string this[string propertyName]
@@ -140,11 +152,7 @@ namespace BitServicesDesktopApp.Models
                         }
                         break;
                     case "PerformanceRating":
-                        if (string.IsNullOrEmpty(this.PerformanceRating.ToString()))
-                        {
-                            result = "Performance Rating cannot be empty";
-                        }
-                        else if (PerformanceRating > 10)
+                        if (PerformanceRating > 10)
                         {
                             result = "Licence Number cannot be more than 10!";
 
@@ -156,22 +164,22 @@ namespace BitServicesDesktopApp.Models
                         }
                         break;
                 }
-                if (result != null && !ErrorCollection.ContainsKey(propertyName))
+                if (result != null)
                 {
                     ErrorCollection[propertyName] = result;
-                    OnPropertyChanged("ErrorCollection");
                 }
+                else if (ErrorCollection.ContainsKey(propertyName))
+                {
+                    ErrorCollection.Remove(propertyName);
+                }
+
+                OnPropertyChanged("ErrorCollection");
                 return result;
             }
         }
+        #endregion
 
-        private void OnPropertyChanged(string prop)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-            }
-        }
+        #region Public Properties
         public int ContractorId
         {
             get { return _contractorId; }
@@ -294,7 +302,6 @@ namespace BitServicesDesktopApp.Models
                 OnPropertyChanged("Active");
             }
         }
-
         public string FullName
         {
             get
@@ -302,10 +309,14 @@ namespace BitServicesDesktopApp.Models
                 return $"{FirstName} {LastName}";
             }
         }
+        #endregion
+
+        #region Constructors
         public Contractor()
         {
             _db = new SQLHelper();
         }
+
         public Contractor(DataRow dr)
         {
             _db = new SQLHelper();
@@ -357,22 +368,25 @@ namespace BitServicesDesktopApp.Models
             this.VehicleRegistration = dr["vehicle_registration"].ToString();
             this.Active = Convert.ToBoolean(dr["active"]);
         }
+
+        #endregion
+
         private void GeneratePassword()
         {
             this.Password = "Password";
         }
 
-
+        #region Public Methods
         public int InsertContractor(ObservableCollection<Skill> skills)
         {
-            if (this.Error != null)
+            if (this.ErrorCollection.Count > 0)
             {
                 return -1;
-            } 
+            }
             this.GeneratePassword();
+
             DataTable skillsTable = new DataTable();
             skillsTable.Columns.Add("skill_name");
-
             foreach (Skill skill in skills)
             {
                 skillsTable.Rows.Add(skill.SkillName);
@@ -452,7 +466,7 @@ namespace BitServicesDesktopApp.Models
 
         public int UpdateContractor()
         {
-            if (this.Error != null)
+            if (this.ErrorCollection.Count > 0)
             {
                 return -1;
             }
@@ -548,5 +562,6 @@ namespace BitServicesDesktopApp.Models
             int rowsAffected = _db.ExecuteNonQuery(sql, objParams, true);
             return rowsAffected;
         }
+        #endregion
     }
 }
