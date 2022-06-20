@@ -59,7 +59,7 @@
             <ComboBox x:Name="cboSkillsList" HorizontalAlignment="Left" Margin="10,0" Width="190" VerticalAlignment="Center"
                       ItemsSource="{Binding AllSkills, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="SkillName" SelectedValue="{Binding NewSkill}">
             </ComboBox>
-            <Button x:Name="btnAddSkill" Command="{Binding AddSkillCommand}" Content="Add Skill" HorizontalAlignment="Left" Margin="210,10,0,10" VerticalAlignment="Center"  Width="80" Height="20"/>
+            <Button x:Name="btnAddSkill" Command="{Binding AddSkillCommand}" Content="Create Skill" HorizontalAlignment="Left" Margin="210,10,0,10" VerticalAlignment="Center"  Width="80" Height="20"/>
             <Button x:Name="btnRemoveSkill" Command="{Binding RemoveSkillCommand}" Content="Remove Skill" HorizontalAlignment="Left" Margin="300,10,0,10" VerticalAlignment="Center" Width="70" Height="20"/>
         </Grid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="9" Grid.ColumnSpan="4">

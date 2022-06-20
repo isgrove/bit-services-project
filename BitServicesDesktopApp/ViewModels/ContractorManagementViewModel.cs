@@ -3,9 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using System.Windows;
+using System.Windows.Forms;
 using BitServicesDesktopApp.Commands;
+using MessageBox = System.Windows.MessageBox;
 
 namespace BitServicesDesktopApp.ViewModels
 {
@@ -73,7 +76,7 @@ namespace BitServicesDesktopApp.ViewModels
             {
                 if (_addSkillCommand == null)
                 {
-                    _addSkillCommand = new RelayCommand(this.AddSkillMethod, true);
+                    _addSkillCommand = new RelayCommand(this.AddContractorSkillMethod, true);
                 }
                 return _addSkillCommand;
             }
@@ -85,7 +88,7 @@ namespace BitServicesDesktopApp.ViewModels
             {
                 if (_deletedSkillCommand == null)
                 {
-                    _deletedSkillCommand = new RelayCommand(this.DeleteSkillMethod, true);
+                    _deletedSkillCommand = new RelayCommand(this.DeleteContractorSkillMethod, true);
                 }
                 return _deletedSkillCommand;
             }
@@ -146,184 +149,350 @@ namespace BitServicesDesktopApp.ViewModels
         #endregion
 
         #region Command Methods
+
+        #region Contractor Command Methods
         public void DeleteMethod()
         {
+            string caption = "Delete Contractor";
+            if (SelectedContractor == null)
+            {
+                MessageBox.Show(
+                    "You must select a contractor to delete!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Warning
+                );
+                return;
+            }
+
             string contractorName = SelectedContractor.FullName;
-            MessageBoxResult messageBoxResult = MessageBox.Show($"Are you sure that you want to delete {contractorName}?",
-                $"Delete {contractorName}", MessageBoxButton.YesNo);
+            MessageBoxResult messageBoxResult = MessageBox.Show(
+                $"Are you sure that you want to delete {contractorName}?",
+                caption, MessageBoxButton.YesNo, MessageBoxImage.Information
+                );
+
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                string message;
-                int rowsAffected = SelectedContractor.DeleteContractor();
-                if (rowsAffected >= 1)
+                int rowsAffected;
+                try
                 {
-                    message = $"You have successfully deleted {contractorName}!";
+                    rowsAffected = SelectedContractor.Delete();
+                }
+                catch
+                {
+                    rowsAffected = -1;
                 }
 
+                if (rowsAffected >= 1)
+                {
+                    MessageBox.Show(
+                        $"You have successfully deleted {contractorName}!",
+                        caption, MessageBoxButton.OK, MessageBoxImage.Information
+                        );
+                    UpdateContractors();
+                }
                 else
                 {
-                    message = $"There was an issue when deleting {contractorName}, please try again!";
+                    MessageBox.Show(
+                        $"There was an issue when deleting {contractorName}, please try again!",
+                        caption, MessageBoxButton.OK, MessageBoxImage.Error
+                        );
                 }
-                MessageBox.Show(message, $"Delete {contractorName}");
-                UpdateContractors();
             }
         }
         public void SaveMethod()
         {
-            string contractorName = SelectedContractor.FullName;
-            MessageBoxResult messageBoxResult = MessageBox.Show($"Are you sure that you would like to update {contractorName}?", $"Update {contractorName}", MessageBoxButton.YesNo);
-            if (messageBoxResult == MessageBoxResult.Yes)
-            {
-                string message;
-                int rowsAffected = SelectedContractor.UpdateContractor();
-                if (rowsAffected >= 1)
-                {
-                    message = $"You have successfully saved {contractorName}!";
-                }
-                else
-                {
-                    message = $"There was an issue when saving {contractorName}, please try again!";
-                }
-                MessageBox.Show(message, $"Update {contractorName}");
-                UpdateContractors();
-            }
-
-        }
-        public void AddSkillMethod()
-        {
-            string contractorName = SelectedContractor.FullName;
-            string skillName = SelectedSkill.SkillName;
-            foreach (Skill skill in ContractorSkills)
-            {
-                if (skill.SkillName == SelectedSkill.SkillName)
-                {
-                    MessageBox.Show($"{contractorName} already already has the {skillName} skill!", $"Add {SelectedSkill.SkillName}");
-                    return;
-                }
-            }
-            // I was originally going to use the below method to check if a contractor had a skill but it did not work.
-            // My guess is this is due to the ErrorCollection being the same
-            //if (ContractorSkills.Contains(SelectedSkill))
-            //{
-            //    MessageBox.Show($"{contractorName} already has {skillName}!", $"Add {SelectedSkill.SkillName}");
-            //    return;
-            //}
-            string message;
-            int rowsAffected = SelectedContractor.AddSkill(skillName);
-            if (rowsAffected >= 1)
-            {
-                message = $"You have successfully added {skillName} to {contractorName}!";
-            }
-            else
-            {
-                message = $"There was an issue when adding {skillName} to {contractorName}, please try again!";
-            }
-            MessageBox.Show(message, $"Add {SelectedSkill.SkillName}");
-            UpdateSkills();
-        }
-
-        public void DeleteSkillMethod()
-        {
-            if (this.SelectedContractor == null)
-            {
-                MessageBox.Show("Please select a contractor first!", "Delete Skill");
-                return;
-            }
-            if (this.SelectedSkill == null)
-            {
-                MessageBox.Show("Please select a skill first!", "Delete Skill");
-                return;
-            }
-            string contractorName = SelectedContractor.FullName;
-            string skillName = SelectedSkill.SkillName;
-            string message;
-            int rowsAffected = SelectedContractor.DeleteSkill(skillName);
-            if (rowsAffected >= 1)
-            {
-                message = $"You have successfully deleted {skillName} from {contractorName}!";
-            }
-            else
-            {
-                message = $"There was an issue when deleting {skillName} from {contractorName}, please try again!";
-            }
-            MessageBox.Show(message, $"Delete Skill");
-            UpdateSkills();
-        }        
-        public void AddNewSkill()
-        {
-            string skillName = NewSkill.SkillName;
-            foreach (Skill skill in AllSkills)
-            {
-                if (skill.SkillName == skillName)
-                {
-                    MessageBox.Show($"{skillName} already has exists!", $"Add {SelectedSkill.SkillName}");
-                    return;
-                }
-            }
-            string message;
-            int rowsAffected = NewSkill.InsertSkill();
-            if (rowsAffected >= 1)
-            {
-                message = $"You have successfully added {skillName}!";
-            }
-            else
-            {
-                message = $"There was an issue when adding {skillName}, please try again!";
-            }
-            MessageBox.Show(message, $"Add {skillName}");
-            UpdateSkills();
-        }
-        public void AddAvailabilityMethod()
-        {
+            string caption = "Save Contractor";
             if (SelectedContractor == null)
             {
-                MessageBox.Show($"You must select a contractor to add availability for!", "Add Availability");
+                MessageBox.Show(
+                    "You must select a contractor to save!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Warning
+                );
                 return;
             }
-            string availabilityDate = NewAvailability.AvailabilityDate.ToString("MM/dd/yyyy");
-            foreach (Availability availability in ContractorAvailability)
+            int rowsAffected;
+            try
             {
-                if (availability.AvailabilityDate.Date == NewAvailability.AvailabilityDate.Date)
-                {
-                    MessageBox.Show($"{SelectedContractor.FullName} already has the availability for {availabilityDate}!", "Add Availability");
-                    return;
-                }
+                rowsAffected = SelectedContractor.Update();
             }
-            string message;
-            int rowsAffected = NewAvailability.AddAvailability();
+            catch
+            {
+                rowsAffected = -1;
+            }
             if (rowsAffected >= 1)
             {
-                message = $"You have successfully added availability for {availabilityDate}!";
+                MessageBox.Show(
+                    $"You have successfully saved {SelectedContractor.FullName}!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Information
+                );
+                UpdateContractors();
             }
             else
             {
-                message = $"There was an issue when adding availability for {availabilityDate}, please try again!";
+                MessageBox.Show(
+                    $"There was an issue when saving {SelectedContractor.FullName}, please try again!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Error
+                    );
             }
-            MessageBox.Show(message, $"Add Availability");
-            UpdateAvailabilities();
         }
+        #endregion
+
+        #region Skill Command Methods
+        public void AddContractorSkillMethod()
+        {
+            string caption = "Add Skill";
+            if (SelectedContractor == null)
+            {
+                MessageBox.Show(
+                    "You must select a contractor to add a skill to!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Warning
+                );
+                return;
+            }
+            if (SelectedSkill == null)
+            {
+                MessageBox.Show(
+                    "You must select a skill to add!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Warning
+                );
+                return;
+            }
+            if (ContractorSkills.Any(skill => skill.SkillName == NewSkill.SkillName))
+            {
+                MessageBox.Show(
+                    $"{SelectedContractor.FullName} already has the {NewSkill.SkillName} skill!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Warning
+                );
+                return;
+            }
+
+            int rowsAffected;
+            try
+            {
+                rowsAffected = SelectedContractor.AddSkill(SelectedSkill.SkillName);
+            }
+            catch
+            {
+                rowsAffected = -1;
+            }
+
+            if (rowsAffected >= 1)
+            {
+                MessageBox.Show(
+                    $"You have added the {SelectedSkill.SkillName} skill to {SelectedContractor.FullName}!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Information
+                );
+                UpdateSkills();
+            }
+            else
+            {
+                MessageBox.Show(
+                    $"There was an issue when adding the {SelectedSkill.SkillName} skill to {SelectedContractor.FullName}, please try again!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public void DeleteContractorSkillMethod()
+        {
+            string caption = "Delete Skill";
+            if (SelectedContractor == null)
+            {
+                MessageBox.Show(
+                    "You must select a contractor to delete a skill from!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Warning
+                );
+                return;
+            }
+            if (SelectedSkill == null)
+            {
+                MessageBox.Show(
+                    "You must select a skill to delete!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Warning
+                );
+                return;
+            }
+            if (ContractorSkills.All(skill => skill.SkillName != SelectedSkill.SkillName))
+            {
+                MessageBox.Show(
+                    $"{SelectedContractor.FullName} does not have the {SelectedSkill.SkillName} skill!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Warning
+                );
+                return;
+            }
+
+            int rowsAffected;
+            try
+            {
+
+                rowsAffected = SelectedContractor.DeleteSkill(SelectedSkill.SkillName);
+            }
+            catch
+            {
+                rowsAffected = -1;
+            }
+
+            if (rowsAffected >= 1)
+            {
+                MessageBox.Show(
+                    $"You have successfully deleted {SelectedSkill.SkillName} from {SelectedContractor.FullName}!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Information
+                    );
+                UpdateSkills();
+            }
+            else
+            {
+                MessageBox.Show(
+                    $"There was an issue when deleting {SelectedSkill.SkillName} from {SelectedContractor.FullName}, please try again!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Information
+                    );
+            }
+        }
+        public void AddNewSkill()
+        {
+            string caption = "Create Skill";
+            if (NewSkill.ErrorCollection.Count > 0)
+            {
+                MessageBox.Show(
+                    "Skill data isn't valid!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Warning
+                );
+                return;
+            }
+            if (AllSkills.All(skill => skill.SkillName != NewSkill.SkillName))
+            {
+                MessageBox.Show(
+                    $"A skill called {NewSkill.SkillName} already exists!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Warning
+                    );
+                return;
+            }
+
+            int rowsAffected;
+            try
+            {
+
+                rowsAffected = NewSkill.Create();
+            }
+            catch
+            {
+                rowsAffected = -1;
+            }
+
+            if (rowsAffected >= 1)
+            {
+                MessageBox.Show(
+                    $"You have successfully added a new skill called {NewSkill.SkillName}!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Information
+                    );
+                UpdateSkills();
+            }
+            else
+            {
+                MessageBox.Show(
+                    $"There was an issue when adding a new skill called {NewSkill.SkillName}, please try again!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Error
+                    );
+            }
+        }
+        #endregion
+
+        #region Availability Command Methods
+        public void AddAvailabilityMethod()
+        {
+            string caption = "Add Availability";
+            if (SelectedContractor == null)
+            {
+                MessageBox.Show(
+                    "You must select a contractor to add availability for!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Warning
+                    );
+                return;
+            }
+            if (NewAvailability.ErrorCollection.Count > 0)
+            {
+                MessageBox.Show(
+                    "Availability data isn't valid!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Warning
+                    );
+                return;
+            }
+            if (ContractorAvailability.Any(availability => availability.AvailabilityDate == NewAvailability.AvailabilityDate))
+            {
+                MessageBox.Show(
+                    $"{SelectedContractor.FullName} already has the availability for {NewAvailability.FormattedAvailability}!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Warning
+                    );
+                return;
+            }
+
+            int rowsAffected;
+            try
+            {
+                rowsAffected = NewAvailability.Create();
+            }
+            catch
+            {
+                rowsAffected = -1;
+            }
+
+            if (rowsAffected >= 1)
+            {
+                MessageBox.Show(
+                    $"You have added availability for {SelectedContractor.FullName} on {NewAvailability.FormattedAvailability}!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Information
+                    );
+                UpdateAvailabilities();
+            }
+            else
+            {
+                MessageBox.Show(
+                    $"There was an issue when adding availability for {SelectedContractor.FullName} on {NewAvailability.FormattedAvailability}, please try again!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         public void DeleteAvailabilityMethod()
         {
+            string caption = "Delete Availability";
+
             if (SelectedAvailability == null)
             {
-                MessageBox.Show("You must select an availability to delete!", "Delete Availability");
+                MessageBox.Show(
+                    "You must select an availability to delete!",
+                    caption,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                    );
                 return;
             }
-            string availabilityDate = SelectedAvailability.AvailabilityDate.ToString("MM/dd/yyyy");
-            string message;
-            int rowsAffected = SelectedAvailability.DeleteAvailability();
+
+            int rowsAffected;
+            try
+            {
+                rowsAffected = SelectedAvailability.Delete();
+            }
+            catch
+            {
+                rowsAffected = -1;
+            }
+
             if (rowsAffected >= 1)
             {
-                message = $"You have successfully deleted availability for {availabilityDate}!";
+                MessageBox.Show(
+                    $"You have successfully deleted availability for {SelectedAvailability.FormattedAvailability}!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Information);
+                UpdateAvailabilities();
             }
             else
             {
-                message = $"There was an issue when deleting availability for {availabilityDate}, please try again!";
+                MessageBox.Show(
+                    $"There was an issue when deleting availability for {SelectedAvailability.FormattedAvailability}, please try again!",
+                    caption, MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            MessageBox.Show(message, $"Delete Availability");
-            UpdateAvailabilities();
+
 
         }
+        #endregion
+
         public void SearchMethod()
         {
             Contractors allContractors = new Contractors(SearchText);
@@ -418,8 +587,6 @@ namespace BitServicesDesktopApp.ViewModels
                 OnPropertyChanged("NewAvailability");
             }
         }
-
-        #endregion
         public bool IsSkillsTabSelected
         {
             get { return _isSkillsTabSelected; }
@@ -470,6 +637,9 @@ namespace BitServicesDesktopApp.ViewModels
                 OnPropertyChanged("SearchText");
             }
         }
+        #endregion
+
+        #region Public Methods
         public void UpdateContractors()
         {
             Contractors allContractors = new Contractors();
@@ -492,6 +662,8 @@ namespace BitServicesDesktopApp.ViewModels
             Availabilities allAvailability = new Availabilities(SelectedContractor.ContractorId);
             this.ContractorAvailability = new ObservableCollection<Availability>(allAvailability);
         }
+        #endregion
+
         public ContractorManagementViewModel()
         {
             UpdateContractors();
