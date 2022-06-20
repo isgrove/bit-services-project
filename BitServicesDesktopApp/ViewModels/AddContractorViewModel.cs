@@ -85,7 +85,7 @@ namespace BitServicesDesktopApp.ViewModels
         public void AddMethod()
         {
             string message;
-            int rowsAffected = NewContractor.InsertContractor(AddedSkills);
+            int rowsAffected = NewContractor.Create(AddedSkills);
             if (rowsAffected >= 1)
             {
                 message = $"You have successfully added {NewContractor.FirstName} {NewContractor.LastName}!";
