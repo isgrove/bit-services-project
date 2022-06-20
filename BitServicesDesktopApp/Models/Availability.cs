@@ -99,6 +99,11 @@ namespace BitServicesDesktopApp.Models
             }
         }
 
+        public string FormattedAvailability
+        {
+            get { return AvailabilityDate.ToString("dddd, dd MMMM yyyy"); }
+        }
+
         #endregion Public Properties
 
         #region Constructors
