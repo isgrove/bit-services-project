@@ -42,7 +42,7 @@ namespace BitServicesDesktopApp.Views
                 btnJobManagement.IsEnabled = true;
                 btnStaffManagement.IsEnabled = true;
                 btnLogout.Visibility = Visibility.Visible;
-                LoggedInStaff = new Staff(1);
+                LoggedInStaff = new Staff() { StaffId = 1};
             }
         }
 
