@@ -235,9 +235,11 @@ namespace BitServicesDesktopApp.Models
             _db = new SQLHelper();
             string sql = "usp_GetClientLocations";
             SqlParameter[] objParams = new SqlParameter[1];
-            objParams[0] = new SqlParameter("@LocationId", DbType.Int32);
-            objParams[0].Value = locationId;
-            DataTable dt = _db.ExecuteSQL(sql, objParams);
+            objParams[0] = new SqlParameter("@LocationId", DbType.Int32)
+            {
+                Value = locationId
+            };
+            DataTable dt = _db.ExecuteSQL(sql, objParams, true);
 
             if (dt.Rows.Count >= 1)
             {

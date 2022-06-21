@@ -243,8 +243,7 @@ namespace BitServicesDesktopApp.Models
             this.DeadlineDate = Convert.ToDateTime(dr["Deadline Date"].ToString());
 
             this.Location = new ClientLocation(Convert.ToInt32(dr["location_id"]));
-            this.Client = new Client(Convert.ToInt32(dr["location_id"]));
-
+            this.Client = new Client(this.Location.ClientId);
             if (dr.Table.Columns.Contains("contractor_id") && dr["contractor_id"] != DBNull.Value)
             {
                 this.AssignedContractor = new Contractor(Convert.ToInt32(dr["contractor_id"]));
